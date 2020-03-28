@@ -16,6 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AuthorActivty"/>
+        <activity android:name=".RestorationActivity"/>
+        <activity android:name=".TechniqueActivty"/>
+        <activity android:name=".PieceActivty"/>
+        <activity android:name=".MuseumActivity"/>
+        <activity android:name=".MovementActivty"/>
     </application>
 
 </manifest>
