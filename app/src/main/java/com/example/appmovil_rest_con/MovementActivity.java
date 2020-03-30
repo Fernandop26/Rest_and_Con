@@ -2,7 +2,7 @@ package com.example.appmovil_rest_con;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AuthorActivty extends AppCompatActivity
+public class MovementActivity extends AppCompatActivity
 {
 
 }
