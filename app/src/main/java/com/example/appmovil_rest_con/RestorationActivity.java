@@ -2,7 +2,13 @@ package com.example.appmovil_rest_con;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class RestorationActivity extends AppCompatActivity
-{
+import android.os.Bundle;
 
+public class RestorationActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.layout_restoration);
+    }
 }
