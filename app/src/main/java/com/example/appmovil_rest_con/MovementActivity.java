@@ -10,5 +10,6 @@ public class MovementActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_movement);
+        getSupportActionBar().hide();
     }
 }
