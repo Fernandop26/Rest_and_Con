@@ -23,6 +23,12 @@ android {
         }
     }
 
+    // need this to store tflite models in assets
+    aaptOptions {
+        noCompress "tflite"
+        noCompress "lite"
+    }
+
 }
 
 dependencies {
@@ -34,4 +40,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // dependency to allow us to crop square images
+    compile 'com.soundcloud.android:android-crop:1.0.1@aar'
+    // TensorFlow lite dependency
+    compile 'org.tensorflow:tensorflow-lite:+'
+
 }
