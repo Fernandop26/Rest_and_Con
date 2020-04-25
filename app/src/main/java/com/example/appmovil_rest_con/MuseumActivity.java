@@ -2,8 +2,10 @@ package com.example.appmovil_rest_con;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import android.os.Bundle;
-import android.widget.Button;
+
+
 
 public class MuseumActivity extends AppCompatActivity {
 
@@ -12,5 +14,6 @@ public class MuseumActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_museum);
         getSupportActionBar().hide();
+
     }
 }

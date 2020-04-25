@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+
     package="com.example.appmovil_rest_con">
+
 
 
     <uses-feature
@@ -11,6 +13,9 @@
         android:required="true" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+
 
 
     <application
@@ -19,25 +24,24 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"/>
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
 
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".TechniqueActivity" />
         <activity android:name=".RestorationActivity" />
         <activity android:name=".PieceActivity" />
         <activity android:name=".MuseumActivity" />
         <activity android:name=".MovementActivity" />
         <activity android:name=".AuthorActivity"/>
-        <activity android:name=".Camera">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".Classify"></activity>
+        <activity android:name=".Camera"/>
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" android:screenOrientation="fullSensor"/>
-
+        <activity android:name=".AuthorActivity" />
     </application>
 
 </manifest>

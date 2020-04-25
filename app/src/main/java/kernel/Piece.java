@@ -6,17 +6,23 @@ import java.util.Date;
 public class Piece {
     private Integer id;
     private String name;
+    private String author;
     private Date date;
-    private String img_path;
+    private String technique;
+    private String imgPath;
     private String size;
+    private String museum;
     private ArrayList<Restoration> restorations;
 
-    public Piece(Integer id, String name, Date date, String img_path, String size, ArrayList<Restoration> restorations) {
+    public Piece(Integer id, String name, String author, Date date, String technique, String imgPath, String size, String museum, ArrayList<Restoration> restorations) {
         this.id = id;
         this.name = name;
+        this.author = author;
         this.date = date;
-        this.img_path = img_path;
+        this.technique = technique;
+        this.imgPath = imgPath;
         this.size = size;
+        this.museum = museum;
         this.restorations = restorations;
     }
 
@@ -28,20 +34,30 @@ public class Piece {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getName() { return name; }
+
+    public String getAuthor() {
+        return author;
     }
 
     public Date getDate() {
         return date;
     }
 
-    public String getImg_path() {
-        return img_path;
+    public String getTechnique() {
+        return technique;
+    }
+
+    public String getImgPath() {
+        return imgPath;
     }
 
     public String getSize() {
         return size;
+    }
+
+    public String getMuseum() {
+        return museum;
     }
 
     public ArrayList<Restoration> getRestorations() {
