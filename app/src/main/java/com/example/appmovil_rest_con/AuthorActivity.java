@@ -2,7 +2,10 @@ package com.example.appmovil_rest_con;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -11,9 +14,7 @@ import kernel.Museum;
 import kernel.Piece;
 
 public class AuthorActivity extends AppCompatActivity {
-    Author author_test;
-    Piece piece_test;
-    Museum museum_test;
+    Author author;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +25,18 @@ public class AuthorActivity extends AppCompatActivity {
         ArrayList<Piece> pieces = new ArrayList<Piece>();
         ArrayList<Museum> museums = new ArrayList<Museum>();
 
-        author_test =  new Author(123, "Cesar", "https://lh3.googleusercontent.com/proxy/QaaWwQNafcRynvjzWVAJC3xVxpeS8Sr-_yloEoYflGSYUUGUmMoXZ-sf2yyh5geE4y3i729BU8yiEaQQbfQ6HNgmOwBKvb93KfbZBDIzy-Y6Oqvm2A", "Marc y fernando son muy buenos amigos. Trabajan mucho pero no tanto (era broma).", pieces, museums);
+        author =  new Author(123, "NOMBRE", "https://4.bp.blogspot.com/-eeXBGmBRbow/Vz3ghCuBZuI/AAAAAAAACEA/bnnhPNF-54c013lqu90n_d6wX8Q2jDvGACKgB/s1600/tumblr_m33u63C56v1rq8kmro1_500.jpg", "El Museo Van Gogh es una pinacoteca ubicada en Ámsterdam, que alberga la colección de obras del pintor neerlandés Vincent van Gogh. Es el segundo museo más visitado de Ámsterdam. El museo expone más de 200 obras del pintor y las relaciona con las etapas de su vida.", pieces, museums);
 
         TextView authorName = (TextView) findViewById(R.id.author_name);
         TextView authorBiography = (TextView) findViewById(R.id.author_biography);
+        ImageView authorImg = (ImageView) findViewById(R.id.author_img);
 
-        authorName.setText(author_test.getName());
-        authorBiography.setText(author_test.getBiography());
+        authorName.setText(author.getName());
+        authorBiography.setText(author.getBiography());
+
+        Picasso.get().load(author.getImgPath()).into(authorImg);
     }
+
+
 }
+

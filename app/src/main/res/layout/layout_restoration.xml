@@ -1,9 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RestorationActivity">
+    tools:context=".PieceActivity">
 
-</RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="30dp">
+
+            <TextView
+                android:id="@+id/restoration_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="23dp"
+                android:gravity="center"
+                android:text="Piece"
+                android:textSize="24sp"/>
+
+            <TextView
+                android:id="@+id/restoration_autor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/restoration_name"
+                android:gravity="center"
+                android:text="Author"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/restoration_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/restoration_autor"
+                android:gravity="center"
+                android:text="Restauración"
+                android:layout_marginTop="30dp"
+                android:textSize="24sp" />
+
+            <ImageView
+                android:id="@+id/restoration_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/restoration_title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                app:srcCompat="@drawable/ic_launcher_foreground" />
+
+            <!-- LAYOUT DATE -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="2dp"
+                android:id="@+id/linear_date_r"
+                android:layout_below="@+id/restoration_img">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:justificationMode="inter_word"
+                    android:text="Fecha: " />
+
+                <TextView
+                    android:id="@+id/piece_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:justificationMode="inter_word"
+                    android:text="Data preview" />
+            </LinearLayout>
+
+            <!-- MAPA DE ALTERACIONES -->
+            <TextView
+                android:id="@+id/map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linear_date_r"
+                android:gravity="center"
+                android:text="Mapa de Alteraciones"
+                android:layout_marginTop="30dp"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/map_r"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/map"
+                android:layout_marginTop="8dp"
+                android:justificationMode="inter_word"
+                android:text="Mapa de alteraciones preview" />
+
+            <!-- PRODCEDIMIENTO -->
+            <TextView
+                android:id="@+id/proc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/map_r"
+                android:gravity="center"
+                android:text="Procedimientos"
+                android:layout_marginTop="30dp"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/proc_r"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/proc"
+                android:layout_marginTop="8dp"
+                android:justificationMode="inter_word"
+                android:text="Procedimientos preview" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
