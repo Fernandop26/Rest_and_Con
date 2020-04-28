@@ -29,6 +29,7 @@
         <activity android:name=".MuseumActivity" />
         <activity android:name=".MovementActivity" />
         <activity android:name=".AuthorActivity" />
+        <activity android:name=".BaseActivity" />
     </application>
 
 </manifest>
