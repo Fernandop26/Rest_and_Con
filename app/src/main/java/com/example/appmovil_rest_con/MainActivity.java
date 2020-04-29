@@ -20,11 +20,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity {
 
     TextView textView;
+    JSONArray arrayTest;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,7 @@ public class MainActivity extends BaseActivity {
         Button museo = (Button) findViewById(R.id.museo);
         Button movimiento = (Button) findViewById(R.id.movimiento);
         Button tecnica = (Button) findViewById(R.id.tecnica);
+        textView = findViewById(R.id.jsonview);
 
         artista.setOnClickListener(butoArtistaListener);
         obra.setOnClickListener(butoObraListener);
@@ -45,9 +50,24 @@ public class MainActivity extends BaseActivity {
         museo.setOnClickListener(butoMuseoListener);
         movimiento.setOnClickListener(butoMovimentListener);
         tecnica.setOnClickListener(butoTecnicaListener);
-        //textView.setText("gsfsdf");
-    }
 
+
+        getJSONResource("museo", new VolleyCallback() {
+            @Override
+            public void onSuccess(JSONArray result) {
+                arrayTest = result;
+                for (int i = 0; i < arrayTest.length(); i++) {
+                    try {
+                        JSONObject jsonObject = arrayTest.getJSONObject(i);
+                        String name = jsonObject.getString("nombre");
+                        textView.setText(textView.getText() + "\n Nombre: " + name);
+                    } catch (JSONException e) {
+                    }
+                }
+            }
+        });
+        // NO BORRAR XD:
+    }
 
 
 
