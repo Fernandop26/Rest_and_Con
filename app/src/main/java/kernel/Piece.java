@@ -25,7 +25,13 @@ public class Piece {
         this.museum = museum;
         this.restorations = restorations;
     }
-
+    ///////////////////////////// CONSTRUCTOR TEST //////////////////////////
+    public Piece (Integer id, String name, String img_path){
+        this.id = id;
+        this.name = name;
+        this.imgPath = img_path;
+    }
+    ////////////////////////////////////////////////////////////////////////
     public Piece() {
 
     }

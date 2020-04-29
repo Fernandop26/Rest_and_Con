@@ -20,11 +20,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     TextView textView;
+    JSONArray arrayTest;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         Button museo = (Button) findViewById(R.id.museo);
         Button movimiento = (Button) findViewById(R.id.movimiento);
         Button tecnica = (Button) findViewById(R.id.tecnica);
+        textView = findViewById(R.id.jsonview);
 
         artista.setOnClickListener(butoArtistaListener);
         obra.setOnClickListener(butoObraListener);
@@ -47,37 +52,22 @@ public class MainActivity extends AppCompatActivity {
         tecnica.setOnClickListener(butoTecnicaListener);
 
 
-        // AQUÍ EMPIEZA TEMA JSON
-        textView = findViewById(R.id.jsonview);
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        String url = "http://35.168.222.69:8080/webservice-restcon/movimiento";
-
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+        getJSONResource("museo", new VolleyCallback() {
             @Override
-            public void onResponse(JSONArray response) {
-                for (int i = 0; i < response.length(); i++) {
+            public void onSuccess(JSONArray result) {
+                arrayTest = result;
+                for (int i = 0; i < arrayTest.length(); i++) {
                     try {
-                        JSONObject jsonObject = response.getJSONObject(i);
+                        JSONObject jsonObject = arrayTest.getJSONObject(i);
                         String name = jsonObject.getString("nombre");
-                        String id = jsonObject.getString("id");
-
-                        textView.setText(textView.getText() + "\n Id: " + id);
                         textView.setText(textView.getText() + "\n Nombre: " + name);
-
                     } catch (JSONException e) {
                     }
                 }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                textView.setText(error.toString());
-            }
         });
-        requestQueue.add(jsonArrayRequest);
-        // AQUÍ FINALIZA TEMA JSON
+        // NO BORRAR XD:
     }
-
 
 
 
