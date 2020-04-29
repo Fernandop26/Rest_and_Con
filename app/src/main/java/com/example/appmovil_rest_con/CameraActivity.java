@@ -101,7 +101,7 @@ public class CameraActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode == RESULT_OK){
-            Intent i = new Intent(CameraActivity.this, Classify.class);
+            Intent i = new Intent(CameraActivity.this, ClassifyActivity.class);
             // put image data in extras to send
             i.putExtra("resID_uri", imageUri);
             startActivity(i);

@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-public class Classify extends AppCompatActivity {
+public class ClassifyActivity extends AppCompatActivity {
 
     // presets for rgb conversion
     private static final int RESULTS_TO_SHOW = 1;
@@ -54,7 +54,7 @@ public class Classify extends AppCompatActivity {
     private String[] topConfidence = null;
 
     // selected classifier
-    private String modelo;
+    private static final String modelo ="model.tflite";
 
     // input image dimensions for the Inception Model
     private int DIM_IMG_SIZE_X = 224;
@@ -85,13 +85,11 @@ public class Classify extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // get all selected classifier data from classifiers
-        modelo = "model.tflite";
-
         // initialize array that holds image data
         intValues = new int[DIM_IMG_SIZE_X * DIM_IMG_SIZE_Y];
 
         super.onCreate(savedInstanceState);
+
 
         //initilize graph and labels
         try{
@@ -129,7 +127,7 @@ public class Classify extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Classify.this, CameraActivity.class);
+                Intent i = new Intent(ClassifyActivity.this, CameraActivity.class);
                 startActivity(i);
             }
         });
@@ -256,7 +254,7 @@ public class Classify extends AppCompatActivity {
     public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
         int width = bm.getWidth();
         int height = bm.getHeight();
-        float scaleWidth = ((float) newWidth) / width;
+        float scaleWidth = ((float) newWidth) /  width;
         float scaleHeight = ((float) newHeight) / height;
         Matrix matrix = new Matrix();
         matrix.postScale(scaleWidth, scaleHeight);

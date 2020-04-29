@@ -40,6 +40,8 @@
         <activity android:name=".MovementActivity" />
         <activity android:name=".AuthorActivity"/>
         <activity android:name=".MainActivity"/>
+        <activity android:name=".ClassifyActivity"/>
+
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" android:screenOrientation="fullSensor"/>
     </application>
 
