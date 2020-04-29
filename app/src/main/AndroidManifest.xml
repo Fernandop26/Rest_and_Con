@@ -3,10 +3,15 @@
 
     package="com.example.appmovil_rest_con">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera.any"
+        android:required="true" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET"/>
-
-
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,14 +27,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".TechniqueActivity" />
         <activity android:name=".RestorationActivity" />
         <activity android:name=".PieceActivity" />
         <activity android:name=".MuseumActivity" />
         <activity android:name=".MovementActivity" />
-        <activity android:name=".AuthorActivity" />
+        <activity android:name=".AuthorActivity"/>
+        <activity android:name=".CameraActivity"/>
+        <activity android:name=".ClassifyActivity"/>
         <activity android:name=".BaseActivity" />
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" android:screenOrientation="fullSensor"/>
     </application>
 
 </manifest>
