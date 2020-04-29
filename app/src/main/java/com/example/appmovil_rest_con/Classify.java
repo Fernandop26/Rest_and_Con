@@ -129,7 +129,7 @@ public class Classify extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Classify.this, Camera.class);
+                Intent i = new Intent(Classify.this, CameraActivity.class);
                 startActivity(i);
             }
         });
@@ -248,14 +248,7 @@ public class Classify extends AppCompatActivity {
         }
         label1.setText(topLables[0]);
         Confidence1.setText(topConfidence[0]);
-        /*
-        // set the corresponding textviews with the results
-        label1.setText("1. "+topLables[2]);
 
-
-        Confidence1.setText(topConfidence[2]);
-
-*/
     }
 
 

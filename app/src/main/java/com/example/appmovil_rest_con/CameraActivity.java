@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-public class Camera extends AppCompatActivity {
+public class CameraActivity extends AppCompatActivity {
 
     private Button openCamera;
 
@@ -99,8 +99,9 @@ public class Camera extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-       if(resultCode == RESULT_OK){
-            Intent i = new Intent(Camera.this, Classify.class);
+
+        if(resultCode == RESULT_OK){
+            Intent i = new Intent(CameraActivity.this, Classify.class);
             // put image data in extras to send
             i.putExtra("resID_uri", imageUri);
             startActivity(i);
