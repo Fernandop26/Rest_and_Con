@@ -31,12 +31,18 @@ public class AuthorActivity extends AppCompatActivity {
         TextView authorBiography = (TextView) findViewById(R.id.author_biography);
         ImageView authorImg = (ImageView) findViewById(R.id.author_img);
 
-        authorName.setText(author.getName());
+        //authorName.setText(author.getName());
         authorBiography.setText(author.getBiography());
 
         Picasso.get().load(author.getImgPath()).into(authorImg);
-    }
 
+
+
+        //Test pasar variables
+        String dato = getIntent().getStringExtra("test");
+        authorName.setText(dato);
+
+    }
 
 }
 
