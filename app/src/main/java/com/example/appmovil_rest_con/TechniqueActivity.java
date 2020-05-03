@@ -60,5 +60,6 @@ public class TechniqueActivity extends AppCompatActivity {
 
 
 
+
     }
 }

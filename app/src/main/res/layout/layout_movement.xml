@@ -6,23 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".MovementActivity"
     android:layout_marginHorizontal="30dp">
+
+
     <ImageView
         android:id="@+id/movement_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
         tools:srcCompat="@tools:sample/avatars"/>
     <TextView
         android:id="@+id/movement_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
         android:layout_below="@id/movement_image"
         android:gravity="center"
         android:text="Nom moviment"
-        android:textSize="40sp" />
+        android:textSize="32sp" />
     <TextView
         android:id="@+id/movement_description"
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
         android:text="Obras"
         android:layout_below="@id/movement_description"
         android:layout_marginTop="30dp"
-        android:textSize="30dp"
+        android:textSize="25dp"
         />
     <View
         android:layout_width="fill_parent"
@@ -51,7 +51,6 @@
         android:layout_below="@+id/obratext"
         android:layout_marginTop="10dp"
         android:numColumns="auto_fit"
-        android:scrollbars="vertical"
         tools:listitem="@android:layout/simple_list_item_2">
     </GridView>
 </RelativeLayout>

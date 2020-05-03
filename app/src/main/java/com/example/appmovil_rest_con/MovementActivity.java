@@ -14,8 +14,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,11 +32,17 @@ import java.util.ArrayList;
 import kernel.Movement;
 import kernel.Piece;
 
-public class MovementActivity extends AppCompatActivity  {
+public class MovementActivity extends BaseActivity  {
 
     Movement movement;
     private GridView imagenesObra;
     private GridAdapter adapter;
+
+
+    TextView movementName;
+    ImageView movementImage;
+    TextView movementDescription;
+    String id;
 
     //////////////////////////////// array  TEST  de pieces ////////////////////////////////////
     public ArrayList<Piece> pieces_Test = new ArrayList<Piece>();
@@ -45,6 +56,33 @@ public class MovementActivity extends AppCompatActivity  {
         setContentView(R.layout.layout_movement);
         getSupportActionBar().hide();
         ArrayList<Piece> pieces = new ArrayList<Piece>();
+
+
+        movementName = (TextView) findViewById(R.id.movement_name);
+        movementDescription = (TextView) findViewById(R.id.movement_description);
+        movementImage = (ImageView) findViewById(R.id.movement_image);
+
+
+        //RECOGEMOS ID DEL INTENT
+        id = getIntent().getStringExtra("id");
+
+
+        //TEMA JSON
+        getJSONResource("movimiento", id, new ObjectCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
+
+                try {
+                    JSONObject movement = result;
+                    movementName.setText(movement.getString("nombre"));
+                    movementDescription.setText(movement.getString("descripcion"));
+                    Picasso.get().load(movement.getString("path_imagen")).into(movementImage);
+
+
+                } catch (JSONException e) {
+                }
+            }
+        });
 
         /////////////////////////////////////////////////////INICIALITZACIO PIECES////////////////////////////////////////////////
 
@@ -90,8 +128,8 @@ public class MovementActivity extends AppCompatActivity  {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        ImageView imatge = (ImageView) findViewById(R.id.movement_image);
-        Picasso.get().load(url_img).into(imatge);
+
+        //Picasso.get().load(url_img).into(imatge);
 
         imagenesObra = (GridView) this.findViewById(R.id.llista_obras );
         adapter = new GridAdapter(this, pieces);
@@ -107,8 +145,11 @@ public class MovementActivity extends AppCompatActivity  {
         });
 
 
-        TextView movementName = (TextView) findViewById(R.id.movement_name);
-        TextView authorBiography = (TextView) findViewById(R.id.movement_description);
+
+        // Access the RequestQueue through your singleton class.
+        //MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
+
+
         System.out.println("jsonString: "+obj);
         String atr2, atr3, atr4= null;
         Integer atr1 = 100;
@@ -126,9 +167,6 @@ public class MovementActivity extends AppCompatActivity  {
             e.printStackTrace();
         }
         movement = new Movement(atr1,atr2, atr3,atr4,pieces);
-
-        movementName.setText(movement.getName());
-        authorBiography.setText(movement.getDescription());
 
 
     }

@@ -4,10 +4,12 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -16,11 +18,15 @@ import org.json.JSONObject;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    public interface VolleyCallback{
+    public interface ArrayCallback{
         void onSuccess(JSONArray result);
     }
 
-    public void getJSONResource(String resource, final VolleyCallback callback){
+    public interface ObjectCallback{
+        void onSuccess(JSONObject result);
+    }
+
+    public void getJSONResource(String resource, final ArrayCallback callback){
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String url = "http://35.168.222.69:8080/webservice-restcon/" + resource;
 
@@ -37,4 +43,32 @@ public abstract class BaseActivity extends AppCompatActivity {
         });
         requestQueue.add(jsonArrayRequest);
     }
+
+
+    public void getJSONResource(String resource, String id, final ObjectCallback callback){
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = "http://35.168.222.69:8080/webservice-restcon/" + resource + "ById?id=" + id;
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // display response
+                        callback.onSuccess(response);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        );
+        requestQueue.add(jsonObjectRequest);
+    }
+
+
+
 }
