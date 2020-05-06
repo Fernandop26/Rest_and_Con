@@ -1,23 +1,13 @@
 package com.example.appmovil_rest_con;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
@@ -25,24 +15,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
-import kernel.Movement;
 import kernel.Piece;
 
-public class MovementActivity extends BaseActivity  {
+public class GroupActivity extends BaseActivity  {
 
-    Movement movement;
+
     private GridView imagenesObra;
     private GridAdapter adapter;
 
-    TextView movementName;
-    ImageView movementImage;
-    TextView movementDescription;
-    String id;
+    TextView groupName;
+    ImageView groupImage;
+    TextView groupDescription;
+    String id,agrupacion;
 
     //////////////////////////////// array  TEST  de pieces ////////////////////////////////////
     Piece piece1;
@@ -52,12 +38,12 @@ public class MovementActivity extends BaseActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_movement);
+        setContentView(R.layout.layout_group);
         getSupportActionBar().hide();
 
-        movementName = (TextView) findViewById(R.id.movement_name);
-        movementDescription = (TextView) findViewById(R.id.movement_description);
-        movementImage = (ImageView) findViewById(R.id.movement_image);
+        groupName = (TextView) findViewById(R.id.group_name);
+        groupDescription = (TextView) findViewById(R.id.group_description);
+        groupImage = (ImageView) findViewById(R.id.group_image);
 
         //CÁMARA
         FloatingActionButton camara = findViewById(R.id.floatingCamera);
@@ -65,19 +51,23 @@ public class MovementActivity extends BaseActivity  {
 
         //RECOGEMOS ID DEL INTENT
         id = getIntent().getStringExtra("id");  // IMPORTANTE: pasar id id, actualmente: null
+        agrupacion = getIntent().getStringExtra("agrupacion");  // IMPORTANTE: pasar id id, actualmente: null
+
         imagenesObra = (GridView) this.findViewById(R.id.llista_obras );
 
+
         //TEMA JSON
-        getJSONResource("movimiento", id, new ObjectCallback() {
+        getJSONResource(agrupacion, id, new ObjectCallback() {
             @Override
             public void onSuccess(JSONObject result) {
 
                 try {
-                    JSONObject movement = result;
-                    movementName.setText(movement.getString("nombre"));
-                    movementDescription.setText(movement.getString("descripcion"));
-                    Picasso.get().load(movement.getString("path_imagen")).into(movementImage);
-                    JSONArray obras = movement.getJSONArray("obras");
+                    JSONObject group = result;
+                    groupName.setText(group.getString("nombre"));
+                    groupDescription.setText(group.getString("descripcion"));
+                    Picasso.get().load(group.getString("path_imagen")).into(groupImage);
+                    JSONArray obras = (agrupacion.equals("tecnica")) ? group.getJSONArray("obra"): group.getJSONArray("obras");
+
                     for (int i = 0; i < obras.length(); i++) {
                         try {
                             JSONObject jsonObject = obras.getJSONObject(i);
@@ -89,8 +79,7 @@ public class MovementActivity extends BaseActivity  {
                         } catch (JSONException e) {
                         }
                     }
-
-                    adapter = new GridAdapter(MovementActivity.this, pieces);
+                    adapter = new GridAdapter(GroupActivity.this, pieces);
                     imagenesObra.setAdapter(adapter);
                 } catch (JSONException e) {
                 }
@@ -102,7 +91,7 @@ public class MovementActivity extends BaseActivity  {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Piece piece = (Piece) adapterView.getItemAtPosition(i);
                 String id_piece = piece.getId().toString();
-                Intent intent = new Intent(MovementActivity.this, PieceActivity.class);
+                Intent intent = new Intent(GroupActivity.this, PieceActivity.class);
                 intent.putExtra("id",id_piece);
                 intent.putExtra("nombre",piece.getName());
 
@@ -113,7 +102,7 @@ public class MovementActivity extends BaseActivity  {
     private View.OnClickListener butoCamaraListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //Intent intent = new Intent(MovementActivity.this, CameraActivity.class);
+            //Intent intent = new Intent(GroupActivity.this, CameraActivity.class);
             //startActivity(intent);
             openCameraIntent();
         }

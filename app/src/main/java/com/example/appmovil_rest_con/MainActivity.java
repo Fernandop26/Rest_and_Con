@@ -22,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -86,23 +85,27 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onItemClick (AdapterView<?> parent, View view, int position, long id){
                 if (position==1){
-                    Intent intent = new Intent(MainActivity.this, MuseumActivity.class);
+                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
                     intent.putExtra("id", "1");
+                    intent.putExtra("agrupacion", "museo");
                     startActivity(intent);
                 }
                 if (position==2){
-                    Intent intent = new Intent(MainActivity.this, MuseumActivity.class);
+                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
                     intent.putExtra("id", "2");
+                    intent.putExtra("agrupacion", "museo");
                     startActivity(intent);
                 }
                 if (position==3){
-                    Intent intent = new Intent(MainActivity.this, MuseumActivity.class);
+                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
                     intent.putExtra("id", "3");
+                    intent.putExtra("agrupacion", "museo");
                     startActivity(intent);
                 }
                 if (position==4){
-                    Intent intent = new Intent(MainActivity.this, MuseumActivity.class);
+                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
                     intent.putExtra("id", "4");
+                    intent.putExtra("agrupacion", "museo");
                     startActivity(intent);
                 }
 
@@ -119,23 +122,27 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onItemClick (AdapterView<?> parent, View view, int position, long id){
                 if (position==1){
-                    Intent intent = new Intent(MainActivity.this, TechniqueActivity.class);
+                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
                     intent.putExtra("id", "1");
+                    intent.putExtra("agrupacion", "tecnica");
                     startActivity(intent);
                 }
                 if (position==2){
-                    Intent intent = new Intent(MainActivity.this, TechniqueActivity.class);
+                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
                     intent.putExtra("id", "2");
+                    intent.putExtra("agrupacion", "tecnica");
                     startActivity(intent);
                 }
                 if (position==3){
-                    Intent intent = new Intent(MainActivity.this, TechniqueActivity.class);
+                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
                     intent.putExtra("id", "3");
+                    intent.putExtra("agrupacion", "tecnica");
                     startActivity(intent);
                 }
                 if (position==4){
-                    Intent intent = new Intent(MainActivity.this, TechniqueActivity.class);
+                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
                     intent.putExtra("id", "4");
+                    intent.putExtra("agrupacion", "tecnica");
                     startActivity(intent);
                 }
 
@@ -151,23 +158,27 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onItemClick (AdapterView<?> parent, View view, int position, long id){
                 if (position==1){
-                    Intent intent = new Intent(MainActivity.this, MovementActivity.class);
+                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
                     intent.putExtra("id", "1");
+                    intent.putExtra("agrupacion", "movimiento");
                     startActivity(intent);
                 }
                 if (position==2){
-                    Intent intent = new Intent(MainActivity.this, MovementActivity.class);
+                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
                     intent.putExtra("id", "2");
+                    intent.putExtra("agrupacion", "movimiento");
                     startActivity(intent);
                 }
                 if (position==3){
-                    Intent intent = new Intent(MainActivity.this, MovementActivity.class);
+                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
                     intent.putExtra("id", "3");
+                    intent.putExtra("agrupacion", "movimiento");
                     startActivity(intent);
                 }
                 if (position==4){
-                    Intent intent = new Intent(MainActivity.this, MovementActivity.class);
+                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
                     intent.putExtra("id", "4");
+                    intent.putExtra("agrupacion", "movimiento");
                     startActivity(intent);
                 }
 

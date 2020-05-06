@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MovementActivity">
+    tools:context=".GroupActivity">
 
 
     <ScrollView
@@ -19,7 +19,7 @@
             android:layout_marginHorizontal="30dp">
 
             <ImageView
-                android:id="@+id/movement_image"
+                android:id="@+id/group_image"
                 android:layout_marginTop="23dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -27,28 +27,28 @@
                 tools:srcCompat="@tools:sample/avatars"/>
 
             <TextView
-                android:id="@+id/movement_name"
+                android:id="@+id/group_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@id/movement_image"
+                android:layout_below="@id/group_image"
                 android:gravity="center"
-                android:text="Nombre movimiento"
+                android:text="Nombre agrupacion"
                 android:textSize="32sp"/>
             <TextView
-                android:id="@+id/movement_description"
+                android:id="@+id/group_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:justificationMode="inter_word"
-                android:layout_below="@+id/movement_name"
+                android:layout_below="@+id/group_name"
                 android:text="Descripción técnica" />
             <TextView
                 android:id="@+id/obratext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Obras"
-                android:layout_below="@id/movement_description"
+                android:layout_below="@id/group_description"
                 android:layout_marginTop="30dp"
                 android:textSize="25dp"/>
             <View

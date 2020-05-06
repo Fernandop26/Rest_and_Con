@@ -29,11 +29,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TechniqueActivity" />
         <activity android:name=".RestorationActivity" />
         <activity android:name=".PieceActivity" />
-        <activity android:name=".MuseumActivity" />
-        <activity android:name=".MovementActivity" />
+        <activity android:name=".GroupActivity" />
         <activity android:name=".AuthorActivity" />
         <activity android:name=".CameraActivity" />
         <activity android:name=".ClassifyActivity" />
