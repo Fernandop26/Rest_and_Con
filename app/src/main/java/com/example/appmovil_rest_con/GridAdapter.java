@@ -41,9 +41,9 @@ public class GridAdapter extends BaseAdapter {
 
         if (view == null) {
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-            view= layoutInflater.inflate(R.layout.grid_item, null);
+            view= layoutInflater.inflate(R.layout.row, null);
         }
-        ImageView image = (ImageView) view.findViewById(R.id.piece_image);
+        ImageView image = (ImageView) view.findViewById(R.id.image);
         Picasso.get().load(pieces.get(i).getImgPath()).into(image);
         return view;
     }

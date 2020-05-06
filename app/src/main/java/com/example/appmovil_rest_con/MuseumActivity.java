@@ -11,16 +11,29 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import kernel.Museum;
 import kernel.Piece;
 
-public class MuseumActivity extends AppCompatActivity {
+public class MuseumActivity extends BaseActivity {
 
     Museum museu;
-    private GridView imagenesObra;
-    private GridAdapter adapter;
+    //private GridView imagenesObra;
+    //private GridAdapter adapter;
+
+    //ARREGLADO
+    String id;
+    TextView museumName;
+    TextView museumDescription;
+    ImageView museumImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,34 +43,44 @@ public class MuseumActivity extends AppCompatActivity {
         ArrayList<Piece> pieces = new ArrayList<Piece>();
 
 
+        museumName = (TextView) findViewById(R.id.museum_name);
+        museumDescription = (TextView) findViewById(R.id.museum_description);
+        museumImage = (ImageView) findViewById(R.id.museum_image);
 
+        //imagenesObra = (GridView) this.findViewById(R.id.llista_obras );
+        //adapter = new GridAdapter(this, pieces);
+        //imagenesObra.setAdapter(adapter);
 
-        TextView authorName = (TextView) findViewById(R.id.museum_name);
-        TextView authorBiography = (TextView) findViewById(R.id.museum_description);
-        ImageView imatge = (ImageView) findViewById(R.id.museum_image);
+        //CÁMARA
+        FloatingActionButton camara = findViewById(R.id.floatingCamera);
+        camara.setOnClickListener(butoCamaraListener);
 
-        imagenesObra = (GridView) this.findViewById(R.id.llista_obras );
-        adapter = new GridAdapter(this, pieces);
-        imagenesObra.setAdapter(adapter);
+        //RECOGEMOS ID DEL INTENT
+        id = getIntent().getStringExtra("id");
 
-
-        imagenesObra.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //TEMA JSON
+        getJSONResource("museo", id, new ObjectCallback() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(MuseumActivity.this, PieceActivity.class);
-                intent.putExtra("Nombre", adapter.getItem(i).getName());  /////
-                startActivity(intent);
+            public void onSuccess(JSONObject result) {
+
+                try {
+                    JSONObject museum = result;
+                    museumName.setText(museum.getString("nombre"));
+                    museumDescription.setText(museum.getString("descripcion"));
+                    Picasso.get().load(museum.getString("path_imagen")).into(museumImage);
+
+                } catch (JSONException e) {
+                }
             }
         });
 
-        museu = new Museum(1,"museu","barcelona","0","Descripcio museu",pieces);
-        museu.getName();
-        museu.getDescription();
-
-
-
-
-
-
     }
+
+    private View.OnClickListener butoCamaraListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            openCameraIntent();
+        }
+    };
 }

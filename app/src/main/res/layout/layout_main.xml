@@ -50,36 +50,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:id="@+id/layout2"
-                android:layout_below="@+id/layout1">
-
-                <Button
-                    android:id="@+id/museo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/rest"
-                    android:text="museo" />
-
-                <Button
-                    android:id="@+id/movimiento"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="movimiento" />
-
-                <Button
-                    android:id="@+id/tecnica"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="técnica" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:id="@+id/layout3"
-                android:layout_below="@+id/layout2">
+                android:layout_below="@+id/layout1">
 
                 <Button
                     android:id="@+id/camara"
@@ -100,7 +72,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp"
                 android:id="@+id/layout_museums"
                 android:layout_below="@+id/layout3">
 
@@ -118,39 +89,18 @@
                     android:background="@android:color/black"
                     android:layout_below="@+id/textmuseum"/>
 
-                <ImageView
-                    android:id="@+id/m_chicago"
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    android:layout_below="@+id/mu_line"
-                    android:layout_marginTop="8dp"
-                    tools:srcCompat="@drawable/ic_launcher_foreground" />
-
-                <ImageView
-                    android:id="@+id/m_moma"
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    android:layout_below="@+id/mu_line"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginLeft="180dp"
-                    tools:srcCompat="@drawable/ic_launcher_foreground" />
-
-                <ImageView
-                    android:id="@+id/m_monet"
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    android:layout_below="@+id/m_chicago"
-                    android:layout_marginTop="8dp"
-                    tools:srcCompat="@drawable/ic_launcher_foreground" />
-
-                <ImageView
-                    android:id="@+id/m_orsay"
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    android:layout_below="@+id/m_moma"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginLeft="180dp"
-                    tools:srcCompat="@drawable/ic_launcher_foreground" />
+                <GridView
+                    android:id="@+id/museum_carousel"
+                    android:layout_width="200dp"
+                    android:layout_height="600dp"
+                    android:layout_marginTop="-200dp"
+                    android:layout_marginLeft="-25dp"
+                    android:layout_marginBottom="-200dp"
+                    android:rowCount="1"
+                    android:rotation="270"
+                    android:scrollbars="horizontal"
+                    android:layout_below="@+id/mu_line">
+                </GridView>
             </RelativeLayout>
 
 
@@ -159,7 +109,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp"
                 android:id="@+id/layout_techniques"
                 android:layout_below="@+id/layout_museums">
 
@@ -177,39 +126,18 @@
                     android:background="@android:color/black"
                     android:layout_below="@+id/texttechnique"/>
 
-                <ImageView
-                    android:id="@+id/t_aceite"
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    android:layout_below="@+id/t_line"
-                    android:layout_marginTop="8dp"
-                    tools:srcCompat="@drawable/ic_launcher_foreground" />
-
-                <ImageView
-                    android:id="@+id/t_temple"
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    android:layout_below="@+id/t_line"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginLeft="180dp"
-                    tools:srcCompat="@drawable/ic_launcher_foreground" />
-
-                <ImageView
-                    android:id="@+id/t_xilografica"
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    android:layout_below="@+id/t_aceite"
-                    android:layout_marginTop="8dp"
-                    tools:srcCompat="@drawable/ic_launcher_foreground" />
-
-                <ImageView
-                    android:id="@+id/t_oleo"
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    android:layout_below="@+id/t_temple"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginLeft="180dp"
-                    tools:srcCompat="@drawable/ic_launcher_foreground" />
+                <GridView
+                    android:id="@+id/technique_carousel"
+                    android:layout_width="200dp"
+                    android:layout_height="600dp"
+                    android:layout_marginTop="-200dp"
+                    android:layout_marginLeft="-25dp"
+                    android:layout_marginBottom="-200dp"
+                    android:rowCount="1"
+                    android:rotation="270"
+                    android:scrollbars="horizontal"
+                    android:layout_below="@+id/t_line">
+                </GridView>
             </RelativeLayout>
 
 
@@ -218,7 +146,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp"
                 android:id="@+id/layout_movements"
                 android:layout_below="@+id/layout_techniques">
 
@@ -236,42 +163,38 @@
                     android:background="@android:color/black"
                     android:layout_below="@+id/textmoviment"/>
 
-                <ImageView
-                    android:id="@+id/m_impresionismo"
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    android:layout_below="@+id/mo_line"
-                    android:layout_marginTop="8dp"
-                    tools:srcCompat="@drawable/ic_launcher_foreground" />
-
-                <ImageView
-                    android:id="@+id/m_posimpresionismo"
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    android:layout_below="@+id/mo_line"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginLeft="180dp"
-                    tools:srcCompat="@drawable/ic_launcher_foreground" />
-
-                <ImageView
-                    android:id="@+id/m_renacimiento"
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    android:layout_below="@+id/m_impresionismo"
-                    android:layout_marginTop="8dp"
-                    tools:srcCompat="@drawable/ic_launcher_foreground" />
-
-                <ImageView
-                    android:id="@+id/m_ukiyoe"
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    android:layout_below="@+id/m_posimpresionismo"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginLeft="180dp"
-                    tools:srcCompat="@drawable/ic_launcher_foreground" />
+                <GridView
+                    android:id="@+id/movement_carousel"
+                    android:layout_width="200dp"
+                    android:layout_height="600dp"
+                    android:layout_marginTop="-200dp"
+                    android:layout_marginLeft="-25dp"
+                    android:layout_marginBottom="-200dp"
+                    android:rowCount="1"
+                    android:rotation="270"
+                    android:scrollbars="horizontal"
+                    android:layout_below="@+id/mo_line">
+                </GridView>
             </RelativeLayout>
-
-
         </RelativeLayout>
     </ScrollView>
+
+    <!-- BOTÓN CÁMARA -->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="24dp"
+            android:src="@drawable/ic_photo_camera_black_24dp"
+            android:clickable="true"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,6 +18,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -35,18 +36,19 @@ import kernel.Piece;
 public class MovementActivity extends BaseActivity  {
 
     Movement movement;
-    private GridView imagenesObra;
-    private GridAdapter adapter;
+    //private GridView imagenesObra;
+    //private GridAdapter adapter;
 
-
-    TextView movementName;
-    ImageView movementImage;
-    TextView movementDescription;
     String id;
+    TextView movementName;
+    TextView movementDescription;
+    ImageView movementImage;
+
+
 
     //////////////////////////////// array  TEST  de pieces ////////////////////////////////////
-    public ArrayList<Piece> pieces_Test = new ArrayList<Piece>();
-    Piece piece1, piece2, piece3, piece4, piece5, piece6, piece7, piece8, piece9, piece10;
+    //public ArrayList<Piece> pieces_Test = new ArrayList<Piece>();
+    //Piece piece1, piece2, piece3, piece4, piece5, piece6, piece7, piece8, piece9, piece10;
     ///////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -55,17 +57,19 @@ public class MovementActivity extends BaseActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_movement);
         getSupportActionBar().hide();
-        ArrayList<Piece> pieces = new ArrayList<Piece>();
+        //ArrayList<Piece> pieces = new ArrayList<Piece>();
 
 
         movementName = (TextView) findViewById(R.id.movement_name);
         movementDescription = (TextView) findViewById(R.id.movement_description);
         movementImage = (ImageView) findViewById(R.id.movement_image);
 
+        //CÁMARA
+        FloatingActionButton camara = findViewById(R.id.floatingCamera);
+        camara.setOnClickListener(butoCamaraListener);
 
         //RECOGEMOS ID DEL INTENT
         id = getIntent().getStringExtra("id");
-
 
         //TEMA JSON
         getJSONResource("movimiento", id, new ObjectCallback() {
@@ -85,7 +89,7 @@ public class MovementActivity extends BaseActivity  {
         });
 
         /////////////////////////////////////////////////////INICIALITZACIO PIECES////////////////////////////////////////////////
-
+/*
         piece1 = new Piece(1, "El dormitorio en Arlés", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Vincent_van_Gogh_-_De_slaapkamer_-_Google_Art_Project.jpg/350px-Vincent_van_Gogh_-_De_slaapkamer_-_Google_Art_Project.jpg");
         piece2 = new Piece(2, "La noche estrellada", "https://www.salirconarte.com/wp-content/uploads/2017/06/orig_64571-750x430.jpg");
         piece3 = new Piece(3, "El jardín del artista en Giverny", "https://images-na.ssl-images-amazon.com/images/I/71HsDgvOrVL._AC_SX522_.jpg");
@@ -166,8 +170,15 @@ public class MovementActivity extends BaseActivity  {
             atr4= "ERROR";
             e.printStackTrace();
         }
-        movement = new Movement(atr1,atr2, atr3,atr4,pieces);
-
-
+        movement = new Movement(atr1,atr2, atr3,atr4,pieces);*/
     }
+
+    private View.OnClickListener butoCamaraListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //Intent intent = new Intent(MovementActivity.this, CameraActivity.class);
+            //startActivity(intent);
+            openCameraIntent();
+        }
+    };
 }
