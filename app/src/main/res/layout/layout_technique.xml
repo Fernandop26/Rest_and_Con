@@ -1,60 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TechniqueActivity"
-    android:layout_marginHorizontal="30dp">
-    <ImageView
-        android:id="@+id/technique_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        tools:srcCompat="@tools:sample/avatars" />
-    <TextView
-        android:id="@+id/technique_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/technique_image"
-        android:gravity="center"
-        android:text="Nom moviment"
-        android:textSize="40sp"/>
-    <TextView
-        android:id="@+id/technique_description"
+    tools:context=".MovementActivity">
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/technique_name"
-        android:text="Descripcio tecnicaDescripcio tecnicaDescripciotecnicaDescripciotecnicaDescripciotecnicaDescripciotecnicaDescripciotecnicaDescripciotecnicaDescripciotecnicaDescripciotecnicaDescripcio tecnicaDescripcio tecnicaDescripcio tecnica" />
+        tools:ignore="MissingConstraints">
 
-    <TextView
-        android:id="@+id/obratext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Obras"
-        android:layout_below="@id/technique_description"
-        android:layout_marginTop="30dp"
-        android:textSize="30dp"
-        />
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/black"
-        android:layout_below="@+id/obratext"/>
-    <GridView
-        android:id="@+id/llista_obras"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/obratext"
-        android:layout_marginTop="10dp"
-        android:numColumns="auto_fit"
-        android:scrollbars="vertical"
-        tools:listitem="@android:layout/simple_list_item_2">
-    </GridView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="30dp">
 
 
-</RelativeLayout>
+            <ImageView
+                android:id="@+id/technique_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                tools:srcCompat="@tools:sample/avatars" />
+            <TextView
+                android:id="@+id/technique_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/technique_image"
+                android:gravity="center"
+                android:text="Nom moviment"
+                android:textSize="40sp"/>
+            <TextView
+                android:id="@+id/technique_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:justificationMode="inter_word"
+                android:layout_below="@+id/technique_name"
+                android:text="Descripción técnica"/>
+            <TextView
+                android:id="@+id/obratext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Obras"
+                android:layout_below="@id/technique_description"
+                android:layout_marginTop="30dp"
+                android:textSize="30dp"
+                />
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/black"
+                android:layout_below="@+id/obratext"/>
+            <GridView
+                android:id="@+id/llista_obras"
+                android:layout_width="fill_parent"
+                android:layout_height="800dp"
+                android:layout_below="@+id/obratext"
+                android:layout_marginTop="10dp"
+                android:numColumns="auto_fit"
+                tools:listitem="@android:layout/simple_list_item_2">
+            </GridView>
+
+        </RelativeLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
