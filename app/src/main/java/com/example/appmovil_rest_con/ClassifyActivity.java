@@ -70,7 +70,8 @@ public class ClassifyActivity extends AppCompatActivity {
     private Button back_button;
     private TextView label1;
     private TextView Confidence1;
-
+    private String id;
+    private float confidence;
 
     // priority queue that will hold the top results from the CNN
     private PriorityQueue<Map.Entry<String, Float>> sortedLabels =
@@ -119,6 +120,7 @@ public class ClassifyActivity extends AppCompatActivity {
 
         // initialize array to hold top labels
         topLables = new String[RESULTS_TO_SHOW];
+
         // initialize array to hold top probabilities
         topConfidence = new String[RESULTS_TO_SHOW];
 
@@ -127,34 +129,28 @@ public class ClassifyActivity extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(ClassifyActivity.this, CameraActivity.class);
+                Intent i = new Intent(ClassifyActivity.this, MainActivity.class);
                 startActivity(i);
             }
         });
 
-        // classify current dispalyed image
-        classify_button = (Button)findViewById(R.id.classify_image);
-        classify_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Bitmap org=drawableToBitmap(selected_image.getDrawable());
-                Bitmap bitmap = getResizedBitmap(org, DIM_IMG_SIZE_X, DIM_IMG_SIZE_Y);
-                convertBitmapToByteBuffer(bitmap);
-                tflite.run(imgData, labelProbArray);
-                printTopKLabels();
-            }
-        });
 
         // get image from previous activity to show in the imageView
         Uri uri = (Uri)getIntent().getParcelableExtra("resID_uri");
         try {
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-            selected_image.setImageBitmap(bitmap);
-            selected_image.setRotation(selected_image.getRotation() + 90);
+            Bitmap org = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+            Bitmap bitmap = getResizedBitmap(org, DIM_IMG_SIZE_X, DIM_IMG_SIZE_Y);
+            convertBitmapToByteBuffer(bitmap);
+            tflite.run(imgData, labelProbArray);
+            goToPiece(org);
+
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
     }
 
     public static Bitmap drawableToBitmap (Drawable drawable) {
@@ -226,7 +222,7 @@ public class ClassifyActivity extends AppCompatActivity {
     }
 
     // print the top labels and respective confidences
-    private void printTopKLabels() {
+    private void goToPiece(Bitmap bitmap) {
         // add all results to priority queue
        for (int i = 0; i < labelList.size(); ++i) {
             sortedLabels.add(
@@ -241,11 +237,21 @@ public class ClassifyActivity extends AppCompatActivity {
         final int size = sortedLabels.size();
         for (int i = 0; i < size; ++i) {
             Map.Entry<String, Float> label = sortedLabels.poll();
-            topLables[i] = label.getKey();
-            topConfidence[i] = String.format("%.0f%%",label.getValue()*100);
+            id = label.getKey();
+            confidence = label.getValue()*100;
         }
-        label1.setText(topLables[0]);
-        Confidence1.setText(topConfidence[0]);
+
+        if(confidence >= 50){
+            Intent intent = new Intent(this, PieceActivity.class);
+            intent.putExtra("id",id);
+            startActivity(intent);
+        } else {
+            label1.setText("No se ha podido clasificar correctamente, vuelva a intentarlo");
+            Confidence1.setText(String.valueOf(confidence));
+            selected_image.setImageBitmap(bitmap);
+            selected_image.setRotation(selected_image.getRotation());
+        }
+
 
     }
 

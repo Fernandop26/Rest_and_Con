@@ -24,6 +24,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public abstract class BaseActivity extends AppCompatActivity {
 
     public interface ArrayCallback{
@@ -101,6 +104,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         startActivityForResult(intent, REQUEST_IMAGE);
     }
 
+
     // checks that the user has allowed all the required permission of read and write and camera. If not, notify the user and close the application
     @Override
     public void onRequestPermissionsResult(final int requestCode, @NonNull final String[] permissions, @NonNull final int[] grantResults) {
@@ -127,5 +131,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
     //----------------------------------------------- FIN CÁMARA --------------------------------------------------------
+
+
+    public String transformDate(String valS){
+        long val=Long.parseLong(valS);
+        Date date= new Date(val);
+        SimpleDateFormat df2 = new SimpleDateFormat("yyyy");
+        return df2.format(val);
+    }
+
 
 }

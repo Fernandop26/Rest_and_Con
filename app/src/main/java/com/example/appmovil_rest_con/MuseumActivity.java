@@ -17,6 +17,12 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import kernel.Museum;
@@ -25,52 +31,73 @@ import kernel.Piece;
 public class MuseumActivity extends BaseActivity {
 
     Museum museu;
-    //private GridView imagenesObra;
-    //private GridAdapter adapter;
+    private GridView imagenesObra;
+    private GridAdapter adapter;
 
-    //ARREGLADO
+
+    TextView authorName;
+    ImageView imatge;
+    TextView authorBiography;
     String id;
-    TextView museumName;
-    TextView museumDescription;
-    ImageView museumImage;
 
+    //////////////////////////////// array  TEST  de pieces ////////////////////////////////////
+    Piece piece;
+    ArrayList<Piece> pieces = new ArrayList<Piece>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_museum);
         getSupportActionBar().hide();
-        ArrayList<Piece> pieces = new ArrayList<Piece>();
+        final ArrayList<Piece> pieces = new ArrayList<Piece>();
 
-
-        museumName = (TextView) findViewById(R.id.museum_name);
-        museumDescription = (TextView) findViewById(R.id.museum_description);
-        museumImage = (ImageView) findViewById(R.id.museum_image);
-
-        //imagenesObra = (GridView) this.findViewById(R.id.llista_obras );
-        //adapter = new GridAdapter(this, pieces);
-        //imagenesObra.setAdapter(adapter);
-
-        //CÁMARA
-        FloatingActionButton camara = findViewById(R.id.floatingCamera);
-        camara.setOnClickListener(butoCamaraListener);
+        authorName = (TextView) findViewById(R.id.museum_name);
+        authorBiography = (TextView) findViewById(R.id.museum_description);
+        imatge = (ImageView) findViewById(R.id.museum_image);
 
         //RECOGEMOS ID DEL INTENT
-        id = getIntent().getStringExtra("id");
+        id = getIntent().getStringExtra("id");  // IMPORTANTE: pasar id id, actualmente: null
+        imagenesObra = (GridView) this.findViewById(R.id.llista_obras );
 
-        //TEMA JSON
-        getJSONResource("museo", id, new ObjectCallback() {
+        getJSONResource("museo", id, new BaseActivity.ObjectCallback() {
             @Override
             public void onSuccess(JSONObject result) {
 
                 try {
-                    JSONObject museum = result;
-                    museumName.setText(museum.getString("nombre"));
-                    museumDescription.setText(museum.getString("descripcion"));
-                    Picasso.get().load(museum.getString("path_imagen")).into(museumImage);
-
+                    JSONObject movement = result;
+                    authorName.setText(movement.getString("nombre"));
+                    authorBiography.setText(movement.getString("descripcion"));
+                    Picasso.get().load(movement.getString("path_imagen")).into(imatge);
+                    JSONArray obras = movement.getJSONArray("obras");
+                    for (int i = 0; i < obras.length(); i++) {
+                        try {
+                            JSONObject jsonObject = obras.getJSONObject(i);
+                            String path = jsonObject.getString("path_imagen");
+                            String name = jsonObject.getString("nombre");
+                            Integer id_1 = Integer.parseInt(jsonObject.getString("id"));
+                            piece = new Piece(id_1,name, path);
+                            pieces.add(piece);
+                        } catch (JSONException e) {
+                        }
+                    }
+                    adapter = new GridAdapter(MuseumActivity.this, pieces);
+                    imagenesObra.setAdapter(adapter);
                 } catch (JSONException e) {
                 }
+            }
+        });
+
+
+        imagenesObra.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Piece piece = (Piece) adapterView.getItemAtPosition(i);
+                String id_piece = piece.getId().toString();
+                Intent intent = new Intent(MuseumActivity.this, PieceActivity.class);
+                intent.putExtra("id",id_piece);
+                intent.putExtra("nombre",piece.getName());
+
+                startActivity(intent);
             }
         });
 

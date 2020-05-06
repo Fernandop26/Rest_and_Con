@@ -25,7 +25,7 @@
                 android:layout_marginTop="23dp"
                 android:gravity="center"
                 android:text="Piece"
-                android:textSize="24sp"/>
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/restoration_autor"
@@ -72,7 +72,7 @@
                     android:text="Fecha: " />
 
                 <TextView
-                    android:id="@+id/piece_date"
+                    android:id="@+id/restauration_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -101,24 +101,8 @@
                 android:text="Mapa de alteraciones preview" />
 
             <!-- PRODCEDIMIENTO -->
-            <TextView
-                android:id="@+id/proc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/map_r"
-                android:gravity="center"
-                android:text="Procedimientos"
-                android:layout_marginTop="30dp"
-                android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/proc_r"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/proc"
-                android:layout_marginTop="8dp"
-                android:justificationMode="inter_word"
-                android:text="Procedimientos preview" />
+
 
         </RelativeLayout>
     </ScrollView>

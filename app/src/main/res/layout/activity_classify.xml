@@ -16,21 +16,14 @@
         android:layout_below="@id/selected_image"
         app:srcCompat="@android:color/background_light" />
 
-    <Button
-        android:id="@+id/classify_image"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_below="@id/selected_image"
-        android:layout_centerHorizontal="true"
-        android:text="Classify!" />
 
     <Button
         android:id="@+id/back_button"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:layout_below="@id/classify_image"
+        android:layout_below="@id/selected_image"
         android:layout_centerHorizontal="true"
-        android:text="Back" />
+        android:text="Atras" />
 
     <LinearLayout
         android:id="@+id/labels"
@@ -47,25 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/lableText"
-                android:layout_width="240dp"
-                android:layout_height="wrap_content"
-                android:text="Label"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/ConfidenceText"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:text="Confidence"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
+            android:orientation="horizontal"/>
 
         <LinearLayout
             android:layout_width="370dp"
@@ -78,7 +53,6 @@
                 android:id="@+id/label1"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
-                android:text="1."
                 android:textSize="14sp" />
 
             <TextView

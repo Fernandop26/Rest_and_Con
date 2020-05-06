@@ -11,9 +11,9 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,74 +25,71 @@ import kernel.Piece;
 public class TechniqueActivity extends BaseActivity {
 
     Technique tecnica;
-    //private GridView imagenesObra;
-    //private GridAdapter adapter;
-
-    //ARREGLADO
+    private GridView imagenesObra;
+    private GridAdapter adapter;
+    TextView authorName,authorBiography;
+    ImageView imatge;
     String id;
-    TextView techniqueName;
-    TextView techniqueDescription;
-    ImageView techniqueImage;
+
+    Piece piece;
+    ArrayList<Piece> pieces = new ArrayList<Piece>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_technique);
         getSupportActionBar().hide();
-        ArrayList<Piece> pieces = new ArrayList<Piece>();
 
+        authorName = (TextView) findViewById(R.id.technique_name);
+        authorBiography = (TextView) findViewById(R.id.technique_description);
+        imatge = (ImageView) findViewById(R.id.technique_image);
 
-        techniqueName = findViewById(R.id.technique_name);
-        techniqueDescription = findViewById(R.id.technique_description);
-        techniqueImage = (ImageView) findViewById(R.id.technique_image);
+        id = getIntent().getStringExtra("id");  // IMPORTANTE: pasar id id, actualmente: null
+        imagenesObra = (GridView) this.findViewById(R.id.llista_obras );
 
-        // --------------------------------------- EQUIPO ANDROID 1------------------------------
-
-        //imagenesObra = (GridView) this.findViewById(R.id.llista_obras );
-        //adapter = new GridAdapter(this, pieces);
-        //imagenesObra.setAdapter(adapter);
-
-
-        /*imagenesObra.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(TechniqueActivity.this, PieceActivity.class);
-                intent.putExtra("Nombre", adapter.getItem(i).getName());  /////
-                startActivity(intent);
-            }
-        });
-
-        tecnica = new Technique(1,"123","0","descripcio",pieces);
-*/
-        //tecnica.getName();
-        //tecnica.getDescription();
-
-        // --------------------------------------- FIN EQUIPO ANDROID 1------------------------------
-
-        //CÁMARA
-        FloatingActionButton camara = findViewById(R.id.floatingCamera);
-        camara.setOnClickListener(butoCamaraListener);
-
-        //RECOGEMOS ID DEL INTENT
-        id = getIntent().getStringExtra("id");
-
-        //TEMA JSON
+        /////////////////////////////////////////////////////INICIALITZACIO PIECES////////////////////////////////////////////////
         getJSONResource("tecnica", id, new BaseActivity.ObjectCallback() {
             @Override
             public void onSuccess(JSONObject result) {
 
                 try {
-                    JSONObject museum = result;
-                    techniqueName.setText(museum.getString("nombre"));
-                    techniqueDescription.setText(museum.getString("descripcion"));
-                    Picasso.get().load(museum.getString("path_imagen")).into(techniqueImage);
-
+                    JSONObject movement = result;
+                    authorName.setText(movement.getString("nombre"));
+                    authorBiography.setText(movement.getString("descripcion"));
+                    Picasso.get().load(movement.getString("path_imagen")).into(imatge);
+                    JSONArray obras = movement.getJSONArray("obra");
+                    for (int i = 0; i < obras.length(); i++) {
+                        try {
+                            JSONObject jsonObject = obras.getJSONObject(i);
+                            String path = jsonObject.getString("path_imagen");
+                            String name = jsonObject.getString("nombre");
+                            Integer id_1 = Integer.parseInt(jsonObject.getString("id"));
+                            piece = new Piece(id_1,name, path);
+                            pieces.add(piece);
+                        } catch (JSONException e) {
+                        }
+                    }
+                    adapter = new GridAdapter(TechniqueActivity.this, pieces);
+                    imagenesObra.setAdapter(adapter);
                 } catch (JSONException e) {
                 }
             }
         });
-    }
 
+
+        imagenesObra.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Piece piece = (Piece) adapterView.getItemAtPosition(i);
+                String id_piece = piece.getId().toString();
+                Intent intent = new Intent(TechniqueActivity.this, PieceActivity.class);
+                intent.putExtra("id",id_piece);
+                intent.putExtra("nombre",piece.getName());
+
+                startActivity(intent);
+            }
+        });
+    }
     private View.OnClickListener butoCamaraListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
