@@ -33,6 +33,8 @@ public class PieceActivity extends BaseActivity {
     TextView piece_name,piece_autor,piece_date,piece_technique,piece_size,piece_museum;
     ImageView piece_img;
 
+    String id_autor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +61,7 @@ public class PieceActivity extends BaseActivity {
                     piece_name.setText(piece.getString("nombre"));
                     JSONObject autor = piece.getJSONObject("autor");
                     piece_autor.setText(autor.getString("nombre"));
+                    id_autor=autor.getString("id");
 
                     piece_date.setText(transformDate(piece.getString("fecha")));
 
@@ -114,6 +117,17 @@ public class PieceActivity extends BaseActivity {
                 Intent intent = new Intent(PieceActivity.this, RestorationActivity.class);
                 intent.putExtra("id",id_piece);
                 startActivity(intent);
+            }
+        });
+
+
+        piece_autor.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+
+                Intent intent = new Intent(PieceActivity.this, AuthorActivity.class);
+                intent.putExtra("id",id_autor);
+                startActivity(intent);
+
             }
         });
 

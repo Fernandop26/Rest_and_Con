@@ -2,7 +2,9 @@ package com.example.appmovil_rest_con;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,7 +16,8 @@ import org.json.JSONObject;
 public class RestorationActivity extends BaseActivity {
     TextView name,piece_autor,map_r,restauration_date;
     ImageView restoration_img;
-    String id;
+    String id,id_autor,id_obra;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +41,37 @@ public class RestorationActivity extends BaseActivity {
                     JSONObject rest = result;
                     JSONObject obra_rest = rest.getJSONObject("obra");
                     name.setText(obra_rest.getString("nombre"));
+                    id_obra= (obra_rest.getString("id"));
                     JSONObject obra_autor = obra_rest.getJSONObject("autor");
                     piece_autor.setText(obra_autor.getString("nombre"));
+                    id_autor= (obra_autor.getString("id"));
+
                     Picasso.get().load(rest.getString("path_imagen")).into(restoration_img);
                     restauration_date.setText(transformDate(rest.getString("fecha")));
                     map_r.setText(rest.getString("mapa_alteraciones"));
 
                 } catch (JSONException e) {
                 }
+            }
+        });
+
+
+
+         piece_autor.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(RestorationActivity.this, AuthorActivity.class);
+                intent.putExtra("id",id_autor);
+                startActivity(intent);
+
+            }
+        });
+
+        name.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(RestorationActivity.this, PieceActivity.class);
+                intent.putExtra("id",id_obra);
+                startActivity(intent);
+
             }
         });
 

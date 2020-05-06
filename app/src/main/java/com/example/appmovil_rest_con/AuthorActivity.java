@@ -1,11 +1,20 @@
 package com.example.appmovil_rest_con;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -13,8 +22,15 @@ import kernel.Author;
 import kernel.Museum;
 import kernel.Piece;
 
-public class AuthorActivity extends AppCompatActivity {
+public class AuthorActivity extends BaseActivity {
     Author author;
+    String id;
+    TextView authorName,authorBiography;
+    ImageView authorImg;
+    Piece piece;
+    ArrayList<Piece> pieces = new ArrayList<Piece>();
+    private GridView imagenesObra;
+    private GridAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,25 +38,54 @@ public class AuthorActivity extends AppCompatActivity {
         setContentView(R.layout.layout_author);
         getSupportActionBar().hide();
 
-        ArrayList<Piece> pieces = new ArrayList<Piece>();
-        ArrayList<Museum> museums = new ArrayList<Museum>();
+        id = getIntent().getStringExtra("id");
 
-        author =  new Author(123, "NOMBRE", "https://4.bp.blogspot.com/-eeXBGmBRbow/Vz3ghCuBZuI/AAAAAAAACEA/bnnhPNF-54c013lqu90n_d6wX8Q2jDvGACKgB/s1600/tumblr_m33u63C56v1rq8kmro1_500.jpg", "El Museo Van Gogh es una pinacoteca ubicada en Ámsterdam, que alberga la colección de obras del pintor neerlandés Vincent van Gogh. Es el segundo museo más visitado de Ámsterdam. El museo expone más de 200 obras del pintor y las relaciona con las etapas de su vida.", pieces, museums);
+        authorName = (TextView) findViewById(R.id.author_name);
+        authorBiography = (TextView) findViewById(R.id.author_biography);
+        authorImg = (ImageView) findViewById(R.id.author_img);
+        imagenesObra = (GridView) this.findViewById(R.id.llista_obras );
 
-        TextView authorName = (TextView) findViewById(R.id.author_name);
-        TextView authorBiography = (TextView) findViewById(R.id.author_biography);
-        ImageView authorImg = (ImageView) findViewById(R.id.author_img);
+        getJSONResource("autor", id, new ObjectCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
 
-        //authorName.setText(author.getName());
-        authorBiography.setText(author.getBiography());
+                try {
+                    JSONObject autor = result;
+                    authorName.setText(autor.getString("nombre"));
+                    authorBiography.setText(autor.getString("biografia"));
+                    Picasso.get().load(autor.getString("path_imagen")).into(authorImg);
 
-        Picasso.get().load(author.getImgPath()).into(authorImg);
 
+                    JSONArray obras = autor.getJSONArray("obras");
+                    for (int i = 0; i < obras.length(); i++) {
+                        try {
+                            JSONObject jsonObject = obras.getJSONObject(i);
+                            String path = jsonObject.getString("path_imagen");
+                            String name = jsonObject.getString("nombre");
+                            Integer id_1 = Integer.parseInt(jsonObject.getString("id"));
+                            piece = new Piece(id_1,name, path);
+                            pieces.add(piece);
+                        } catch (JSONException e) {
+                        }
+                    }
 
+                    adapter = new GridAdapter(AuthorActivity.this, pieces);
+                    imagenesObra.setAdapter(adapter);
 
-        //Test pasar variables
-        String dato = getIntent().getStringExtra("test");
-        authorName.setText(dato);
+                } catch (JSONException e) {
+                }
+            }
+        });
+
+        imagenesObra.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Piece piece = (Piece) adapterView.getItemAtPosition(i);
+                Intent intent = new Intent(AuthorActivity.this, PieceActivity.class);
+                intent.putExtra("id",piece.getId().toString());
+                startActivity(intent);
+            }
+        });
 
     }
 
