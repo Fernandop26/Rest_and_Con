@@ -69,7 +69,7 @@ public class MovementActivity extends BaseActivity  {
         id = getIntent().getStringExtra("id");  // IMPORTANTE: pasar id id, actualmente: null
         imagenesObra = (GridView) this.findViewById(R.id.llista_obras );
 
-        //TEMA JSON
+        /////////////////////////////////////////////////////INICIALITZACIO PIECES////////////////////////////////////////////////
         getJSONResource("movimiento", id, new ObjectCallback() {   // si no le pasas la id por el intent no va
             @Override
             public void onSuccess(JSONObject result) {
@@ -99,28 +99,7 @@ public class MovementActivity extends BaseActivity  {
             }
         });
 
-        /////////////////////////////////////////////////////INICIALITZACIO PIECES////////////////////////////////////////////////
 
-        /*piece1 = new Piece(1, "El dormitorio en Arlés", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Vincent_van_Gogh_-_De_slaapkamer_-_Google_Art_Project.jpg/350px-Vincent_van_Gogh_-_De_slaapkamer_-_Google_Art_Project.jpg");
-        piece2 = new Piece(2, "La noche estrellada", "https://www.salirconarte.com/wp-content/uploads/2017/06/orig_64571-750x430.jpg");
-        piece3 = new Piece(3, "El jardín del artista en Giverny", "https://images-na.ssl-images-amazon.com/images/I/71HsDgvOrVL._AC_SX522_.jpg");
-        piece4 = new Piece(4, "Impresión, sol naciente", "https://i.pinimg.com/originals/a9/01/2d/a9012def1060eb9f9ca1ac4b650e5e9c.jpg");
-        piece5 = new Piece(5, "Mujer con sombrilla", "https://i.pinimg.com/originals/db/71/0a/db710afa36a41c3cbf662dbef31fba35.jpg");
-        piece6 = new Piece(6, "Puente Japonés", "https://3.bp.blogspot.com/-pTRrFyLWt9E/TsgnIFyYnTI/AAAAAAAAAzE/oNn3tmyMvsM/s1600/monet2.jpg");
-        piece7 = new Piece(7, "El Nacimiento De Venus", "https://www.malagaldia.es/wp-content/uploads/2018/10/nacimiento-de-Venus.jpg");
-        piece8 = new Piece(8, "La torre de Babel", "https://sobrehistoria.com/wp-content/uploads/2016/01/torre-de-babel-lucas-van-valckenborch-1024-postbit-1472-600x600.jpg");
-        piece9 = new Piece(9, "La Gran Ola de Kanagawa", "https://image.shutterstock.com/image-illustration/die-welle-von-kanagawa-katsushika-260nw-1095167909.jpg");
-        piece10 = new Piece(10, "Cesto de Manzanas", "https://i.pinimg.com/originals/b1/54/94/b15494ab7c92c0eb32c417907ea2544e.jpg");
-        pieces.add(piece1);
-        pieces.add(piece2);
-        pieces.add(piece3);
-        pieces.add(piece4);
-        pieces.add(piece5);
-        pieces.add(piece6);
-        pieces.add(piece7);
-        pieces.add(piece8);
-        pieces.add(piece9);
-        pieces.add(piece10);*/
         /////////////////////////////////////////////////////
         ///////////////////////////////////// Objeto JSON ///////////////
         JSONObject obj = new JSONObject();
@@ -152,7 +131,10 @@ public class MovementActivity extends BaseActivity  {
         imagenesObra.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Piece piece = (Piece) adapterView.getItemAtPosition(i);
+                String id_piece = piece.getId().toString();
                 Intent intent = new Intent(MovementActivity.this, PieceActivity.class);
+                intent.putExtra("id",id_piece);
                 startActivity(intent);
             }
         });
