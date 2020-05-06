@@ -28,6 +28,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import kernel.Movement;
 import kernel.Piece;
@@ -49,13 +51,13 @@ public class MovementActivity extends BaseActivity  {
     Piece piece1, piece2, piece3, piece4, piece5, piece6, piece7, piece8, piece9, piece10;
     ///////////////////////////////////////////////////////////////////////////////////////////
 
-
+    ArrayList<Piece> pieces = new ArrayList<Piece>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_movement);
         getSupportActionBar().hide();
-        ArrayList<Piece> pieces = new ArrayList<Piece>();
+
 
 
         movementName = (TextView) findViewById(R.id.movement_name);
@@ -64,11 +66,11 @@ public class MovementActivity extends BaseActivity  {
 
 
         //RECOGEMOS ID DEL INTENT
-        id = getIntent().getStringExtra("id");
-
+        id = getIntent().getStringExtra("id");  // IMPORTANTE: pasar id id, actualmente: null
+        imagenesObra = (GridView) this.findViewById(R.id.llista_obras );
 
         //TEMA JSON
-        getJSONResource("movimiento", id, new ObjectCallback() {
+        getJSONResource("movimiento", id, new ObjectCallback() {   // si no le pasas la id por el intent no va
             @Override
             public void onSuccess(JSONObject result) {
 
@@ -77,8 +79,21 @@ public class MovementActivity extends BaseActivity  {
                     movementName.setText(movement.getString("nombre"));
                     movementDescription.setText(movement.getString("descripcion"));
                     Picasso.get().load(movement.getString("path_imagen")).into(movementImage);
+                    JSONArray obras = movement.getJSONArray("obras");
+                    for (int i = 0; i < obras.length(); i++) {
+                        try {
+                            JSONObject jsonObject = obras.getJSONObject(i);
+                            String path = jsonObject.getString("path_imagen");
+                            String name = jsonObject.getString("nombre");
+                            Integer id_1 = Integer.parseInt(jsonObject.getString("id"));
+                            piece1 = new Piece(id_1,name, path);
+                            pieces.add(piece1);
+                        } catch (JSONException e) {
+                        }
+                    }
 
-
+                    adapter = new GridAdapter(MovementActivity.this, pieces);
+                    imagenesObra.setAdapter(adapter);
                 } catch (JSONException e) {
                 }
             }
@@ -86,7 +101,7 @@ public class MovementActivity extends BaseActivity  {
 
         /////////////////////////////////////////////////////INICIALITZACIO PIECES////////////////////////////////////////////////
 
-        piece1 = new Piece(1, "El dormitorio en Arlés", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Vincent_van_Gogh_-_De_slaapkamer_-_Google_Art_Project.jpg/350px-Vincent_van_Gogh_-_De_slaapkamer_-_Google_Art_Project.jpg");
+        /*piece1 = new Piece(1, "El dormitorio en Arlés", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Vincent_van_Gogh_-_De_slaapkamer_-_Google_Art_Project.jpg/350px-Vincent_van_Gogh_-_De_slaapkamer_-_Google_Art_Project.jpg");
         piece2 = new Piece(2, "La noche estrellada", "https://www.salirconarte.com/wp-content/uploads/2017/06/orig_64571-750x430.jpg");
         piece3 = new Piece(3, "El jardín del artista en Giverny", "https://images-na.ssl-images-amazon.com/images/I/71HsDgvOrVL._AC_SX522_.jpg");
         piece4 = new Piece(4, "Impresión, sol naciente", "https://i.pinimg.com/originals/a9/01/2d/a9012def1060eb9f9ca1ac4b650e5e9c.jpg");
@@ -105,7 +120,7 @@ public class MovementActivity extends BaseActivity  {
         pieces.add(piece7);
         pieces.add(piece8);
         pieces.add(piece9);
-        pieces.add(piece10);
+        pieces.add(piece10);*/
         /////////////////////////////////////////////////////
         ///////////////////////////////////// Objeto JSON ///////////////
         JSONObject obj = new JSONObject();
@@ -131,9 +146,7 @@ public class MovementActivity extends BaseActivity  {
 
         //Picasso.get().load(url_img).into(imatge);
 
-        imagenesObra = (GridView) this.findViewById(R.id.llista_obras );
-        adapter = new GridAdapter(this, pieces);
-        imagenesObra.setAdapter(adapter);
+
 
 
         imagenesObra.setOnItemClickListener(new AdapterView.OnItemClickListener() {
