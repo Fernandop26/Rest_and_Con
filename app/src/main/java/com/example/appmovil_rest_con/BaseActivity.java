@@ -16,6 +16,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public abstract class BaseActivity extends AppCompatActivity {
 
     public interface ArrayCallback{
@@ -69,6 +72,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
+    public String transformDate(String valS){
+        long val=Long.parseLong(valS);
+        Date date= new Date(val);
+        SimpleDateFormat df2 = new SimpleDateFormat("yyyy");
+        return df2.format(val);
+    }
 
 
 }

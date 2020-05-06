@@ -44,13 +44,14 @@
         android:layout_height="1dp"
         android:background="@android:color/black"
         android:layout_below="@+id/obratext"/>
+
     <GridView
         android:id="@+id/llista_obras"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/obratext"
         android:layout_marginTop="10dp"
         android:numColumns="auto_fit"
-        tools:listitem="@android:layout/simple_list_item_2">
-    </GridView>
+        tools:listitem="@android:layout/simple_list_item_2"></GridView>
+
 </RelativeLayout>
