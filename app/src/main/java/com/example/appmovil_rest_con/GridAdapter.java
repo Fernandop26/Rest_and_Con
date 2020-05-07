@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -17,9 +18,19 @@ public class GridAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<Piece> pieces;
+    private int rotation;
+
     public GridAdapter(Context context, ArrayList<Piece> arraylist ){
         this.context = context;
         pieces = arraylist;
+        this.rotation=0;
+
+    }
+    public GridAdapter(Context context, ArrayList<Piece> arraylist,int rotation ){
+        this.context = context;
+        pieces = arraylist;
+        this.rotation=rotation;
+
     }
     @Override
     public int getCount() {
@@ -44,6 +55,8 @@ public class GridAdapter extends BaseAdapter {
             view= layoutInflater.inflate(R.layout.row, null);
         }
         ImageView image = (ImageView) view.findViewById(R.id.image);
+        TextView name = (TextView) view.findViewById(R.id.textView1);
+        view.setRotation(rotation);
         Picasso.get().load(pieces.get(i).getImgPath()).into(image);
         return view;
     }

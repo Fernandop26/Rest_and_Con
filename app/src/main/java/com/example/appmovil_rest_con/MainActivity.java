@@ -9,6 +9,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,9 +34,6 @@ import java.util.ArrayList;
 import kernel.Piece;
 
 public class MainActivity extends BaseActivity {
-    //A BORRAR: JSON:
-    TextView textView;
-    JSONArray arrayTest;
 
     String mTitle[] = {"Images:", "First_image", "Second_image", "Third_image", "Fourth_image"};
     String mDescriprion[] = {null, "Description 1", "Description 2", "Description 3", "Description 4"};
@@ -48,9 +47,8 @@ public class MainActivity extends BaseActivity {
 
     //MUSEOS
     GridView museum_carousel;
-    int museum_images[] = {0, R.drawable.moma_c, R.drawable.moma_c, R.drawable.moma_c, R.drawable.moma_c};
 
-   //TÉCNICAS
+    //TÉCNICAS
     GridView technique_carousel;
     int technique_images[] = {0, R.drawable.moma_c, R.drawable.moma_c, R.drawable.moma_c, R.drawable.moma_c};
 
@@ -64,6 +62,14 @@ public class MainActivity extends BaseActivity {
     public static final int REQUEST_PERMISSION = 300;
 
 
+    ///test grid
+    ArrayList<Piece> img_museos = new ArrayList<Piece>();
+    ArrayList<Piece> img_tecnicas = new ArrayList<Piece>();
+    ArrayList<Piece> img_movimientos = new ArrayList<Piece>();
+    GridAdapter adapter;
+    GridAdapter adapter_t;
+    GridAdapter adapter_mo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,117 +79,111 @@ public class MainActivity extends BaseActivity {
 
         // MUSEUM CAROUSEL
         museum_carousel = findViewById(R.id.museum_carousel);
-        MyAdapter adapter = new MyAdapter(this, mTitle, mDescriprion, museum_images);
+        img_museos.add(new Piece(0,"_", "query"));
+        getJSONResource("museo", new BaseActivity.ArrayCallback() {
+            @Override
+            public void onSuccess(JSONArray result) {
+                JSONArray array_result = result;
 
-        //testing_a.add(ernest);
-        //marc = findViewById(R.id.museum_carousel);
-        //gridAdapter = new GridAdapter(this, testing_a);
-        //marc.setAdapter(gridAdapter);
+                for (int i = 0; i < array_result.length(); i++) {
+                    try {
+                        JSONObject rest = array_result.getJSONObject(i);
+                        String nombre= rest.getString("nombre");
+                        String path= rest.getString("path_imagen");
+                        path = path.replace(".jpg","_c.jpg");
+                        Integer id_1 = Integer.parseInt(rest.getString("id"));
+                        img_museos.add(new Piece(id_1,nombre, path));
+                    } catch (JSONException e) {
+                    }
+                }
+                adapter = new GridAdapter(MainActivity.this, img_museos,90);
+                museum_carousel.setAdapter(adapter);
+            }
+        });
 
-        museum_carousel.setAdapter(adapter);
         museum_carousel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick (AdapterView<?> parent, View view, int position, long id){
-                if (position==1){
-                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
-                    intent.putExtra("id", "1");
-                    intent.putExtra("agrupacion", "museo");
-                    startActivity(intent);
-                }
-                if (position==2){
-                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
-                    intent.putExtra("id", "2");
-                    intent.putExtra("agrupacion", "museo");
-                    startActivity(intent);
-                }
-                if (position==3){
-                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
-                    intent.putExtra("id", "3");
-                    intent.putExtra("agrupacion", "museo");
-                    startActivity(intent);
-                }
-                if (position==4){
-                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
-                    intent.putExtra("id", "4");
-                    intent.putExtra("agrupacion", "museo");
-                    startActivity(intent);
-                }
-
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Piece piece = (Piece) adapterView.getItemAtPosition(i);
+                String id_piece = piece.getId().toString();
+                Intent intent = new Intent(MainActivity.this, GroupActivity.class);
+                intent.putExtra("id", id_piece);
+                intent.putExtra("agrupacion", "museo");
+                startActivity(intent);
             }
-
         });
 
-
-        // TECHNIQUE CAROUSEL
+        // TÉCNICA CAROUSEL
         technique_carousel = findViewById(R.id.technique_carousel);
-        MyAdapter adapter2 = new MyAdapter(this, mTitle, mDescriprion, technique_images);
-        technique_carousel.setAdapter(adapter2);
+        img_tecnicas.add(new Piece(0,"_", "query"));
+        getJSONResource("tecnica", new BaseActivity.ArrayCallback() {
+            @Override
+            public void onSuccess(JSONArray result) {
+                JSONArray array_result = result;
+
+                for (int i = 0; i < array_result.length(); i++) {
+                    try {
+                        JSONObject rest = array_result.getJSONObject(i);
+                        String nombre= rest.getString("nombre");
+                        String path= rest.getString("path_imagen");
+                        path = path.replace(".jpg","_c.jpg");
+                        Integer id_1 = Integer.parseInt(rest.getString("id"));
+                        img_tecnicas.add(new Piece(id_1,nombre, path));
+                    } catch (JSONException e) {
+                    }
+                }
+                adapter = new GridAdapter(MainActivity.this, img_tecnicas,90);
+                technique_carousel.setAdapter(adapter);
+            }
+        });
+
         technique_carousel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick (AdapterView<?> parent, View view, int position, long id){
-                if (position==1){
-                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
-                    intent.putExtra("id", "1");
-                    intent.putExtra("agrupacion", "tecnica");
-                    startActivity(intent);
-                }
-                if (position==2){
-                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
-                    intent.putExtra("id", "2");
-                    intent.putExtra("agrupacion", "tecnica");
-                    startActivity(intent);
-                }
-                if (position==3){
-                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
-                    intent.putExtra("id", "3");
-                    intent.putExtra("agrupacion", "tecnica");
-                    startActivity(intent);
-                }
-                if (position==4){
-                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
-                    intent.putExtra("id", "4");
-                    intent.putExtra("agrupacion", "tecnica");
-                    startActivity(intent);
-                }
-
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Piece piece = (Piece) adapterView.getItemAtPosition(i);
+                String id_piece = piece.getId().toString();
+                Intent intent = new Intent(MainActivity.this, GroupActivity.class);
+                intent.putExtra("id", id_piece);
+                intent.putExtra("agrupacion", "tecnica");
+                startActivity(intent);
             }
-
         });
 
-        // TECHNIQUE CAROUSEL
-        movement_carousel= findViewById(R.id.movement_carousel);
-        MyAdapter adapter3 = new MyAdapter(this, mTitle, mDescriprion, movement_images);
-        movement_carousel.setAdapter(adapter3);
+
+        // MOVIMIENTO CAROUSEL
+        movement_carousel = findViewById(R.id.movement_carousel);
+        img_movimientos.add(new Piece(0,"_", "query"));
+        getJSONResource("movimiento", new BaseActivity.ArrayCallback() {
+            @Override
+            public void onSuccess(JSONArray result) {
+                JSONArray array_result = result;
+
+                for (int i = 0; i < array_result.length(); i++) {
+                    try {
+                        JSONObject rest = array_result.getJSONObject(i);
+                        String nombre= rest.getString("nombre");
+                        String path= rest.getString("path_imagen");
+                        path = path.replace(".jpg","_c.jpg");
+                        Integer id_1 = Integer.parseInt(rest.getString("id"));
+                        img_movimientos.add(new Piece(id_1,nombre, path));
+                    } catch (JSONException e) {
+                    }
+                }
+                adapter = new GridAdapter(MainActivity.this, img_movimientos,90);
+                movement_carousel.setAdapter(adapter);
+            }
+        });
+
         movement_carousel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick (AdapterView<?> parent, View view, int position, long id){
-                if (position==1){
-                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
-                    intent.putExtra("id", "1");
-                    intent.putExtra("agrupacion", "movimiento");
-                    startActivity(intent);
-                }
-                if (position==2){
-                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
-                    intent.putExtra("id", "2");
-                    intent.putExtra("agrupacion", "movimiento");
-                    startActivity(intent);
-                }
-                if (position==3){
-                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
-                    intent.putExtra("id", "3");
-                    intent.putExtra("agrupacion", "movimiento");
-                    startActivity(intent);
-                }
-                if (position==4){
-                    Intent intent = new Intent(MainActivity.this, GroupActivity.class);
-                    intent.putExtra("id", "4");
-                    intent.putExtra("agrupacion", "movimiento");
-                    startActivity(intent);
-                }
-
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Piece piece = (Piece) adapterView.getItemAtPosition(i);
+                String id_piece = piece.getId().toString();
+                Intent intent = new Intent(MainActivity.this, GroupActivity.class);
+                intent.putExtra("id", id_piece);
+                intent.putExtra("agrupacion", "movimiento");
+                startActivity(intent);
             }
-
         });
 
 
@@ -210,116 +210,13 @@ public class MainActivity extends BaseActivity {
         }
 
 
-        Button artista = (Button) findViewById(R.id.artista);
-        Button obra = (Button) findViewById(R.id.obra);
-        Button restauracion = (Button) findViewById(R.id.rest);
         FloatingActionButton camara = (FloatingActionButton) findViewById(R.id.floatingCamera);
-        textView = findViewById(R.id.jsonview);
-
-        artista.setOnClickListener(butoArtistaListener);
-        obra.setOnClickListener(butoObraListener);
-        restauracion.setOnClickListener(butoRestauracionListener);
         camara.setOnClickListener(butoCamaraListener);
 
 
-        //TEMA JSON
-        getJSONResource("tecnica", new ArrayCallback() {
-            @Override
-            public void onSuccess(JSONArray result) {
-                arrayTest = result;
-                for (int i = 0; i < arrayTest.length(); i++) {
-                    try {
-                        JSONObject jsonObject = arrayTest.getJSONObject(i);
-                        String id = jsonObject.getString("id");
-                        //textView.setText(textView.getText() + "\n Id: " + id);
-                        textView.setText("TEST 14:00");
-                    } catch (JSONException e) {
-                    }
-                }
-            }
-        });
-/*
-        //MUSEOS
-        String url_m1 = "https://restandcon-images.s3.amazonaws.com/museums/chicago_c.jpg";
-        m_chicago = (ImageView) findViewById(R.id.m_chicago);
-        Picasso.get().load(url_m1).into(m_chicago);
 
-        String url_m2 = "https://restandcon-images.s3.amazonaws.com/museums/moma_c.jpg";
-        m_moma = (ImageView) findViewById(R.id.m_moma);
-        Picasso.get().load(url_m2).into(m_moma);
-
-        String url_m3 = "https://restandcon-images.s3.amazonaws.com/museums/monet_c.jpg";
-        m_monet = (ImageView) findViewById(R.id.m_monet);
-        Picasso.get().load(url_m3).into(m_monet);
-
-        String url_m4 = "https://restandcon-images.s3.amazonaws.com/museums/orsay_c.jpg";
-        m_orsay = (ImageView) findViewById(R.id.m_orsay);
-        Picasso.get().load(url_m4).into(m_orsay);
-
-
-        //TÉCNICAS
-        String url_t1 = "https://restandcon-images.s3.amazonaws.com/technique/pintura_aceite_c.jpg";
-        t_aceite = (ImageView) findViewById(R.id.t_aceite);
-        Picasso.get().load(url_t1).into(t_aceite);
-
-        String url_t2 = "https://restandcon-images.s3.amazonaws.com/technique/temple_lienzo_c.jpg";
-        t_temple = (ImageView) findViewById(R.id.t_temple);
-        Picasso.get().load(url_t2).into(t_temple);
-
-        String url_t3 = "https://restandcon-images.s3.amazonaws.com/technique/xilografica_c.jpg";
-        t_xilografica = (ImageView) findViewById(R.id.t_xilografica);
-        Picasso.get().load(url_t3).into(t_xilografica);
-
-        String url_t4 = "https://restandcon-images.s3.amazonaws.com/technique/oleo_lienzo_c.jpg";
-        t_oleo = (ImageView) findViewById(R.id.t_oleo);
-        Picasso.get().load(url_t4).into(t_oleo);
-
-
-        //MOVIMIENTO
-        String url_mo1 = "https://restandcon-images.s3.amazonaws.com/movement/impresionismo_c.jpg";
-        ImageView m_impresionismo = (ImageView) findViewById(R.id.m_impresionismo);
-        Picasso.get().load(url_mo1).into(m_impresionismo);
-
-        String url_mo2 = "https://restandcon-images.s3.amazonaws.com/movement/posimpresionismo_c.jpg";
-        ImageView m_posimpresionismo = (ImageView) findViewById(R.id.m_posimpresionismo);
-        Picasso.get().load(url_mo2).into(m_posimpresionismo);
-
-        String url_mo3 = "https://restandcon-images.s3.amazonaws.com/movement/renacimiento_c.jpg";
-        ImageView m_renacimiento = (ImageView) findViewById(R.id.m_renacimiento);
-        Picasso.get().load(url_mo3).into(m_renacimiento);
-
-        String url_mo4 = "https://restandcon-images.s3.amazonaws.com/movement/ukiyoe_c.jpg";
-        ImageView m_ukiyoe = (ImageView) findViewById(R.id.m_ukiyoe);
-        Picasso.get().load(url_mo4).into(m_ukiyoe);
-*/
         // NO BORRAR XD:
-
     }
-
-    // A BORRAR
-    private View.OnClickListener butoArtistaListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(MainActivity.this, AuthorActivity.class);
-            startActivity(intent);
-        }
-    };
-
-    private View.OnClickListener butoObraListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(MainActivity.this, PieceActivity.class);
-            startActivity(intent);
-        }
-    };
-
-    private View.OnClickListener butoRestauracionListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(MainActivity.this, RestorationActivity.class);
-            startActivity(intent);
-        }
-    };
 
 
     private View.OnClickListener butoCamaraListener = new View.OnClickListener() {

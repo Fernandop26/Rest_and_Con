@@ -16,64 +16,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginHorizontal="30dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:id="@+id/layout1"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/artista"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="artista" />
-
-                <Button
-                    android:id="@+id/obra"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="obra" />
-
-                <Button
-                    android:id="@+id/rest"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="restauración" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:id="@+id/layout3"
-                android:layout_below="@+id/layout1">
-
-                <Button
-                    android:id="@+id/camara"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="camara" />
-
-                <TextView
-                    android:id="@+id/jsonview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="JSON:" />
-            </LinearLayout>
-
 
             <!-- LAYOUT MUSEOS -->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:id="@+id/layout_museums"
-                android:layout_below="@+id/layout3">
+                android:id="@+id/layout_museums">
 
                 <TextView
                     android:id="@+id/textmuseum"
@@ -93,8 +42,7 @@
                     android:id="@+id/museum_carousel"
                     android:layout_width="200dp"
                     android:layout_height="600dp"
-                    android:layout_marginTop="-200dp"
-                    android:layout_marginLeft="-25dp"
+                    android:layout_marginTop="-190dp"
                     android:layout_marginBottom="-200dp"
                     android:rowCount="1"
                     android:rotation="270"
@@ -130,8 +78,7 @@
                     android:id="@+id/technique_carousel"
                     android:layout_width="200dp"
                     android:layout_height="600dp"
-                    android:layout_marginTop="-200dp"
-                    android:layout_marginLeft="-25dp"
+                    android:layout_marginTop="-190dp"
                     android:layout_marginBottom="-200dp"
                     android:rowCount="1"
                     android:rotation="270"
@@ -167,8 +114,7 @@
                     android:id="@+id/movement_carousel"
                     android:layout_width="200dp"
                     android:layout_height="600dp"
-                    android:layout_marginTop="-200dp"
-                    android:layout_marginLeft="-25dp"
+                    android:layout_marginTop="-190dp"
                     android:layout_marginBottom="-200dp"
                     android:rowCount="1"
                     android:rotation="270"
