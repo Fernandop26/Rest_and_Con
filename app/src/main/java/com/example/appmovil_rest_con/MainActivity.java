@@ -9,8 +9,11 @@ import android.content.pm.PackageManager;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.GridView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -21,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import kernel.Piece;
 
@@ -28,6 +32,13 @@ public class MainActivity extends BaseActivity {
 
     //PERMISOS CÁMARA
      public static final int REQUEST_PERMISSION = 300;
+
+    //Variables para guardar info en el Buscador
+    JSONArray arrayTest;
+    List<String> msAutors = new ArrayList<>();
+    List<String> msObres = new ArrayList<>();
+    List<String> msID = new ArrayList<>();
+    List<String> lmTodo = new ArrayList<>();
 
        @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +49,7 @@ public class MainActivity extends BaseActivity {
         initCarousel();        
         cameraPermision();
         initCameraButton();
+        initBuscador();
         // NO BORRAR XD:
     }
 
@@ -77,7 +89,73 @@ public class MainActivity extends BaseActivity {
             openCameraIntent();
         }
     };
+    private View.OnClickListener butoBuscadorListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            final AutoCompleteTextView editText = findViewById(R.id.actv);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(), R.layout.custom_list_item, R.id.text_view_list_item, lmTodo);
+            editText.setAdapter(adapter);
+            editText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String texto = editText.getText().toString();
+                    if(msAutors.contains(texto)) {
+                        editText.setText("");
+                        Intent intent = new Intent(MainActivity.this, AuthorActivity.class);
+                        intent.putExtra("id",msID.get(lmTodo.indexOf(texto)));
+                        startActivity(intent);
+                    }
+                    else {
+                        editText.setText("");
+                        Intent intent = new Intent(MainActivity.this, PieceActivity.class);
+                        intent.putExtra("id",msID.get(lmTodo.indexOf(texto)));
+                        startActivity(intent);
+                    }
+                }
+            });
+        }
+    };
 
+    private void initBuscador(){
+        AutoCompleteTextView buscador = (AutoCompleteTextView) findViewById(R.id.actv);
+        buscador.setOnClickListener(butoBuscadorListener);
+        buscador.setText("");
+
+        getSearchBarAuthorsElements(new VolleyCallback() {
+            @Override
+            public void onSuccess(JSONArray result) {
+                arrayTest = result;
+                for (int i = 0; i < arrayTest.length(); i++) {
+                    try {
+                        JSONObject jsonObject = arrayTest.getJSONObject(i);
+                        String names = jsonObject.getString("nombre");
+                        String id = jsonObject.getString("id");
+                        msAutors.add(names);
+                        msID.add(id);
+                        lmTodo.add(names);
+                    } catch (JSONException e) {
+                    }
+                }
+            }
+        });
+        getSearchBarPieceElements(new VolleyCallback() {
+            @Override
+            public void onSuccess(JSONArray result) {
+                arrayTest = result;
+                for (int i = 0; i < arrayTest.length(); i++) {
+                    try {
+                        JSONObject jsonObject = arrayTest.getJSONObject(i);
+                        String name = jsonObject.getString("nombre");
+                        String id = jsonObject.getString("id");
+                        msObres.add(name);
+                        msID.add(id);
+                        lmTodo.add(name);
+                    } catch (JSONException e) {
+                    }
+                }
+            }
+        });
+    }
 
     private void initCarousel(){
         initCarousel((GridView) findViewById(R.id.museum_carousel),"museo");

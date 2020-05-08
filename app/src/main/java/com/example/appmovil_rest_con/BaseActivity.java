@@ -46,6 +46,48 @@ public abstract class BaseActivity extends AppCompatActivity {
         void onSuccess(JSONObject result);
     }
 
+    public interface VolleyCallback{
+        void onSuccess(JSONArray result);
+    }
+    ////////////////////Consulta para el Buscador//////////////////////////////////
+
+    public void getSearchBarAuthorsElements( final VolleyCallback callback){
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = "http://35.168.222.69:8080/webservice-restcon/autor";
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                callback.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("REQUEST_JSON_TO_SERVER", "Error: " + error);
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
+    }
+
+    public void getSearchBarPieceElements( final VolleyCallback callback){
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = "http://35.168.222.69:8080/webservice-restcon/obra";
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                callback.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("REQUEST_JSON_TO_SERVER", "Error: " + error);
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
+    }
+    ///////////////////////////////////////////////////////////////////////
+
     public void getJSONResource(String resource, final ArrayCallback callback){
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String url = "http://35.168.222.69:8080/webservice-restcon/" + resource;
