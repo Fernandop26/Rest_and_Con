@@ -23,12 +23,11 @@ import kernel.Museum;
 import kernel.Piece;
 
 public class AuthorActivity extends BaseActivity {
-    Author author;
-    String id;
-    TextView authorName,authorBiography;
-    ImageView authorImg;
-    Piece piece;
-    ArrayList<Piece> pieces = new ArrayList<Piece>();
+    private String id;
+    private TextView authorName,authorBiography;
+    private ImageView authorImg;
+    private Piece piece;
+    private ArrayList<Piece> pieces = new ArrayList<Piece>();
     private GridView imagenesObra;
     private GridAdapter adapter;
 
@@ -40,11 +39,20 @@ public class AuthorActivity extends BaseActivity {
 
         id = getIntent().getStringExtra("id");
 
+        intiViewsLayout();
+        initGrid();
+    }
+
+
+
+    private void intiViewsLayout() {
         authorName = (TextView) findViewById(R.id.author_name);
         authorBiography = (TextView) findViewById(R.id.author_biography);
         authorImg = (ImageView) findViewById(R.id.author_img);
         imagenesObra = (GridView) this.findViewById(R.id.llista_obras );
+    }
 
+    private void initGrid() {
         getJSONResource("autor", id, new ObjectCallback() {
             @Override
             public void onSuccess(JSONObject result) {
@@ -77,6 +85,10 @@ public class AuthorActivity extends BaseActivity {
             }
         });
 
+        intiClickGridItem();
+    }
+
+    private void intiClickGridItem() {
         imagenesObra.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -86,7 +98,6 @@ public class AuthorActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-
     }
 
 }

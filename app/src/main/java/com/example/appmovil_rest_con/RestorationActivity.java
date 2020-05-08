@@ -27,12 +27,21 @@ public class RestorationActivity extends BaseActivity {
 
         id = getIntent().getStringExtra("id");
 
+        intiViewsLayout();
+        initRestorationInfo();
+    }
+
+
+    private void intiViewsLayout() {
         name = (TextView) findViewById(R.id.restoration_name);
         piece_autor = (TextView) findViewById(R.id.restoration_autor);
         restoration_img = (ImageView) findViewById(R.id.restoration_img);
         restauration_date = (TextView) findViewById(R.id.restauration_date);
         map_r = (TextView) findViewById(R.id.map_r);
 
+    }
+
+    private void initRestorationInfo() {
         getJSONResource("restauracion", id, new ObjectCallback() {
             @Override
             public void onSuccess(JSONObject result) {
@@ -55,9 +64,12 @@ public class RestorationActivity extends BaseActivity {
             }
         });
 
+        initLinks();
 
+    }
 
-         piece_autor.setOnClickListener(new View.OnClickListener(){
+    private void initLinks() {
+        piece_autor.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent intent = new Intent(RestorationActivity.this, AuthorActivity.class);
                 intent.putExtra("id",id_autor);
@@ -74,6 +86,7 @@ public class RestorationActivity extends BaseActivity {
 
             }
         });
-
     }
+
+
 }

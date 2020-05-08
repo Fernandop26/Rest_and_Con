@@ -33,7 +33,6 @@
         <activity android:name=".PieceActivity" />
         <activity android:name=".GroupActivity" />
         <activity android:name=".AuthorActivity" />
-        <activity android:name=".CameraActivity" />
         <activity android:name=".ClassifyActivity" />
         <activity android:name=".BaseActivity" />
         <activity

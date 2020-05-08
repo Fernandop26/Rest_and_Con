@@ -43,6 +43,14 @@ public class PieceActivity extends BaseActivity {
 
         id = getIntent().getStringExtra("id");
 
+        intiViewsLayout();
+        initObraInfo();
+        initGrid();
+
+    }
+
+
+    private void intiViewsLayout() {
         piece_name = (TextView) findViewById(R.id.piece_name);
         piece_autor = (TextView) findViewById(R.id.piece_autor);
         piece_date = (TextView) findViewById(R.id.piece_date);
@@ -51,11 +59,13 @@ public class PieceActivity extends BaseActivity {
         piece_museum = (TextView) findViewById(R.id.piece_museum);
         piece_img = (ImageView) findViewById(R.id.piece_img);
         imagenesRestauraciones= (GridView) findViewById(R.id.llista_rest);
+    }
 
+
+    private void initObraInfo() {
         getJSONResource("obra", id, new ObjectCallback() {
             @Override
             public void onSuccess(JSONObject result) {
-
                 try {
                     JSONObject piece = result;
                     piece_name.setText(piece.getString("nombre"));
@@ -80,7 +90,22 @@ public class PieceActivity extends BaseActivity {
             }
         });
 
+        initLinks();
+    }
 
+
+    private void initLinks() {
+        piece_autor.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(PieceActivity.this, AuthorActivity.class);
+                intent.putExtra("id",id_autor);
+                startActivity(intent);
+            }
+        });
+    }
+
+
+    private void initGrid() {
         getJSONResource("restauracion", new BaseActivity.ArrayCallback() {
             @Override
             public void onSuccess(JSONArray result) {
@@ -94,12 +119,12 @@ public class PieceActivity extends BaseActivity {
 
 
                         JSONObject obra_rest = rest.getJSONObject("obra");
-                         if (obra_rest.getString("id").equals(id)) {
-                             String path = rest.getString("path_imagen");
-                             Integer id_1 = Integer.parseInt(rest.getString("id"));
-                             obj = new Piece(id_1,rest.getString("id"), path);
-                             array_restauraciones.add(obj);
-                         }
+                        if (obra_rest.getString("id").equals(id)) {
+                            String path = rest.getString("path_imagen");
+                            Integer id_1 = Integer.parseInt(rest.getString("id"));
+                            obj = new Piece(id_1,rest.getString("id"), path);
+                            array_restauraciones.add(obj);
+                        }
                     } catch (JSONException e) {
                     }
                 }
@@ -108,7 +133,11 @@ public class PieceActivity extends BaseActivity {
             }
         });
 
+        intiClickGridItem();
 
+    }
+
+    private void intiClickGridItem() {
         imagenesRestauraciones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -119,17 +148,7 @@ public class PieceActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-
-
-        piece_autor.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-
-                Intent intent = new Intent(PieceActivity.this, AuthorActivity.class);
-                intent.putExtra("id",id_autor);
-                startActivity(intent);
-
-            }
-        });
-
     }
+
+
 }

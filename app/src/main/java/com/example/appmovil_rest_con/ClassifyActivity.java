@@ -136,18 +136,25 @@ public class ClassifyActivity extends AppCompatActivity {
 
 
         // get image from previous activity to show in the imageView
-        Uri uri = (Uri)getIntent().getParcelableExtra("resID_uri");
-        try {
-            Bitmap org = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-            Bitmap bitmap = getResizedBitmap(org, DIM_IMG_SIZE_X, DIM_IMG_SIZE_Y);
-            convertBitmapToByteBuffer(bitmap);
-            tflite.run(imgData, labelProbArray);
-            goToPiece(org);
+        Uri uri;
+        if ((uri = getIntent().getParcelableExtra("resID_uri")) != null) {
+            // do something with task
+            try {
+                Bitmap org = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                Bitmap bitmap = getResizedBitmap(org, DIM_IMG_SIZE_X, DIM_IMG_SIZE_Y);
+                convertBitmapToByteBuffer(bitmap);
+                tflite.run(imgData, labelProbArray);
+                goToPiece(org);
 
 
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } else{
+            Intent i = new Intent(ClassifyActivity.this, MainActivity.class);
+            startActivity(i);
         }
 
 

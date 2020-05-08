@@ -24,16 +24,11 @@ public class GroupActivity extends BaseActivity  {
 
     private GridView imagenesObra;
     private GridAdapter adapter;
-
-    TextView groupName;
-    ImageView groupImage;
-    TextView groupDescription;
-    String id,agrupacion;
-
-    //////////////////////////////// array  TEST  de pieces ////////////////////////////////////
-    Piece piece1;
-    ArrayList<Piece> pieces = new ArrayList<Piece>();
-
+    private TextView groupName;
+    private ImageView groupImage;
+    private TextView groupDescription;
+    private String id,agrupacion;
+    private ArrayList<Piece> pieces = new ArrayList<Piece>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,26 +36,43 @@ public class GroupActivity extends BaseActivity  {
         setContentView(R.layout.layout_group);
         getSupportActionBar().hide();
 
-        groupName = (TextView) findViewById(R.id.group_name);
-        groupDescription = (TextView) findViewById(R.id.group_description);
-        groupImage = (ImageView) findViewById(R.id.group_image);
+        //RECOGEMOS ID DEL INTENT
+        id = getIntent().getStringExtra("id");
+        agrupacion = getIntent().getStringExtra("agrupacion");
+
+        intiViewsLayout();
+        initGrid();
 
         //CÁMARA
         FloatingActionButton camara = findViewById(R.id.floatingCamera);
         camara.setOnClickListener(butoCamaraListener);
 
-        //RECOGEMOS ID DEL INTENT
-        id = getIntent().getStringExtra("id");  // IMPORTANTE: pasar id id, actualmente: null
-        agrupacion = getIntent().getStringExtra("agrupacion");  // IMPORTANTE: pasar id id, actualmente: null
 
+    }
+
+
+    private View.OnClickListener butoCamaraListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //Intent intent = new Intent(GroupActivity.this, CameraActivity.class);
+            //startActivity(intent);
+            openCameraIntent();
+        }
+    };
+
+
+    private void intiViewsLayout() {
         imagenesObra = (GridView) this.findViewById(R.id.llista_obras );
+        groupName = (TextView) findViewById(R.id.group_name);
+        groupDescription = (TextView) findViewById(R.id.group_description);
+        groupImage = (ImageView) findViewById(R.id.group_image);
+    }
 
+    private void initGrid() {
 
-        //TEMA JSON
         getJSONResource(agrupacion, id, new ObjectCallback() {
             @Override
             public void onSuccess(JSONObject result) {
-
                 try {
                     JSONObject group = result;
                     groupName.setText(group.getString("nombre"));
@@ -74,8 +86,7 @@ public class GroupActivity extends BaseActivity  {
                             String path = jsonObject.getString("path_imagen");
                             String name = jsonObject.getString("nombre");
                             Integer id_1 = Integer.parseInt(jsonObject.getString("id"));
-                            piece1 = new Piece(id_1,name, path);
-                            pieces.add(piece1);
+                            pieces.add(new Piece(id_1,name, path));
                         } catch (JSONException e) {
                         }
                     }
@@ -86,25 +97,20 @@ public class GroupActivity extends BaseActivity  {
             }
         });
 
+        intiClickGridItem();
+
+    }
+
+    private void intiClickGridItem() {
         imagenesObra.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Piece piece = (Piece) adapterView.getItemAtPosition(i);
-                String id_piece = piece.getId().toString();
                 Intent intent = new Intent(GroupActivity.this, PieceActivity.class);
-                intent.putExtra("id",id_piece);
-                intent.putExtra("nombre",piece.getName());
-
+                intent.putExtra("id",piece.getId().toString());
                 startActivity(intent);
             }
         });
     }
-    private View.OnClickListener butoCamaraListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //Intent intent = new Intent(GroupActivity.this, CameraActivity.class);
-            //startActivity(intent);
-            openCameraIntent();
-        }
-    };
+
 }
