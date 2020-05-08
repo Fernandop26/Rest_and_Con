@@ -28,18 +28,17 @@ import java.util.List;
 import kernel.Piece;
 
 public class MainActivity extends BaseActivity {
-
-    //PERMISOS CÁMARA
+    // Camera
      public static final int REQUEST_PERMISSION = 300;
 
-    //Variables para guardar info en el Buscador
+    // Search toolbar variables
     JSONArray arrayTest;
     List<String> msAutors = new ArrayList<>();
     List<String> msObres = new ArrayList<>();
     List<String> msID = new ArrayList<>();
     List<String> lmTodo = new ArrayList<>();
 
-       @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_main);
@@ -58,7 +57,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void cameraPermision() {
-        //PERMISOS CÁMARA. Por ahora los dejamos solo en la primera pantalla.
+        // Only in this activity.
         // request permission to use the camera on the user's phone
         if (ActivityCompat.checkSelfPermission(this.getApplicationContext(), android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[] {android.Manifest.permission.CAMERA}, REQUEST_PERMISSION);
@@ -77,10 +76,9 @@ public class MainActivity extends BaseActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     REQUEST_PERMISSION);
         }
-
     }
     
-
+    // Camera button
     private View.OnClickListener butoCamaraListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -88,6 +86,7 @@ public class MainActivity extends BaseActivity {
         }
     };
 
+    // Search toolbar button
     private View.OnClickListener butoBuscadorListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -115,6 +114,7 @@ public class MainActivity extends BaseActivity {
         }
     };
 
+    // Init search toolbar
     private void initBuscador(){
         AutoCompleteTextView buscador = (AutoCompleteTextView) findViewById(R.id.actv);
         buscador.setOnClickListener(butoBuscadorListener);
@@ -156,6 +156,7 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    // Carousel
     private void initCarousel(){
         initCarousel((GridView) findViewById(R.id.museum_carousel),"museo");
         initCarousel((GridView) findViewById(R.id.technique_carousel),"tecnica");
@@ -163,7 +164,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initCarousel(final GridView layout_carousel, final String agrupacion ){
-
         final ArrayList<Piece> arr_img = new ArrayList<Piece>();
         arr_img.add(new Piece(0,"_", "query"));
         getJSONResource(agrupacion, new BaseActivity.ArrayCallback() {
@@ -187,7 +187,6 @@ public class MainActivity extends BaseActivity {
         });
 
         onClickItemCarousel(layout_carousel,agrupacion);
-
     }
 
     private void onClickItemCarousel(final GridView layout_carousel, final String agrupacion) {
@@ -203,5 +202,4 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
-
 }

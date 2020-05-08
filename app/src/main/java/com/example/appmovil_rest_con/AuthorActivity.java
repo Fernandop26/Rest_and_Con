@@ -47,7 +47,7 @@ public class AuthorActivity extends BaseActivity {
         initCameraButton();
     }
 
-    //Camera
+    // Camera
     private void initCameraButton() {
 
         FloatingActionButton camara = (FloatingActionButton) findViewById(R.id.floatingCamera);
@@ -70,6 +70,7 @@ public class AuthorActivity extends BaseActivity {
         mySortButtonDate = findViewById(R.id.sortButtonDate);
     }
 
+    // Sort
     private void initClickSort() {
         mySortButtonAlph.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -88,6 +89,8 @@ public class AuthorActivity extends BaseActivity {
         });
 
     }
+
+    // Grid
     private void initGrid() {
         getJSONResource("autor", id, result -> {
 
@@ -119,7 +122,7 @@ public class AuthorActivity extends BaseActivity {
 
         intiClickGridItem();
     }
-
+    // Grid
     private void intiClickGridItem() {
         imagenesObra.setOnItemClickListener((adapterView, view, i, l) -> {
             Piece piece = (Piece) adapterView.getItemAtPosition(i);
@@ -129,6 +132,7 @@ public class AuthorActivity extends BaseActivity {
         });
     }
 
+    // Sort
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void sortData(SORT_TYPE sort_type) {
         current_sort= sort(current_sort,sort_type,pieces);
@@ -140,7 +144,5 @@ public class AuthorActivity extends BaseActivity {
         adapter.setShowTheName();
         imagenesObra.setAdapter(adapter);
     }
-
-
 }
 

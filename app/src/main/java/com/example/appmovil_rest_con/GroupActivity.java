@@ -20,13 +20,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import kernel.Piece;
 
-public class GroupActivity<ComparatorChain> extends BaseActivity  {
-
+public class GroupActivity extends BaseActivity  {
 
     private GridView imagenesObra;
     private GridAdapter adapter;
@@ -45,7 +42,6 @@ public class GroupActivity<ComparatorChain> extends BaseActivity  {
         setContentView(R.layout.layout_group);
         getSupportActionBar().hide();
 
-        //RECOGEMOS ID DEL INTENT
         id = getIntent().getStringExtra("id");
         agrupacion = getIntent().getStringExtra("agrupacion");
 
@@ -53,14 +49,12 @@ public class GroupActivity<ComparatorChain> extends BaseActivity  {
         initClickSort();
         initGrid();
 
-        //CÁMARA
+        // Camera
         FloatingActionButton camara = findViewById(R.id.floatingCamera);
         camara.setOnClickListener(butoCamaraListener);
-
-
     }
 
-
+    // Camera button
     private View.OnClickListener butoCamaraListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -69,7 +63,6 @@ public class GroupActivity<ComparatorChain> extends BaseActivity  {
             openCameraIntent();
         }
     };
-
 
     private void intiViewsLayout() {
         imagenesObra = (GridView) this.findViewById(R.id.llista_obras );
@@ -99,6 +92,7 @@ public class GroupActivity<ComparatorChain> extends BaseActivity  {
 
     }
 
+    // Grid
     private void initGrid() {
 
         getJSONResource(agrupacion, id, new ObjectCallback() {
@@ -145,6 +139,7 @@ public class GroupActivity<ComparatorChain> extends BaseActivity  {
         });
     }
 
+    // Sort
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void sortData(SORT_TYPE sort_type) {
         current_sort= sort(current_sort,sort_type,pieces);

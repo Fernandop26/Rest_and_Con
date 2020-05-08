@@ -31,7 +31,7 @@ public class RestorationActivity extends BaseActivity {
         initCameraButton();
     }
 
-    //Camera
+    // Camera
     private void initCameraButton() {
 
         FloatingActionButton camara = (FloatingActionButton) findViewById(R.id.floatingCamera);
@@ -100,6 +100,4 @@ public class RestorationActivity extends BaseActivity {
             }
         });
     }
-
-
 }

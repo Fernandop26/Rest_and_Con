@@ -90,7 +90,7 @@ public class ClassifyActivity extends AppCompatActivity {
         intValues = new int[DIM_IMG_SIZE_X * DIM_IMG_SIZE_Y];
 
         super.onCreate(savedInstanceState);
-
+        getSupportActionBar().hide();
 
         //initilize graph and labels
         try{
@@ -257,9 +257,10 @@ public class ClassifyActivity extends AppCompatActivity {
             Confidence1.setText(String.valueOf(confidence));
             selected_image.setImageBitmap(bitmap);
             selected_image.setRotation(selected_image.getRotation());
+            //seguir a partir de aquí...
+            Intent i = new Intent(this, MainActivity.class);
+            startActivity(i);
         }
-
-
     }
 
 

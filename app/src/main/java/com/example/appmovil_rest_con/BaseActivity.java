@@ -48,8 +48,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     public interface VolleyCallback{
         void onSuccess(JSONArray result);
     }
-    ////////////////////Consulta para el Buscador//////////////////////////////////
 
+    // Authors search toolbar
     public void getSearchBarAuthorsElements( final VolleyCallback callback){
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String url = "http://35.168.222.69:8080/webservice-restcon/autor";
@@ -68,6 +68,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         requestQueue.add(jsonArrayRequest);
     }
 
+    // Piece search toolbar
     public void getSearchBarPieceElements( final VolleyCallback callback){
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String url = "http://35.168.222.69:8080/webservice-restcon/obra";
@@ -85,8 +86,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         });
         requestQueue.add(jsonArrayRequest);
     }
-    ///////////////////////////////////////////////////////////////////////
 
+    // JSON Resource
     public void getJSONResource(String resource, final ArrayCallback callback){
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String url = "http://35.168.222.69:8080/webservice-restcon/" + resource;
@@ -105,7 +106,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         requestQueue.add(jsonArrayRequest);
     }
 
-
+    // JSON Resource by id
     public void getJSONResource(String resource, String id, final ObjectCallback callback){
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String url = "http://35.168.222.69:8080/webservice-restcon/" + resource + "ById?id=" + id;
@@ -129,13 +130,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         );
         requestQueue.add(jsonObjectRequest);
     }
-    //----------------------------------------------- CÁMARA --------------------------------------------------------
+
+    // Camera
     // for permission requests
     public static final int REQUEST_PERMISSION = 300;
-
     // request code for permission requests to the os for image
     public static final int REQUEST_IMAGE = 100;
-
     // will hold uri of image obtained from camera
     private Uri imageUri;
 
@@ -154,7 +154,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         startActivityForResult(intent, REQUEST_IMAGE);
     }
 
-
     // checks that the user has allowed all the required permission of read and write and camera. If not, notify the user and close the application
     @Override
     public void onRequestPermissionsResult(final int requestCode, @NonNull final String[] permissions, @NonNull final int[] grantResults) {
@@ -167,7 +166,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    //CAMARA
+    // Camera
     // dictates what to do after the user takes an image, selects and image, or crops an image
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
@@ -180,9 +179,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             startActivity(i);
         }
     }
-    //----------------------------------------------- FIN CÁMARA --------------------------------------------------------
 
-
+    // Date management
     public String transformDateToString(String valS){
         long val=Long.parseLong(valS);
         SimpleDateFormat df2 = new SimpleDateFormat("yyyy");
@@ -200,7 +198,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-
+    // Sort
     @RequiresApi(api = Build.VERSION_CODES.N)
     protected SORT_TYPE sort(SORT_TYPE current_sort,SORT_TYPE sort_type, ArrayList<Piece> pieces) {
         if(sort_type != current_sort) {
@@ -214,6 +212,4 @@ public abstract class BaseActivity extends AppCompatActivity {
         else Collections.reverse(pieces);
         return current_sort;
     }
-
-
 }

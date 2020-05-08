@@ -1,28 +1,26 @@
 package com.example.appmovil_rest_con;
+import androidx.annotation.RequiresApi;
 
-        import androidx.annotation.RequiresApi;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-        import android.content.Intent;
-        import android.os.Build;
-        import android.os.Bundle;
-        import android.view.View;
-        import android.widget.AdapterView;
-        import android.widget.Button;
-        import android.widget.GridView;
-        import android.widget.ImageView;
-        import android.widget.TextView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.Picasso;
 
-        import com.google.android.material.floatingactionbutton.FloatingActionButton;
-        import com.squareup.picasso.Picasso;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-        import org.json.JSONArray;
-        import org.json.JSONException;
-        import org.json.JSONObject;
+import java.util.ArrayList;
 
-
-        import java.util.ArrayList;
-
-        import kernel.Piece;
+import kernel.Piece;
 
 public class PieceActivity extends BaseActivity {
     private String id,id_autor;
@@ -175,6 +173,7 @@ public class PieceActivity extends BaseActivity {
         });
     }
 
+    // Sort
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void sortData(SORT_TYPE sort_type) {
         current_sort= sort(current_sort,sort_type,array_restauraciones);
@@ -187,5 +186,4 @@ public class PieceActivity extends BaseActivity {
         imagenesRestauraciones.setAdapter(adapter);
 
     }
-
 }
