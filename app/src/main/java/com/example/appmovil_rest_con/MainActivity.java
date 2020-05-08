@@ -89,6 +89,7 @@ public class MainActivity extends BaseActivity {
             openCameraIntent();
         }
     };
+
     private View.OnClickListener butoBuscadorListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
