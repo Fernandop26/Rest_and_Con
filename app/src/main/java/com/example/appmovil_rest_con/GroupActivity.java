@@ -25,7 +25,7 @@ import kernel.Piece;
 
 public class GroupActivity extends BaseActivity  {
 
-    private GridView imagenesObra;
+    private ExpandableHeightGridView imagenesObra;
     private GridAdapter adapter;
     private TextView groupName;
     private ImageView groupImage;
@@ -35,6 +35,7 @@ public class GroupActivity extends BaseActivity  {
     private Button mySortButtonAlph;
     private Button mySortButtonDate;
     private SORT_TYPE current_sort;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,8 @@ public class GroupActivity extends BaseActivity  {
     };
 
     private void intiViewsLayout() {
-        imagenesObra = (GridView) this.findViewById(R.id.llista_obras );
+        imagenesObra = (ExpandableHeightGridView) this.findViewById(R.id.llista_obras );
+        imagenesObra.setExpanded(true);
         groupName = (TextView) findViewById(R.id.group_name);
         groupDescription = (TextView) findViewById(R.id.group_description);
         groupImage = (ImageView) findViewById(R.id.group_image);
@@ -150,6 +152,7 @@ public class GroupActivity extends BaseActivity  {
         adapter = new GridAdapter(GroupActivity.this, pieces);
         adapter.setShowTheName();
         imagenesObra.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
 }

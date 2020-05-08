@@ -43,10 +43,12 @@
     </LinearLayout>
 
     <ScrollView
-        android:layout_width="411dp"
-        android:layout_height="684dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         tools:ignore="MissingConstraints"
-        app:layout_constraintTop_toBottomOf="@+id/layout_scroll">
+        app:layout_constraintTop_toBottomOf="@+id/layout_scroll"
+        android:fillViewport="true"
+        >
 
 
         <RelativeLayout
@@ -123,7 +125,27 @@
                 android:background="@android:color/black"
                 android:layout_below="@+id/obratext"/>
 
-            <GridView
+
+
+
+            <com.example.appmovil_rest_con.ExpandableHeightGridView
+                    android:id="@+id/llista_obras"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:horizontalSpacing="10dp"
+                    android:isScrollContainer="false"
+                    android:numColumns="auto_fit"
+                    android:layout_below="@+id/obratext"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="10dp"
+                    tools:listitem="@android:layout/simple_list_item_2"
+                />
+
+            <!--<GridView
                 android:id="@+id/llista_obras"
                 android:nestedScrollingEnabled="true"
                 android:layout_width="match_parent"
@@ -132,7 +154,7 @@
                 android:layout_marginTop="10dp"
                 android:numColumns="auto_fit"
                 tools:listitem="@android:layout/simple_list_item_2">
-            </GridView>
+            </GridView>-->
         </RelativeLayout>
     </ScrollView>
 
