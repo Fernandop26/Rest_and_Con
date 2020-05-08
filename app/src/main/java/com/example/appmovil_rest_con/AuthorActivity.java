@@ -1,18 +1,17 @@
 package com.example.appmovil_rest_con;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -21,8 +20,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import kernel.Author;
-import kernel.Museum;
 import kernel.Piece;
 
 public class AuthorActivity extends BaseActivity {
@@ -47,9 +44,22 @@ public class AuthorActivity extends BaseActivity {
         intiViewsLayout();
         initClickSort();
         initGrid();
+        initCameraButton();
     }
 
+    //Camera
+    private void initCameraButton() {
 
+        FloatingActionButton camara = (FloatingActionButton) findViewById(R.id.floatingCamera);
+        camara.setOnClickListener(butoCamaraListener);
+    }
+
+    private View.OnClickListener butoCamaraListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            openCameraIntent();
+        }
+    };
 
     private void intiViewsLayout() {
         authorName = (TextView) findViewById(R.id.author_name);

@@ -56,10 +56,12 @@
                 android:layout_height="1dp"
                 android:background="@android:color/black"
                 android:layout_below="@+id/obratext"/>
+
             <GridView
                 android:id="@+id/llista_obras"
+                android:nestedScrollingEnabled="true"
                 android:layout_width="match_parent"
-                android:layout_height="900dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/obratext"
                 android:layout_marginTop="10dp"
                 android:numColumns="auto_fit"

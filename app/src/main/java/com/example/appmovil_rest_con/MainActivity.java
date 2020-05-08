@@ -9,7 +9,6 @@ import android.content.pm.PackageManager;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -50,7 +49,6 @@ public class MainActivity extends BaseActivity {
         cameraPermision();
         initCameraButton();
         initBuscador();
-        // NO BORRAR XD:
     }
 
     private void initCameraButton() {

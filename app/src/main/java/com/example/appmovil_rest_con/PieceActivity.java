@@ -1,7 +1,6 @@
 package com.example.appmovil_rest_con;
 
         import androidx.annotation.RequiresApi;
-        import androidx.appcompat.app.AppCompatActivity;
 
         import android.content.Intent;
         import android.os.Build;
@@ -13,16 +12,15 @@ package com.example.appmovil_rest_con;
         import android.widget.ImageView;
         import android.widget.TextView;
 
+        import com.google.android.material.floatingactionbutton.FloatingActionButton;
         import com.squareup.picasso.Picasso;
 
         import org.json.JSONArray;
         import org.json.JSONException;
         import org.json.JSONObject;
 
-        import java.text.SimpleDateFormat;
+
         import java.util.ArrayList;
-        import java.util.Date;
-        import java.util.ResourceBundle;
 
         import kernel.Piece;
 
@@ -105,9 +103,24 @@ public class PieceActivity extends BaseActivity {
         });
 
         initLinks();
+        initCameraButton();
     }
 
+    //Camera
+    private void initCameraButton() {
 
+        FloatingActionButton camara = (FloatingActionButton) findViewById(R.id.floatingCamera);
+        camara.setOnClickListener(butoCamaraListener);
+    }
+
+    private View.OnClickListener butoCamaraListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            openCameraIntent();
+        }
+    };
+
+    // Redirections
     private void initLinks() {
         piece_autor.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -118,7 +131,7 @@ public class PieceActivity extends BaseActivity {
         });
     }
 
-
+    // Grid
     private void initGrid() {
         getJSONResource("restauracion", new BaseActivity.ArrayCallback() {
             @Override
