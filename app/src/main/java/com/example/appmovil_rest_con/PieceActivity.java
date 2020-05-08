@@ -73,7 +73,7 @@ public class PieceActivity extends BaseActivity {
                     piece_autor.setText(autor.getString("nombre"));
                     id_autor=autor.getString("id");
 
-                    piece_date.setText(transformDate(piece.getString("fecha")));
+                    piece_date.setText(transformDateToString(piece.getString("fecha")));
 
                     JSONObject tecnica = piece.getJSONObject("tecnica");
                     piece_technique.setText(tecnica.getString("nombre"));

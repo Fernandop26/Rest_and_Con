@@ -28,6 +28,10 @@ android {
         noCompress "tflite"
         noCompress "lite"
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 
 }
 

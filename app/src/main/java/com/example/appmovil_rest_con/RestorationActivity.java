@@ -56,7 +56,7 @@ public class RestorationActivity extends BaseActivity {
                     id_autor= (obra_autor.getString("id"));
 
                     Picasso.get().load(rest.getString("path_imagen")).into(restoration_img);
-                    restauration_date.setText(transformDate(rest.getString("fecha")));
+                    restauration_date.setText(transformDateToString(rest.getString("fecha")));
                     map_r.setText(rest.getString("mapa_alteraciones"));
 
                 } catch (JSONException e) {

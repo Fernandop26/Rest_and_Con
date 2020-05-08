@@ -53,35 +53,32 @@ public class AuthorActivity extends BaseActivity {
     }
 
     private void initGrid() {
-        getJSONResource("autor", id, new ObjectCallback() {
-            @Override
-            public void onSuccess(JSONObject result) {
+        getJSONResource("autor", id, result -> {
 
-                try {
-                    JSONObject autor = result;
-                    authorName.setText(autor.getString("nombre"));
-                    authorBiography.setText(autor.getString("biografia"));
-                    Picasso.get().load(autor.getString("path_imagen")).into(authorImg);
+            try {
+                JSONObject autor = result;
+                authorName.setText(autor.getString("nombre"));
+                authorBiography.setText(autor.getString("biografia"));
+                Picasso.get().load(autor.getString("path_imagen")).into(authorImg);
 
 
-                    JSONArray obras = autor.getJSONArray("obras");
-                    for (int i = 0; i < obras.length(); i++) {
-                        try {
-                            JSONObject jsonObject = obras.getJSONObject(i);
-                            String path = jsonObject.getString("path_imagen");
-                            String name = jsonObject.getString("nombre");
-                            Integer id_1 = Integer.parseInt(jsonObject.getString("id"));
-                            piece = new Piece(id_1,name, path);
-                            pieces.add(piece);
-                        } catch (JSONException e) {
-                        }
+                JSONArray obras = autor.getJSONArray("obras");
+                for (int i = 0; i < obras.length(); i++) {
+                    try {
+                        JSONObject jsonObject = obras.getJSONObject(i);
+                        String path = jsonObject.getString("path_imagen");
+                        String name = jsonObject.getString("nombre");
+                        Integer id_1 = Integer.parseInt(jsonObject.getString("id"));
+                        piece = new Piece(id_1,name, path);
+                        pieces.add(piece);
+                    } catch (JSONException e) {
                     }
-
-                    adapter = new GridAdapter(AuthorActivity.this, pieces);
-                    imagenesObra.setAdapter(adapter);
-
-                } catch (JSONException e) {
                 }
+
+                adapter = new GridAdapter(AuthorActivity.this, pieces);
+                imagenesObra.setAdapter(adapter);
+
+            } catch (JSONException e) {
             }
         });
 
@@ -89,14 +86,11 @@ public class AuthorActivity extends BaseActivity {
     }
 
     private void intiClickGridItem() {
-        imagenesObra.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Piece piece = (Piece) adapterView.getItemAtPosition(i);
-                Intent intent = new Intent(AuthorActivity.this, PieceActivity.class);
-                intent.putExtra("id",piece.getId().toString());
-                startActivity(intent);
-            }
+        imagenesObra.setOnItemClickListener((adapterView, view, i, l) -> {
+            Piece piece = (Piece) adapterView.getItemAtPosition(i);
+            Intent intent = new Intent(AuthorActivity.this, PieceActivity.class);
+            intent.putExtra("id",piece.getId().toString());
+            startActivity(intent);
         });
     }
 

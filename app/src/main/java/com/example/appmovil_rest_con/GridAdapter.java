@@ -19,7 +19,7 @@ public class GridAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Piece> pieces;
     private int rotation;
-
+    private boolean showTheName = false;
     public GridAdapter(Context context, ArrayList<Piece> arraylist ){
         this.context = context;
         pieces = arraylist;
@@ -47,6 +47,9 @@ public class GridAdapter extends BaseAdapter {
         return pieces.get(i).getId();
     }
 
+    public void setShowTheName(){
+        showTheName=!showTheName;
+    }
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
@@ -55,7 +58,12 @@ public class GridAdapter extends BaseAdapter {
             view= layoutInflater.inflate(R.layout.row, null);
         }
         ImageView image = (ImageView) view.findViewById(R.id.image);
-        TextView name = (TextView) view.findViewById(R.id.textView1);
+
+        if(showTheName){
+            TextView name = (TextView) view.findViewById(R.id.textView1);
+            name.setText(pieces.get(i).getName());
+        }
+
         view.setRotation(rotation);
         Picasso.get().load(pieces.get(i).getImgPath()).into(image);
         return view;

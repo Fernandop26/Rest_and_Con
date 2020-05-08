@@ -1,12 +1,16 @@
 package com.example.appmovil_rest_con;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
@@ -16,10 +20,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import kernel.Piece;
 
-public class GroupActivity extends BaseActivity  {
+public class GroupActivity<ComparatorChain> extends BaseActivity  {
 
 
     private GridView imagenesObra;
@@ -29,6 +35,9 @@ public class GroupActivity extends BaseActivity  {
     private TextView groupDescription;
     private String id,agrupacion;
     private ArrayList<Piece> pieces = new ArrayList<Piece>();
+    private Button mySortButtonAlph;
+    private Button mySortButtonDate;
+    private SORT_TYPE current_sort;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +50,7 @@ public class GroupActivity extends BaseActivity  {
         agrupacion = getIntent().getStringExtra("agrupacion");
 
         intiViewsLayout();
+        initClickSort();
         initGrid();
 
         //CÁMARA
@@ -66,6 +76,27 @@ public class GroupActivity extends BaseActivity  {
         groupName = (TextView) findViewById(R.id.group_name);
         groupDescription = (TextView) findViewById(R.id.group_description);
         groupImage = (ImageView) findViewById(R.id.group_image);
+        mySortButtonAlph=findViewById(R.id.sortButtonAlph);
+        mySortButtonDate = findViewById(R.id.sortButtonDate);
+    }
+
+    private void initClickSort() {
+        mySortButtonAlph.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View view) {
+                sortData(SORT_TYPE.ALPHA);
+            }
+        });
+
+        mySortButtonDate.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View view) {
+                sortData(SORT_TYPE.DATE);
+            }
+        });
+
     }
 
     private void initGrid() {
@@ -86,11 +117,13 @@ public class GroupActivity extends BaseActivity  {
                             String path = jsonObject.getString("path_imagen");
                             String name = jsonObject.getString("nombre");
                             Integer id_1 = Integer.parseInt(jsonObject.getString("id"));
-                            pieces.add(new Piece(id_1,name, path));
+                            String date = transformDateToString(jsonObject.getString("fecha"));
+                            pieces.add(new Piece(id_1,name+ " - "+ date, path,date));
                         } catch (JSONException e) {
                         }
                     }
                     adapter = new GridAdapter(GroupActivity.this, pieces);
+                    adapter.setShowTheName();
                     imagenesObra.setAdapter(adapter);
                 } catch (JSONException e) {
                 }
@@ -111,6 +144,14 @@ public class GroupActivity extends BaseActivity  {
                 startActivity(intent);
             }
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void sortData(SORT_TYPE sort_type) {
+        current_sort= sort(current_sort,sort_type,pieces);
+        adapter = new GridAdapter(GroupActivity.this, pieces);
+        adapter.setShowTheName();
+        imagenesObra.setAdapter(adapter);
     }
 
 }

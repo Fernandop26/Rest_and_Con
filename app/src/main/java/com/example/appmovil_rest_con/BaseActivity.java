@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -24,10 +26,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
+import kernel.Piece;
+
 public abstract class BaseActivity extends AppCompatActivity {
+    protected enum SORT_TYPE { ALPHA, DATE }
 
     public interface ArrayCallback{
         void onSuccess(JSONArray result);
@@ -133,11 +142,36 @@ public abstract class BaseActivity extends AppCompatActivity {
     //----------------------------------------------- FIN CÁMARA --------------------------------------------------------
 
 
-    public String transformDate(String valS){
+    public String transformDateToString(String valS){
         long val=Long.parseLong(valS);
-        Date date= new Date(val);
         SimpleDateFormat df2 = new SimpleDateFormat("yyyy");
         return df2.format(val);
+    }
+
+    public Date transformDate(String valS)  {
+        long val=Long.parseLong(valS);
+        SimpleDateFormat df2 = new SimpleDateFormat("yyyy");
+        try {
+            return df2.parse(String.valueOf(val));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    protected SORT_TYPE sort(SORT_TYPE current_sort,SORT_TYPE sort_type, ArrayList<Piece> pieces) {
+        if(sort_type != current_sort) {
+            if(sort_type == SORT_TYPE.ALPHA)
+                Collections.sort(pieces, Comparator.comparing(Piece::getName).thenComparing(Piece::getDateToString));
+            if(sort_type == SORT_TYPE.DATE )
+                Collections.sort(pieces, Comparator.comparing(Piece::getDateToString).thenComparing(Piece::getName));
+
+            current_sort = sort_type;
+        }
+        else Collections.reverse(pieces);
+        return current_sort;
     }
 
 
