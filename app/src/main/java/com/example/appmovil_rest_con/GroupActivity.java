@@ -122,9 +122,8 @@ public class GroupActivity<ComparatorChain> extends BaseActivity  {
                         } catch (JSONException e) {
                         }
                     }
-                    adapter = new GridAdapter(GroupActivity.this, pieces);
-                    adapter.setShowTheName();
-                    imagenesObra.setAdapter(adapter);
+                    updateGridAdapter();
+
                 } catch (JSONException e) {
                 }
             }
@@ -149,6 +148,10 @@ public class GroupActivity<ComparatorChain> extends BaseActivity  {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void sortData(SORT_TYPE sort_type) {
         current_sort= sort(current_sort,sort_type,pieces);
+        updateGridAdapter();
+    }
+
+    private void updateGridAdapter(){
         adapter = new GridAdapter(GroupActivity.this, pieces);
         adapter.setShowTheName();
         imagenesObra.setAdapter(adapter);

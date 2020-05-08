@@ -1,11 +1,14 @@
 package com.example.appmovil_rest_con;
 
+        import androidx.annotation.RequiresApi;
         import androidx.appcompat.app.AppCompatActivity;
 
         import android.content.Intent;
+        import android.os.Build;
         import android.os.Bundle;
         import android.view.View;
         import android.widget.AdapterView;
+        import android.widget.Button;
         import android.widget.GridView;
         import android.widget.ImageView;
         import android.widget.TextView;
@@ -19,21 +22,19 @@ package com.example.appmovil_rest_con;
         import java.text.SimpleDateFormat;
         import java.util.ArrayList;
         import java.util.Date;
+        import java.util.ResourceBundle;
 
         import kernel.Piece;
 
 public class PieceActivity extends BaseActivity {
-    String id;
-
+    private String id,id_autor;
     private GridView imagenesRestauraciones;
     private GridAdapter adapter;
-
-    ArrayList<Piece> array_restauraciones = new ArrayList<Piece>();
-
-    TextView piece_name,piece_autor,piece_date,piece_technique,piece_size,piece_museum;
-    ImageView piece_img;
-
-    String id_autor;
+    private ArrayList<Piece> array_restauraciones = new ArrayList<Piece>();
+    private TextView piece_name,piece_autor,piece_date,piece_technique,piece_size,piece_museum;
+    private ImageView piece_img;
+    private Button mySortButtonDate;
+    private SORT_TYPE current_sort;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class PieceActivity extends BaseActivity {
         id = getIntent().getStringExtra("id");
 
         intiViewsLayout();
+        initClickSort();
         initObraInfo();
         initGrid();
 
@@ -59,8 +61,20 @@ public class PieceActivity extends BaseActivity {
         piece_museum = (TextView) findViewById(R.id.piece_museum);
         piece_img = (ImageView) findViewById(R.id.piece_img);
         imagenesRestauraciones= (GridView) findViewById(R.id.llista_rest);
-    }
+        mySortButtonDate = findViewById(R.id.sortButtonDate);
 
+    }
+    private void initClickSort() {
+
+        mySortButtonDate.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View view) {
+                sortData(SORT_TYPE.DATE);
+            }
+        });
+
+    }
 
     private void initObraInfo() {
         getJSONResource("obra", id, new ObjectCallback() {
@@ -111,7 +125,6 @@ public class PieceActivity extends BaseActivity {
             public void onSuccess(JSONArray result) {
 
                 JSONArray restauraciones = result;
-                Piece obj;
 
                 for (int i = 0; i < restauraciones.length(); i++) {
                     try {
@@ -122,14 +135,13 @@ public class PieceActivity extends BaseActivity {
                         if (obra_rest.getString("id").equals(id)) {
                             String path = rest.getString("path_imagen");
                             Integer id_1 = Integer.parseInt(rest.getString("id"));
-                            obj = new Piece(id_1,rest.getString("id"), path);
-                            array_restauraciones.add(obj);
+                            String date = transformDateToString(rest.getString("fecha"));
+                            array_restauraciones.add(new Piece(id_1,date, path,date));
                         }
                     } catch (JSONException e) {
                     }
                 }
-                adapter = new GridAdapter(PieceActivity.this, array_restauraciones);
-                imagenesRestauraciones.setAdapter(adapter);
+                updateGridAdapter();
             }
         });
 
@@ -150,5 +162,17 @@ public class PieceActivity extends BaseActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void sortData(SORT_TYPE sort_type) {
+        current_sort= sort(current_sort,sort_type,array_restauraciones);
+        updateGridAdapter();
+    }
+
+    private void updateGridAdapter(){
+        adapter = new GridAdapter(PieceActivity.this, array_restauraciones);
+        adapter.setShowTheName();
+        imagenesRestauraciones.setAdapter(adapter);
+
+    }
 
 }

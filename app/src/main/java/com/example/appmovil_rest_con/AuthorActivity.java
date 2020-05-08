@@ -1,11 +1,14 @@
 package com.example.appmovil_rest_con;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,10 +29,12 @@ public class AuthorActivity extends BaseActivity {
     private String id;
     private TextView authorName,authorBiography;
     private ImageView authorImg;
-    private Piece piece;
     private ArrayList<Piece> pieces = new ArrayList<Piece>();
     private GridView imagenesObra;
     private GridAdapter adapter;
+    private Button mySortButtonAlph;
+    private Button mySortButtonDate;
+    private SORT_TYPE current_sort;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,7 @@ public class AuthorActivity extends BaseActivity {
         id = getIntent().getStringExtra("id");
 
         intiViewsLayout();
+        initClickSort();
         initGrid();
     }
 
@@ -50,8 +56,28 @@ public class AuthorActivity extends BaseActivity {
         authorBiography = (TextView) findViewById(R.id.author_biography);
         authorImg = (ImageView) findViewById(R.id.author_img);
         imagenesObra = (GridView) this.findViewById(R.id.llista_obras );
+        mySortButtonAlph=findViewById(R.id.sortButtonAlph);
+        mySortButtonDate = findViewById(R.id.sortButtonDate);
     }
 
+    private void initClickSort() {
+        mySortButtonAlph.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View view) {
+                sortData(SORT_TYPE.ALPHA);
+            }
+        });
+
+        mySortButtonDate.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View view) {
+                sortData(SORT_TYPE.DATE);
+            }
+        });
+
+    }
     private void initGrid() {
         getJSONResource("autor", id, result -> {
 
@@ -69,14 +95,13 @@ public class AuthorActivity extends BaseActivity {
                         String path = jsonObject.getString("path_imagen");
                         String name = jsonObject.getString("nombre");
                         Integer id_1 = Integer.parseInt(jsonObject.getString("id"));
-                        piece = new Piece(id_1,name, path);
-                        pieces.add(piece);
+                        String date = transformDateToString(jsonObject.getString("fecha"));
+                        pieces.add(new Piece(id_1,name+ " - "+ date, path,date));
                     } catch (JSONException e) {
                     }
                 }
 
-                adapter = new GridAdapter(AuthorActivity.this, pieces);
-                imagenesObra.setAdapter(adapter);
+                updateGridAdapter();
 
             } catch (JSONException e) {
             }
@@ -93,6 +118,19 @@ public class AuthorActivity extends BaseActivity {
             startActivity(intent);
         });
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void sortData(SORT_TYPE sort_type) {
+        current_sort= sort(current_sort,sort_type,pieces);
+        updateGridAdapter();
+    }
+
+    private void updateGridAdapter(){
+        adapter = new GridAdapter(AuthorActivity.this, pieces);
+        adapter.setShowTheName();
+        imagenesObra.setAdapter(adapter);
+    }
+
 
 }
 
