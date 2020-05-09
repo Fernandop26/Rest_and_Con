@@ -124,56 +124,15 @@
                 android:layout_height="1dp"
                 android:background="@android:color/black"
                 android:layout_below="@+id/obratext"/>
-
-
-
-
-            <com.example.appmovil_rest_con.ExpandableHeightGridView
-                    android:id="@+id/llista_obras"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:horizontalSpacing="10dp"
-                    android:isScrollContainer="false"
-                    android:numColumns="auto_fit"
-                    android:layout_below="@+id/obratext"
-                    android:stretchMode="columnWidth"
-                    android:verticalSpacing="10dp"
-                    tools:listitem="@android:layout/simple_list_item_2"
-                />
-
-            <!--<GridView
-                android:id="@+id/llista_obras"
-                android:nestedScrollingEnabled="true"
+            <include
+                android:layout_below="@+id/obratext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/obratext"
-                android:layout_marginTop="10dp"
-                android:numColumns="auto_fit"
-                tools:listitem="@android:layout/simple_list_item_2">
-            </GridView>-->
+                layout="@layout/grid"/>
+
         </RelativeLayout>
     </ScrollView>
-
-    <!-- BOTÓN CÁMARA -->
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingCamera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_margin="24dp"
-            android:src="@drawable/ic_photo_camera_black_24dp"
-            android:clickable="true"/>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+ <!--  CAMARA -->
+    <include layout="@layout/camerabuton"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 

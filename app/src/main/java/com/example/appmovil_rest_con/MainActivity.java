@@ -26,17 +26,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kernel.Piece;
+import kernel.Restoration;
 
 public class MainActivity extends BaseActivity {
     // Camera
      public static final int REQUEST_PERMISSION = 300;
 
-    // Search toolbar variables
-    JSONArray arrayTest;
-    List<String> msAutors = new ArrayList<>();
-    List<String> msObres = new ArrayList<>();
-    List<String> msID = new ArrayList<>();
-    List<String> lmTodo = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +42,9 @@ public class MainActivity extends BaseActivity {
         initCarousel();        
         cameraPermision();
         initCameraButton();
-        initBuscador();
+        initBuscador(MainActivity.this);
     }
 
-    private void initCameraButton() {
-
-        FloatingActionButton camara = (FloatingActionButton) findViewById(R.id.floatingCamera);
-        camara.setOnClickListener(butoCamaraListener);
-    }
 
     private void cameraPermision() {
         // Only in this activity.
@@ -78,83 +68,7 @@ public class MainActivity extends BaseActivity {
         }
     }
     
-    // Camera button
-    private View.OnClickListener butoCamaraListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            openCameraIntent();
-        }
-    };
 
-    // Search toolbar button
-    private View.OnClickListener butoBuscadorListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            final AutoCompleteTextView editText = findViewById(R.id.actv);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(), R.layout.custom_list_item, R.id.text_view_list_item, lmTodo);
-            editText.setAdapter(adapter);
-            editText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String texto = editText.getText().toString();
-                    if(msAutors.contains(texto)) {
-                        editText.setText("");
-                        Intent intent = new Intent(MainActivity.this, AuthorActivity.class);
-                        intent.putExtra("id",msID.get(lmTodo.indexOf(texto)));
-                        startActivity(intent);
-                    }
-                    else {
-                        editText.setText("");
-                        Intent intent = new Intent(MainActivity.this, PieceActivity.class);
-                        intent.putExtra("id",msID.get(lmTodo.indexOf(texto)));
-                        startActivity(intent);
-                    }
-                }
-            });
-        }
-    };
-
-    // Init search toolbar
-    private void initBuscador(){
-        AutoCompleteTextView buscador = (AutoCompleteTextView) findViewById(R.id.actv);
-        buscador.setOnClickListener(butoBuscadorListener);
-        buscador.setText("");
-
-        getSearchBarAuthorsElements(new VolleyCallback() {
-            @Override
-            public void onSuccess(JSONArray result) {
-                arrayTest = result;
-                for (int i = 0; i < arrayTest.length(); i++) {
-                    try {
-                        JSONObject jsonObject = arrayTest.getJSONObject(i);
-                        String names = jsonObject.getString("nombre");
-                        String id = jsonObject.getString("id");
-                        msAutors.add(names);
-                        msID.add(id);
-                        lmTodo.add(names);
-                    } catch (JSONException e) {
-                    }
-                }
-            }
-        });
-        getSearchBarPieceElements(new VolleyCallback() {
-            @Override
-            public void onSuccess(JSONArray result) {
-                arrayTest = result;
-                for (int i = 0; i < arrayTest.length(); i++) {
-                    try {
-                        JSONObject jsonObject = arrayTest.getJSONObject(i);
-                        String name = jsonObject.getString("nombre");
-                        String id = jsonObject.getString("id");
-                        msObres.add(name);
-                        msID.add(id);
-                        lmTodo.add(name);
-                    } catch (JSONException e) {
-                    }
-                }
-            }
-        });
-    }
 
     // Carousel
     private void initCarousel(){

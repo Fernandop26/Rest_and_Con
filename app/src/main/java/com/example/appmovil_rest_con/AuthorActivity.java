@@ -27,7 +27,7 @@ public class AuthorActivity extends BaseActivity {
     private TextView authorName,authorBiography;
     private ImageView authorImg;
     private ArrayList<Piece> pieces = new ArrayList<Piece>();
-    private GridView imagenesObra;
+    private ExpandableHeightGridView imagenesObra;
     private GridAdapter adapter;
     private Button mySortButtonAlph;
     private Button mySortButtonDate;
@@ -45,27 +45,16 @@ public class AuthorActivity extends BaseActivity {
         initClickSort();
         initGrid();
         initCameraButton();
+        //initBuscador(AuthorActivity.this);
+
     }
-
-    // Camera
-    private void initCameraButton() {
-
-        FloatingActionButton camara = (FloatingActionButton) findViewById(R.id.floatingCamera);
-        camara.setOnClickListener(butoCamaraListener);
-    }
-
-    private View.OnClickListener butoCamaraListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            openCameraIntent();
-        }
-    };
 
     private void intiViewsLayout() {
         authorName = (TextView) findViewById(R.id.author_name);
         authorBiography = (TextView) findViewById(R.id.author_biography);
         authorImg = (ImageView) findViewById(R.id.author_img);
-        imagenesObra = (GridView) this.findViewById(R.id.llista_obras );
+        imagenesObra = this.findViewById(R.id.llista_obras );
+        imagenesObra.setExpanded(true);
         mySortButtonAlph=findViewById(R.id.sortButtonAlph);
         mySortButtonDate = findViewById(R.id.sortButtonDate);
     }
@@ -143,6 +132,7 @@ public class AuthorActivity extends BaseActivity {
         adapter = new GridAdapter(AuthorActivity.this, pieces);
         adapter.setShowTheName();
         imagenesObra.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 }
 

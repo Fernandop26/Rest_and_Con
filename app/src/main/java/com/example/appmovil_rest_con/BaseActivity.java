@@ -1,5 +1,6 @@
 package com.example.appmovil_rest_con;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -8,6 +9,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,8 +26,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
@@ -31,11 +38,22 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 import kernel.Piece;
 
+
 public abstract class BaseActivity extends AppCompatActivity {
+    //Sort enum
     protected enum SORT_TYPE { ALPHA, DATE }
+
+    // Search toolbar variables
+    protected JSONArray arrayTest;
+    protected List<String> msAutors = new ArrayList<>();
+    protected List<String> msObres = new ArrayList<>();
+    protected List<String> msID = new ArrayList<>();
+    protected List<String> lmTodo = new ArrayList<>();
+    protected Activity activityS;
 
     public interface ArrayCallback{
         void onSuccess(JSONArray result);
@@ -198,6 +216,19 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+
+    // Camera button
+    protected View.OnClickListener butoCamaraListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            openCameraIntent();
+        }
+    };
+    protected void initCameraButton() {
+        FloatingActionButton camara = (FloatingActionButton) findViewById(R.id.floatingCamera);
+        camara.setOnClickListener(butoCamaraListener);
+    }
+
     // Sort
     @RequiresApi(api = Build.VERSION_CODES.N)
     protected SORT_TYPE sort(SORT_TYPE current_sort,SORT_TYPE sort_type, ArrayList<Piece> pieces) {
@@ -212,4 +243,68 @@ public abstract class BaseActivity extends AppCompatActivity {
         else Collections.reverse(pieces);
         return current_sort;
     }
+
+
+    // BUSCADOR
+
+    // Search toolbar button
+    protected View.OnClickListener butoBuscadorListener = v -> {
+        final AutoCompleteTextView editText = findViewById(R.id.actv);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(), R.layout.custom_list_item, R.id.text_view_list_item, lmTodo);
+        editText.setAdapter(adapter);
+        editText.setOnItemClickListener((parent, view, position, id) -> {
+            String texto = editText.getText().toString();
+            if(msAutors.contains(texto)) {
+                editText.setText("");
+                Intent intent = new Intent(activityS.getApplication(), AuthorActivity.class);
+                intent.putExtra("id",msID.get(lmTodo.indexOf(texto)));
+                startActivity(intent);
+            }
+            else {
+                editText.setText("");
+                Intent intent = new Intent(activityS.getApplication(), PieceActivity.class);
+                intent.putExtra("id",msID.get(lmTodo.indexOf(texto)));
+                startActivity(intent);
+            }
+        });
+    };
+
+
+    // Init search toolbar
+    protected void initBuscador(Activity activity){
+        activityS = activity;
+        AutoCompleteTextView buscador = findViewById(R.id.actv);
+        buscador.setOnClickListener(butoBuscadorListener);
+        buscador.setText("");
+
+        getSearchBarAuthorsElements(result -> {
+            arrayTest = result;
+            for (int i = 0; i < arrayTest.length(); i++) {
+                try {
+                    JSONObject jsonObject = arrayTest.getJSONObject(i);
+                    String names = jsonObject.getString("nombre");
+                    String id = jsonObject.getString("id");
+                    msAutors.add(names);
+                    msID.add(id);
+                    lmTodo.add(names);
+                } catch (JSONException e) {
+                }
+            }
+        });
+        getSearchBarPieceElements(result -> {
+            arrayTest = result;
+            for (int i = 0; i < arrayTest.length(); i++) {
+                try {
+                    JSONObject jsonObject = arrayTest.getJSONObject(i);
+                    String name = jsonObject.getString("nombre");
+                    String id = jsonObject.getString("id");
+                    msObres.add(name);
+                    msID.add(id);
+                    lmTodo.add(name);
+                } catch (JSONException e) {
+                }
+            }
+        });
+    }
+
 }

@@ -49,21 +49,12 @@ public class GroupActivity extends BaseActivity  {
         intiViewsLayout();
         initClickSort();
         initGrid();
+        initCameraButton();
+        initBuscador(GroupActivity.this);
 
-        // Camera
-        FloatingActionButton camara = findViewById(R.id.floatingCamera);
-        camara.setOnClickListener(butoCamaraListener);
     }
 
-    // Camera button
-    private View.OnClickListener butoCamaraListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //Intent intent = new Intent(GroupActivity.this, CameraActivity.class);
-            //startActivity(intent);
-            openCameraIntent();
-        }
-    };
+
 
     private void intiViewsLayout() {
         imagenesObra = (ExpandableHeightGridView) this.findViewById(R.id.llista_obras );

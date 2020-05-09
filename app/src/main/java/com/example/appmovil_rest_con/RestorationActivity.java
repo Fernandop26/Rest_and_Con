@@ -31,20 +31,6 @@ public class RestorationActivity extends BaseActivity {
         initCameraButton();
     }
 
-    // Camera
-    private void initCameraButton() {
-
-        FloatingActionButton camara = (FloatingActionButton) findViewById(R.id.floatingCamera);
-        camara.setOnClickListener(butoCamaraListener);
-    }
-
-    private View.OnClickListener butoCamaraListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            openCameraIntent();
-        }
-    };
-
     private void intiViewsLayout() {
         name = (TextView) findViewById(R.id.restoration_name);
         piece_autor = (TextView) findViewById(R.id.restoration_autor);

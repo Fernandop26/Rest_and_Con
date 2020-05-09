@@ -24,7 +24,7 @@ import kernel.Piece;
 
 public class PieceActivity extends BaseActivity {
     private String id,id_autor;
-    private GridView imagenesRestauraciones;
+    private ExpandableHeightGridView imagenesRestauraciones;
     private GridAdapter adapter;
     private ArrayList<Piece> array_restauraciones = new ArrayList<Piece>();
     private TextView piece_name,piece_autor,piece_date,piece_technique,piece_size,piece_museum;
@@ -43,7 +43,9 @@ public class PieceActivity extends BaseActivity {
         intiViewsLayout();
         initClickSort();
         initObraInfo();
+        initCameraButton();
         initGrid();
+        //initBuscador(PieceActivity.this);
 
     }
 
@@ -56,7 +58,8 @@ public class PieceActivity extends BaseActivity {
         piece_size = (TextView) findViewById(R.id.piece_size);
         piece_museum = (TextView) findViewById(R.id.piece_museum);
         piece_img = (ImageView) findViewById(R.id.piece_img);
-        imagenesRestauraciones= (GridView) findViewById(R.id.llista_rest);
+        imagenesRestauraciones= findViewById(R.id.llista_obras);
+        imagenesRestauraciones.setExpanded(true);
         mySortButtonDate = findViewById(R.id.sortButtonDate);
 
     }
@@ -103,20 +106,6 @@ public class PieceActivity extends BaseActivity {
         initLinks();
         initCameraButton();
     }
-
-    //Camera
-    private void initCameraButton() {
-
-        FloatingActionButton camara = (FloatingActionButton) findViewById(R.id.floatingCamera);
-        camara.setOnClickListener(butoCamaraListener);
-    }
-
-    private View.OnClickListener butoCamaraListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            openCameraIntent();
-        }
-    };
 
     // Redirections
     private void initLinks() {
@@ -184,6 +173,7 @@ public class PieceActivity extends BaseActivity {
         adapter = new GridAdapter(PieceActivity.this, array_restauraciones);
         adapter.setShowTheName();
         imagenesRestauraciones.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
     }
 }
