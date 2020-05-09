@@ -33,7 +33,6 @@
         <activity android:name=".PieceActivity" />
         <activity android:name=".GroupActivity" />
         <activity android:name=".AuthorActivity" />
-        <activity android:name=".ClassifyActivity" />
         <activity android:name=".BaseActivity" />
         <activity
             android:name="com.soundcloud.android.crop.CropImageActivity"

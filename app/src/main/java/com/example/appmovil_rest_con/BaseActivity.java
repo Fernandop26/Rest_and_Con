@@ -40,6 +40,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import kernel.Classificador;
 import kernel.Piece;
 
 
@@ -54,6 +55,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected List<String> msID = new ArrayList<>();
     protected List<String> lmTodo = new ArrayList<>();
     protected Activity activityS;
+
+    //CLasificador
+    private Classificador classificador;
 
     public interface ArrayCallback{
         void onSuccess(JSONArray result);
@@ -191,10 +195,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode == RESULT_OK){
-            Intent i = new Intent(this, ClassifyActivity.class);
-            // put image data in extras to send
-            i.putExtra("resID_uri", imageUri);
-            startActivity(i);
+             classificador = new Classificador(this);
+            String result = classificador.classifica(imageUri);
+            if (result.equals("-1")){
+                ///RUBIAAAAAAAAAAAAA
+                ///AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+            }else{
+                Intent intent = new Intent(this, PieceActivity.class);
+                intent.putExtra("id",result);
+                startActivity(intent);
+            }
         }
     }
 
