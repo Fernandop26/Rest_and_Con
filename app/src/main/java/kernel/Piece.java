@@ -18,6 +18,7 @@ public class Piece{
     private ArrayList<Restoration> restorations;
     private SimpleDateFormat df2 = new SimpleDateFormat("yyyy");
 
+
     public Piece(Integer id, String name, String author, Date date, String technique, String imgPath, String size, String museum, ArrayList<Restoration> restorations) {
         this.id = id;
         this.name = name;

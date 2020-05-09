@@ -6,187 +6,196 @@
     android:layout_height="match_parent"
     tools:context=".PieceActivity">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints"
-        app:layout_constraintTop_toBottomOf="@+id/layout_scroll"
-        android:fillViewport="true"
-        >
-        <RelativeLayout
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/toolbar"
+        tools:ignore="MissingConstraints">
+
+        <include layout="@layout/toolbar"/>
+    </LinearLayout>
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginHorizontal="30dp">
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            android:fillViewport="true">
 
-            <TextView
-                android:id="@+id/piece_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="23dp"
-                android:gravity="center"
-                android:text="Piece"
-                android:textSize="24sp"/>
-
-            <TextView
-                android:id="@+id/piece_autor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/piece_name"
-                android:gravity="center"
-                android:text="Author"
-                android:textSize="24sp" />
-
-            <!-- IMAGE -->
-            <ImageView
-                android:id="@+id/piece_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/piece_autor"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                app:srcCompat="@drawable/ic_launcher_foreground" />
-
-            <!-- LAYOUT DATE -->
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="2dp"
-                android:id="@+id/linear_date"
-                android:layout_below="@+id/piece_img">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:justificationMode="inter_word"
-                    android:text="Fecha: " />
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginHorizontal="30dp">
 
                 <TextView
-                    android:id="@+id/piece_date"
+                    android:id="@+id/piece_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:justificationMode="inter_word"
-                    android:text="Data preview" />
-            </LinearLayout>
-
-             <!-- LAYOUT TECHNIQUE -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="2dp"
-                android:id="@+id/linear_technique"
-                android:layout_below="@+id/linear_date">
+                    android:layout_alignParentTop="true"
+                    android:gravity="center"
+                    android:text="Piece"
+                    android:textSize="24sp"/>
 
                 <TextView
+                    android:id="@+id/piece_autor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/piece_name"
+                    android:gravity="center"
+                    android:text="Author"
+                    android:textSize="24sp" />
+
+                <!-- IMAGE -->
+                <ImageView
+                    android:id="@+id/piece_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/piece_autor"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="8dp"
-                    android:justificationMode="inter_word"
-                    android:text="Técnica: " />
+                    android:gravity="center"
+                    app:srcCompat="@drawable/ic_launcher_foreground" />
+
+                <!-- LAYOUT DATE -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp"
+                    android:id="@+id/linear_date"
+                    android:layout_below="@+id/piece_img">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:justificationMode="inter_word"
+                        android:text="Fecha: " />
+
+                    <TextView
+                        android:id="@+id/piece_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:justificationMode="inter_word"
+                        android:text="Data preview" />
+                </LinearLayout>
+
+                 <!-- LAYOUT TECHNIQUE -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp"
+                    android:id="@+id/linear_technique"
+                    android:layout_below="@+id/linear_date">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:justificationMode="inter_word"
+                        android:text="Técnica: " />
+
+                    <TextView
+                        android:id="@+id/piece_technique"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:justificationMode="inter_word"
+                        android:text="Technique preview " />
+                </LinearLayout>
+
+                <!-- LAYOUT SIZE -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp"
+                    android:id="@+id/linear_size"
+                    android:layout_below="@+id/linear_technique">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:justificationMode="inter_word"
+                        android:text="Tamaño: " />
+
+                    <TextView
+                        android:id="@+id/piece_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:justificationMode="inter_word"
+                        android:text="Size preview" />
+                </LinearLayout>
+
+                <!-- LAYOUT MUSEUM/LOCALIZACIÓN -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="2dp"
+                    android:id="@+id/linear_museum"
+                    android:layout_below="@+id/linear_size">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:justificationMode="inter_word"
+                        android:text="Localización: " />
+
+                    <TextView
+                        android:id="@+id/piece_museum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:justificationMode="inter_word"
+                        android:text="Museum preview" />
+                </LinearLayout>
+
 
                 <TextView
-                    android:id="@+id/piece_technique"
+                    android:id="@+id/piece_rest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:justificationMode="inter_word"
-                    android:text="Technique preview " />
-            </LinearLayout>
+                    android:layout_below="@+id/linear_museum"
+                    android:layout_marginTop="26dp"
+                    android:text="Restauraciones"
+                    android:textSize="30sp" />
 
-            <!-- LAYOUT SIZE -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="2dp"
-                android:id="@+id/linear_size"
-                android:layout_below="@+id/linear_technique">
-
-                <TextView
+                <Button
+                    android:id="@+id/sortButtonDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:justificationMode="inter_word"
-                    android:text="Tamaño: " />
 
-                <TextView
-                    android:id="@+id/piece_size"
-                    android:layout_width="wrap_content"
+                    android:layout_below="@id/linear_museum"
+                    android:layout_marginLeft="250dp"
+
+                    android:layout_marginTop="18dp"
+                    android:text="Fecha"
+                    android:textSize="15dp" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/black"
+                    android:layout_below="@+id/piece_rest"/>
+
+
+                <include
+                    android:layout_below="@+id/piece_rest"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:justificationMode="inter_word"
-                    android:text="Size preview" />
-            </LinearLayout>
+                    layout="@layout/grid"/>
 
-            <!-- LAYOUT MUSEUM/LOCALIZACIÓN -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="2dp"
-                android:id="@+id/linear_museum"
-                android:layout_below="@+id/linear_size">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:justificationMode="inter_word"
-                    android:text="Localización: " />
-
-                <TextView
-                    android:id="@+id/piece_museum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:justificationMode="inter_word"
-                    android:text="Museum preview" />
-            </LinearLayout>
-
-
-            <TextView
-                android:id="@+id/piece_rest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linear_museum"
-                android:layout_marginTop="26dp"
-                android:text="Restauraciones"
-                android:textSize="30sp" />
-
-            <Button
-                android:id="@+id/sortButtonDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_below="@id/linear_museum"
-                android:layout_marginLeft="250dp"
-
-                android:layout_marginTop="18dp"
-                android:text="Fecha"
-                android:textSize="15dp" />
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/black"
-                android:layout_below="@+id/piece_rest"/>
-
-
-            <include
-                android:layout_below="@+id/piece_rest"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                layout="@layout/grid"/>
-
-        </RelativeLayout>
-    </ScrollView>
+            </RelativeLayout>
+        </ScrollView>
     <!-- BOTÓN CÁMARA -->
     <include layout="@layout/camerabuton"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

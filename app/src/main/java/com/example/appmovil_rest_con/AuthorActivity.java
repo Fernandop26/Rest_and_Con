@@ -46,7 +46,7 @@ public class AuthorActivity extends BaseActivity {
         initGrid();
         initCameraButton();
         //initBuscador(AuthorActivity.this);
-
+        initHomeButton(this);
     }
 
     private void intiViewsLayout() {

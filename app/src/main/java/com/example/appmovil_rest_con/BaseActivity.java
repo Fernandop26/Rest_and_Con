@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -55,6 +56,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected List<String> msID = new ArrayList<>();
     protected List<String> lmTodo = new ArrayList<>();
     protected Activity activityS;
+    protected Activity a_activity;
 
     //CLasificador
     private Classificador classificador;
@@ -279,6 +281,18 @@ public abstract class BaseActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    };
+
+
+    // Home button
+    protected void initHomeButton(Activity activity) {
+        a_activity = activity;
+        ImageView home = findViewById(R.id.home);
+        home.setOnClickListener(butoHomeListener);
+    }
+    protected View.OnClickListener butoHomeListener = v -> {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     };
 
 

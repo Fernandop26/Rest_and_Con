@@ -46,6 +46,7 @@ public class PieceActivity extends BaseActivity {
         initCameraButton();
         initGrid();
         //initBuscador(PieceActivity.this);
+        initHomeButton(this);
 
     }
 

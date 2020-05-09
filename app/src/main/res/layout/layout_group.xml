@@ -11,20 +11,13 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/layout_scroll"
+        android:id="@+id/toolbar"
         tools:ignore="MissingConstraints">
 
 
-        <ImageView
-            android:id="@+id/arrow_back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/ic_arrow_back_black_24dp"/>
-
         <AutoCompleteTextView
             android:id="@+id/actv"
-            android:layout_width="310dp"
+            android:layout_width="335dp"
             android:layout_height="wrap_content"
             android:completionHint="Selecciona un elemento"
             android:completionThreshold="1"
@@ -46,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints"
-        app:layout_constraintTop_toBottomOf="@+id/layout_scroll"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         android:fillViewport="true"
         >
 

@@ -35,12 +35,13 @@ public class GroupActivity extends BaseActivity  {
     private Button mySortButtonAlph;
     private Button mySortButtonDate;
     private SORT_TYPE current_sort;
-
+    // TEST HOME
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_group);
+        getSupportActionBar().hide();
         getSupportActionBar().hide();
 
         id = getIntent().getStringExtra("id");
@@ -51,10 +52,19 @@ public class GroupActivity extends BaseActivity  {
         initGrid();
         initCameraButton();
         initBuscador(GroupActivity.this);
+        initHomeButton(this);
 
+        //home = findViewById(R.id.home);
+        //home.setOnClickListener(butoHomeListener);
     }
 
-
+    /*private View.OnClickListener butoHomeListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(GroupActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+    };*/
 
     private void intiViewsLayout() {
         imagenesObra = (ExpandableHeightGridView) this.findViewById(R.id.llista_obras );

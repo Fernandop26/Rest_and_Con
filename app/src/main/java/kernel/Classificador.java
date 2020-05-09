@@ -172,8 +172,6 @@ public class Classificador {
                 imgData.put((byte) ((val >> 16) & 0xFF));
                 imgData.put((byte) ((val >> 8) & 0xFF));
                 imgData.put((byte) (val & 0xFF));
-
-
             }
         }
     }

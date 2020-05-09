@@ -16,7 +16,7 @@ public class RestorationActivity extends BaseActivity {
     TextView name,piece_autor,map_r,restauration_date;
     ImageView restoration_img;
     String id,id_autor,id_obra;
-
+    ImageView home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,9 @@ public class RestorationActivity extends BaseActivity {
         intiViewsLayout();
         initRestorationInfo();
         initCameraButton();
-    }
+        initHomeButton(this);
+}
+
 
     private void intiViewsLayout() {
         name = (TextView) findViewById(R.id.restoration_name);
