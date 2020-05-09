@@ -14,7 +14,6 @@
         android:id="@+id/toolbar"
         tools:ignore="MissingConstraints">
 
-
         <AutoCompleteTextView
             android:id="@+id/actv"
             android:layout_width="335dp"
@@ -40,8 +39,7 @@
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        android:fillViewport="true"
-        >
+        android:fillViewport="true">
 
 
         <RelativeLayout
@@ -121,6 +119,8 @@
                 android:layout_below="@+id/obratext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
                 layout="@layout/grid"/>
 
         </RelativeLayout>

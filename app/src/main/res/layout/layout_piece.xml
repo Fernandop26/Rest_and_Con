@@ -6,16 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".PieceActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/toolbar"
-        tools:ignore="MissingConstraints">
-
-        <include layout="@layout/toolbar"/>
-    </LinearLayout>
+    <include
+        layout="@layout/toolbar"/>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -37,7 +29,8 @@
                     android:layout_alignParentTop="true"
                     android:gravity="center"
                     android:text="Piece"
-                    android:textSize="24sp"/>
+                    android:textSize="24sp"
+                    android:textStyle="bold|italic"/>
 
                 <TextView
                     android:id="@+id/piece_autor"
@@ -46,7 +39,9 @@
                     android:layout_below="@+id/piece_name"
                     android:gravity="center"
                     android:text="Author"
-                    android:textSize="24sp" />
+                    android:textSize="20sp"
+                    android:textStyle="italic"
+                    style="@style/colorAutor"/>
 
                 <!-- IMAGE -->
                 <ImageView
@@ -164,7 +159,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linear_museum"
-                    android:layout_marginTop="26dp"
+                    android:layout_marginTop="20dp"
                     android:text="Restauraciones"
                     android:textSize="30sp" />
 
@@ -172,10 +167,8 @@
                     android:id="@+id/sortButtonDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_below="@id/linear_museum"
                     android:layout_marginLeft="250dp"
-
                     android:layout_marginTop="18dp"
                     android:text="Fecha"
                     android:textSize="15dp" />
@@ -186,11 +179,12 @@
                     android:background="@android:color/black"
                     android:layout_below="@+id/piece_rest"/>
 
-
                 <include
                     android:layout_below="@+id/piece_rest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
                     layout="@layout/grid"/>
 
             </RelativeLayout>
