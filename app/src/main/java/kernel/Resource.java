@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Piece{
+public class Resource {
     private Integer id;
     private String name;
     private String author;
@@ -19,7 +19,7 @@ public class Piece{
     private SimpleDateFormat df2 = new SimpleDateFormat("yyyy");
 
 
-    public Piece(Integer id, String name, String author, Date date, String technique, String imgPath, String size, String museum, ArrayList<Restoration> restorations) {
+    public Resource(Integer id, String name, String author, Date date, String technique, String imgPath, String size, String museum, ArrayList<Restoration> restorations) {
         this.id = id;
         this.name = name;
         this.author = author;
@@ -31,13 +31,13 @@ public class Piece{
         this.restorations = restorations;
     }
     ///////////////////////////// CONSTRUCTOR TEST //////////////////////////
-    public Piece (Integer id, String name, String img_path){
+    public Resource(Integer id, String name, String img_path){
         this.id = id;
         this.name = name;
         this.imgPath = img_path;
     }
 
-    public Piece (Integer id, String name, String img_path,String date){
+    public Resource(Integer id, String name, String img_path, String date){
         this.id = id;
         this.name = name;
         this.imgPath = img_path;
@@ -45,7 +45,7 @@ public class Piece{
     }
 
     ////////////////////////////////////////////////////////////////////////
-    public Piece() {
+    public Resource() {
 
     }
 

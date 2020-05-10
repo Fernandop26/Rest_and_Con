@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +20,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import kernel.Piece;
+import kernel.Resource;
 
 public class GroupActivity extends BaseActivity  {
 
@@ -31,7 +30,7 @@ public class GroupActivity extends BaseActivity  {
     private ImageView groupImage;
     private TextView groupDescription;
     private String id,agrupacion;
-    private ArrayList<Piece> pieces = new ArrayList<Piece>();
+    private ArrayList<Resource> resources = new ArrayList<Resource>();
     private Button mySortButtonAlph;
     private Button mySortButtonDate;
     private SORT_TYPE current_sort;
@@ -115,7 +114,7 @@ public class GroupActivity extends BaseActivity  {
                             String name = jsonObject.getString("nombre");
                             Integer id_1 = Integer.parseInt(jsonObject.getString("id"));
                             String date = transformDateToString(jsonObject.getString("fecha"));
-                            pieces.add(new Piece(id_1,name+ " - "+ date, path,date));
+                            resources.add(new Resource(id_1,name+ " - "+ date, path,date));
                         } catch (JSONException e) {
                         }
                     }
@@ -134,9 +133,9 @@ public class GroupActivity extends BaseActivity  {
         imagenesObra.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Piece piece = (Piece) adapterView.getItemAtPosition(i);
+                Resource resource = (Resource) adapterView.getItemAtPosition(i);
                 Intent intent = new Intent(GroupActivity.this, PieceActivity.class);
-                intent.putExtra("id",piece.getId().toString());
+                intent.putExtra("id", resource.getId().toString());
                 startActivity(intent);
             }
         });
@@ -145,12 +144,12 @@ public class GroupActivity extends BaseActivity  {
     // Sort
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void sortData(SORT_TYPE sort_type) {
-        current_sort= sort(current_sort,sort_type,pieces);
+        current_sort= sort(current_sort,sort_type, resources);
         updateGridAdapter();
     }
 
     private void updateGridAdapter(){
-        adapter = new GridAdapter(GroupActivity.this, pieces);
+        adapter = new GridAdapter(GroupActivity.this, resources);
         adapter.setShowTheName();
         imagenesObra.setAdapter(adapter);
         imagenesObra.setExpanded(true);

@@ -10,7 +10,6 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
@@ -42,7 +41,7 @@ import java.util.Date;
 import java.util.List;
 
 import kernel.Classificador;
-import kernel.Piece;
+import kernel.Resource;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -245,16 +244,16 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     // Sort
     @RequiresApi(api = Build.VERSION_CODES.N)
-    protected SORT_TYPE sort(SORT_TYPE current_sort,SORT_TYPE sort_type, ArrayList<Piece> pieces) {
+    protected SORT_TYPE sort(SORT_TYPE current_sort,SORT_TYPE sort_type, ArrayList<Resource> resources) {
         if(sort_type != current_sort) {
             if(sort_type == SORT_TYPE.ALPHA)
-                Collections.sort(pieces, Comparator.comparing(Piece::getName).thenComparing(Piece::getDateToString));
+                Collections.sort(resources, Comparator.comparing(Resource::getName).thenComparing(Resource::getDateToString));
             if(sort_type == SORT_TYPE.DATE )
-                Collections.sort(pieces, Comparator.comparing(Piece::getDateToString).thenComparing(Piece::getName));
+                Collections.sort(resources, Comparator.comparing(Resource::getDateToString).thenComparing(Resource::getName));
 
             current_sort = sort_type;
         }
-        else Collections.reverse(pieces);
+        else Collections.reverse(resources);
         return current_sort;
     }
 

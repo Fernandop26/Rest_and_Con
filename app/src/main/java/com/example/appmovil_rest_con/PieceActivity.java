@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,13 +19,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import kernel.Piece;
+import kernel.Resource;
 
 public class PieceActivity extends BaseActivity {
     private String id,id_autor;
     private ExpandableHeightGridView imagenesRestauraciones;
     private GridAdapter adapter;
-    private ArrayList<Piece> array_restauraciones = new ArrayList<Piece>();
+    private ArrayList<Resource> array_restauraciones = new ArrayList<Resource>();
     private TextView piece_name,piece_autor,piece_date,piece_technique,piece_size,piece_museum;
     private ImageView piece_img;
     private Button mySortButtonDate;
@@ -137,7 +136,7 @@ public class PieceActivity extends BaseActivity {
                             String path = rest.getString("path_imagen");
                             Integer id_1 = Integer.parseInt(rest.getString("id"));
                             String date = transformDateToString(rest.getString("fecha"));
-                            array_restauraciones.add(new Piece(id_1,date, path,date));
+                            array_restauraciones.add(new Resource(id_1,date, path,date));
                         }
                     } catch (JSONException e) {
                     }
@@ -154,10 +153,10 @@ public class PieceActivity extends BaseActivity {
         imagenesRestauraciones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Piece piece = (Piece) adapterView.getItemAtPosition(i);
-                String id_piece = piece.getId().toString();
+                Resource resource = (Resource) adapterView.getItemAtPosition(i);
+                String id = resource.getId().toString();
                 Intent intent = new Intent(PieceActivity.this, RestorationActivity.class);
-                intent.putExtra("id",id_piece);
+                intent.putExtra("id",id);
                 startActivity(intent);
             }
         });

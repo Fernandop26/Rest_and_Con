@@ -11,8 +11,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.GridView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -23,10 +21,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import kernel.Piece;
-import kernel.Restoration;
+import kernel.Resource;
 
 public class MainActivity extends BaseActivity {
     // Camera
@@ -78,8 +74,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initCarousel(final GridView layout_carousel, final String agrupacion ){
-        final ArrayList<Piece> arr_img = new ArrayList<Piece>();
-        arr_img.add(new Piece(0,"_", "query"));
+        final ArrayList<Resource> arr_img = new ArrayList<Resource>();
+        arr_img.add(new Resource(0,"_", "query"));
         getJSONResource(agrupacion, new BaseActivity.ArrayCallback() {
             @Override
             public void onSuccess(JSONArray result) {
@@ -92,7 +88,7 @@ public class MainActivity extends BaseActivity {
                         String path= rest.getString("path_imagen");
                         path = path.replace(".jpg","_c.jpg");
                         Integer id_1 = Integer.parseInt(rest.getString("id"));
-                        arr_img.add(new Piece(id_1,nombre, path));
+                        arr_img.add(new Resource(id_1,nombre, path));
                     } catch (JSONException e) {
                     }
                 }
@@ -107,10 +103,10 @@ public class MainActivity extends BaseActivity {
         layout_carousel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Piece piece = (Piece) adapterView.getItemAtPosition(i);
-                String id_piece = piece.getId().toString();
+                Resource resource = (Resource) adapterView.getItemAtPosition(i);
+                String id = resource.getId().toString();
                 Intent intent = new Intent(MainActivity.this, GroupActivity.class);
-                intent.putExtra("id", id_piece);
+                intent.putExtra("id", id);
                 intent.putExtra("agrupacion", agrupacion);
                 startActivity(intent);
             }

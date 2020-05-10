@@ -12,39 +12,39 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import kernel.Piece;
+import kernel.Resource;
 
 public class GridAdapter extends BaseAdapter {
 
     private Context context;
-    private ArrayList<Piece> pieces;
+    private ArrayList<Resource> resources;
     private int rotation;
     private boolean showTheName = false;
-    public GridAdapter(Context context, ArrayList<Piece> arraylist ){
+    public GridAdapter(Context context, ArrayList<Resource> arraylist ){
         this.context = context;
-        pieces = arraylist;
+        resources = arraylist;
         this.rotation=0;
 
     }
-    public GridAdapter(Context context, ArrayList<Piece> arraylist,int rotation ){
+    public GridAdapter(Context context, ArrayList<Resource> arraylist, int rotation ){
         this.context = context;
-        pieces = arraylist;
+        resources = arraylist;
         this.rotation=rotation;
 
     }
     @Override
     public int getCount() {
-        return pieces.size();
+        return resources.size();
     }
 
     @Override
-    public Piece getItem(int i) {
-        return pieces.get(i);
+    public Resource getItem(int i) {
+        return resources.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return pieces.get(i).getId();
+        return resources.get(i).getId();
     }
 
     public void setShowTheName(){
@@ -61,11 +61,11 @@ public class GridAdapter extends BaseAdapter {
 
         if(showTheName){
             TextView name = (TextView) view.findViewById(R.id.textView1);
-            name.setText(pieces.get(i).getName());
+            name.setText(resources.get(i).getName());
         }
 
         view.setRotation(rotation);
-        Picasso.get().load(pieces.get(i).getImgPath()).into(image);
+        Picasso.get().load(resources.get(i).getImgPath()).into(image);
         return view;
     }
 }

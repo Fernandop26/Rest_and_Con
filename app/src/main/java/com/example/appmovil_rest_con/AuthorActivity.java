@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,13 +19,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import kernel.Piece;
+import kernel.Resource;
 
 public class AuthorActivity extends BaseActivity {
     private String id;
     private TextView authorName,authorBiography;
     private ImageView authorImg;
-    private ArrayList<Piece> pieces = new ArrayList<Piece>();
+    private ArrayList<Resource> resources = new ArrayList<Resource>();
     private ExpandableHeightGridView imagenesObra;
     private GridAdapter adapter;
     private Button mySortButtonAlph;
@@ -98,7 +97,7 @@ public class AuthorActivity extends BaseActivity {
                         String name = jsonObject.getString("nombre");
                         Integer id_1 = Integer.parseInt(jsonObject.getString("id"));
                         String date = transformDateToString(jsonObject.getString("fecha"));
-                        pieces.add(new Piece(id_1,name+ " - "+ date, path,date));
+                        resources.add(new Resource(id_1,name+ " - "+ date, path,date));
                     } catch (JSONException e) {
                     }
                 }
@@ -114,9 +113,9 @@ public class AuthorActivity extends BaseActivity {
     // Grid
     private void intiClickGridItem() {
         imagenesObra.setOnItemClickListener((adapterView, view, i, l) -> {
-            Piece piece = (Piece) adapterView.getItemAtPosition(i);
+            Resource resource = (Resource) adapterView.getItemAtPosition(i);
             Intent intent = new Intent(AuthorActivity.this, PieceActivity.class);
-            intent.putExtra("id",piece.getId().toString());
+            intent.putExtra("id", resource.getId().toString());
             startActivity(intent);
         });
     }
@@ -124,12 +123,12 @@ public class AuthorActivity extends BaseActivity {
     // Sort
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void sortData(SORT_TYPE sort_type) {
-        current_sort= sort(current_sort,sort_type,pieces);
+        current_sort= sort(current_sort,sort_type, resources);
         updateGridAdapter();
     }
 
     private void updateGridAdapter(){
-        adapter = new GridAdapter(AuthorActivity.this, pieces);
+        adapter = new GridAdapter(AuthorActivity.this, resources);
         adapter.setShowTheName();
         imagenesObra.setAdapter(adapter);
         adapter.notifyDataSetChanged();
