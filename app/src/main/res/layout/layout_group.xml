@@ -89,14 +89,16 @@
                     android:id="@+id/sortButtonAlph"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:background="@android:color/white"
+                    android:textSize="10dp"
                     android:text="Alfabetico" />
 
                 <Button
                     android:id="@+id/sortButtonDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:background="@android:color/white"
+                    android:textSize="10dp"
                     android:gravity="center"
                     android:text="Fecha" />
             </LinearLayout>

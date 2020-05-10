@@ -153,6 +153,7 @@ public class GroupActivity extends BaseActivity  {
         adapter = new GridAdapter(GroupActivity.this, pieces);
         adapter.setShowTheName();
         imagenesObra.setAdapter(adapter);
+        imagenesObra.setExpanded(true);
         adapter.notifyDataSetChanged();
     }
 

@@ -153,25 +153,31 @@
                         android:text="Museum preview" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/button_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="end"
+                    android:layout_below="@+id/linear_museum">
+
+                    <Button
+                        android:id="@+id/sortButtonDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha"
+                        android:textSize="15dp"
+                        android:gravity="center"/>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/piece_rest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linear_museum"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="-40dp"
                     android:text="Restauraciones"
-                    android:textSize="30sp" />
-
-                <Button
-                    android:id="@+id/sortButtonDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/linear_museum"
-                    android:layout_marginLeft="250dp"
-                    android:layout_marginTop="18dp"
-                    android:text="Fecha"
-                    android:textSize="15dp" />
+                    android:textSize="30sp"
+                    android:layout_below="@+id/button_layout"/>
 
                 <View
                     android:layout_width="fill_parent"
