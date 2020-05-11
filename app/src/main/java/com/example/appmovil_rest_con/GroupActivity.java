@@ -33,8 +33,6 @@ public class GroupActivity extends BaseActivity  {
     private ArrayList<Resource> resources = new ArrayList<Resource>();
     private Button mySortButtonAlph;
     private Button mySortButtonDate;
-    private SORT_TYPE current_sort;
-    // TEST HOME
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,17 +50,7 @@ public class GroupActivity extends BaseActivity  {
         initBuscador(GroupActivity.this);
         initHomeButton(this);
 
-        //home = findViewById(R.id.home);
-        //home.setOnClickListener(butoHomeListener);
     }
-
-    /*private View.OnClickListener butoHomeListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(GroupActivity.this, MainActivity.class);
-            startActivity(intent);
-        }
-    };*/
 
     private void intiViewsLayout() {
         imagenesObra = (ExpandableHeightGridView) this.findViewById(R.id.llista_obras );
@@ -79,7 +67,7 @@ public class GroupActivity extends BaseActivity  {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                sortData(SORT_TYPE.ALPHA);
+                sortData(SORT_TYPE.ALPHA,resources);
             }
         });
 
@@ -87,7 +75,7 @@ public class GroupActivity extends BaseActivity  {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                sortData(SORT_TYPE.DATE);
+                sortData(SORT_TYPE.DATE,resources);
             }
         });
 
@@ -113,7 +101,7 @@ public class GroupActivity extends BaseActivity  {
                             String name = jsonObject.getString("nombre");
                             Integer id_1 = Integer.parseInt(jsonObject.getString("id"));
                             String date = transformDateToString(jsonObject.getString("fecha"));
-                            resources.add(new Resource(id_1,name+ " - "+ date, path,date));
+                            resources.add(new Resource(id_1,name, path,date));
                         } catch (JSONException e) {
                         }
                     }
@@ -140,14 +128,8 @@ public class GroupActivity extends BaseActivity  {
         });
     }
 
-    // Sort
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private void sortData(SORT_TYPE sort_type) {
-        current_sort= sort(current_sort,sort_type, resources);
-        updateGridAdapter();
-    }
 
-    private void updateGridAdapter(){
+    protected void updateGridAdapter(){
         adapter = new GridAdapter(GroupActivity.this, resources);
         adapter.setShowTheName();
         imagenesObra.setAdapter(adapter);
