@@ -18,17 +18,11 @@
         android:layout_height="170dp"
         android:src="@mipmap/ic_launcher"
         android:id="@+id/image"
-        android:layout_gravity="center"
-
-
-        />
+        android:layout_gravity="center"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView1"/>
-
-
-
 
 </LinearLayout>
