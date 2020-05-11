@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -49,7 +52,9 @@ import kernel.Resource;
 public abstract class BaseActivity extends AppCompatActivity {
     //Sort enum
     protected enum SORT_TYPE { ALPHA, DATE }
+    protected enum ORDER_TYPE { ASC, DESC }
     private SORT_TYPE current_sort;
+    private ORDER_TYPE current_order;
 
     // Search toolbar variables
     protected JSONArray arrayTest;
@@ -243,19 +248,53 @@ public abstract class BaseActivity extends AppCompatActivity {
         camara.setOnClickListener(butoCamaraListener);
     }
 
+    protected void setInnerImageButton (Button btn, ORDER_TYPE current_order ) {
+
+        Drawable image ;
+
+        if ( current_order == ORDER_TYPE.ASC ) {
+            image = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_arrow_upward_black_24dp, null);
+        } else {
+            image = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_arrow_downward_black_24dp, null);
+        }
+        int h = image.getIntrinsicHeight();
+        int w = image.getIntrinsicWidth();
+        image.setBounds( 0, 0, w, h );
+
+        btn.setCompoundDrawables(null, null, image , null);
+    }
+
     // Sort
     @RequiresApi(api = Build.VERSION_CODES.N)
-    protected void sortData(SORT_TYPE sort_type, ArrayList<Resource> resources) {
+    protected void sortData(SORT_TYPE sort_type, ArrayList<Resource> resources, Button btn ) {
         if(sort_type != current_sort) {
-            if(sort_type == SORT_TYPE.ALPHA)
+
+            current_order = ORDER_TYPE.ASC ;
+
+            if(sort_type == SORT_TYPE.ALPHA){
                 Collections.sort(resources, Comparator.comparing(Resource::getName).thenComparing(Resource::getDateToString));
-            if(sort_type == SORT_TYPE.DATE )
+
+                setInnerImageButton (btn, current_order) ;
+            }
+            if(sort_type == SORT_TYPE.DATE ){
                 Collections.sort(resources, Comparator.comparing(Resource::getDateToString).thenComparing(Resource::getName));
 
-            current_sort = sort_type;
-        }
-        else Collections.reverse(resources);
+                setInnerImageButton (btn, current_order) ;
+            }
 
+            current_sort = sort_type;
+        } else {
+            Collections.reverse(resources);
+
+            if ( current_order == ORDER_TYPE.ASC){
+                current_order = ORDER_TYPE.DESC ;
+                setInnerImageButton (btn, current_order) ;
+            } else {
+                current_order = ORDER_TYPE.ASC ;
+                setInnerImageButton (btn, current_order) ;
+            }
+
+        }
         updateGridAdapter();
 
     }

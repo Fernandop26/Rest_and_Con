@@ -66,7 +66,17 @@ public class PieceActivity extends BaseActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void initClickSort() {
 
-        mySortButtonDate.setOnClickListener(view -> sortData(SORT_TYPE.DATE,array_restauraciones));
+        //mySortButtonDate.setOnClickListener(view -> sortData(SORT_TYPE.DATE,array_restauraciones));
+
+        mySortButtonDate.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View view) {
+                sortData(SORT_TYPE.DATE, array_restauraciones, mySortButtonDate);
+
+                mySortButtonDate.setBackgroundColor(0xFF58B4DA);
+            }
+        });
 
     }
 

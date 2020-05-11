@@ -68,7 +68,10 @@ public class GroupActivity extends BaseActivity  {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                sortData(SORT_TYPE.ALPHA,resources);
+                sortData(SORT_TYPE.ALPHA,resources, mySortButtonAlph);
+
+                mySortButtonAlph.setBackgroundColor(0xFF58B4DA);
+                mySortButtonDate.setBackgroundColor(0xffA4CDDE);
             }
         });
 
@@ -76,7 +79,10 @@ public class GroupActivity extends BaseActivity  {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                sortData(SORT_TYPE.DATE,resources);
+                sortData(SORT_TYPE.DATE,resources, mySortButtonDate);
+
+                mySortButtonAlph.setBackgroundColor(0xffA4CDDE);
+                mySortButtonDate.setBackgroundColor(0xFF58B4DA);
             }
         });
 

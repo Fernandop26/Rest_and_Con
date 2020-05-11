@@ -60,11 +60,34 @@ public class AuthorActivity extends BaseActivity {
     // Sort
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void initClickSort() {
-        mySortButtonAlph.setOnClickListener(view -> sortData(SORT_TYPE.ALPHA,resources));
+        //mySortButtonAlph.setOnClickListener(view -> sortData(SORT_TYPE.ALPHA,resources));
 
-        mySortButtonDate.setOnClickListener(view -> sortData(SORT_TYPE.DATE,resources));
+        //mySortButtonDate.setOnClickListener(view -> sortData(SORT_TYPE.DATE,resources));
 
+        mySortButtonAlph.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View view) {
+                sortData(SORT_TYPE.ALPHA, resources, mySortButtonAlph);
+
+                mySortButtonAlph.setBackgroundColor(0xFFA4CDDE);
+                mySortButtonDate.setBackgroundColor(0xFF58B4DA);
+            }
+        });
+
+        mySortButtonDate.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View view) {
+                sortData(SORT_TYPE.DATE, resources, mySortButtonDate);
+
+                mySortButtonAlph.setBackgroundColor(0xffA4CDDE);
+                mySortButtonDate.setBackgroundColor(0xFF58B4DA);
+            }
+        });
     }
+
+
 
     // Grid
     private void initGrid() {

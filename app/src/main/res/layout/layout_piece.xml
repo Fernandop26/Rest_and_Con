@@ -165,9 +165,11 @@
                         android:id="@+id/sortButtonDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="#A4CDDE"
+                        android:drawableRight="@drawable/ic_access_time_black_24dp"
+                        android:gravity="center"
                         android:text="Fecha"
-                        android:textSize="10dp"
-                        android:gravity="center"/>
+                        android:textSize="10dp" />
                 </LinearLayout>
 
                 <TextView
