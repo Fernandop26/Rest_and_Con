@@ -36,7 +36,6 @@ android {
 }
 
 
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -49,7 +48,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.android.material:material:1.1.0'
-    compile 'com.soundcloud.android:android-crop:1.0.1@aar'
-    compile 'org.tensorflow:tensorflow-lite:+'
+    implementation 'com.soundcloud.android:android-crop:1.0.1@aar'
+    implementation 'org.tensorflow:tensorflow-lite:+'
 
 }
