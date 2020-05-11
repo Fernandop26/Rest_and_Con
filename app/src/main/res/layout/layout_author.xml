@@ -75,8 +75,8 @@
                     android:layout_height="wrap_content"
                     android:background="#A4CDDE "
                     android:drawableRight="@drawable/ic_sort_by_alpha_black_24dp"
-                    android:text="Alfabetico"
-                    android:textSize="15dp"
+                    android:text="Alfabético"
+                    android:textSize="10dp"
                     android:layout_marginRight="5dp"/>
 
                 <Button
@@ -86,8 +86,8 @@
                     android:background="#A4CDDE"
                     android:drawableRight="@drawable/ic_access_time_black_24dp"
                     android:gravity="center"
-                    android:text="Fecha"
-                    android:textSize="15dp" />
+                    android:text="Cronológico"
+                    android:textSize="10dp" />
             </LinearLayout>
 
 

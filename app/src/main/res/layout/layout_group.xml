@@ -52,8 +52,7 @@
             android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginHorizontal="30dp"
-            android:layout_marginBottom="300dp"
-            >
+            android:layout_marginBottom="300dp">
 
             <ImageView
                 android:id="@+id/group_image"
@@ -99,8 +98,8 @@
                     android:background="#A4CDDE"
                     android:drawableRight="@drawable/ic_sort_by_alpha_black_24dp"
                     android:textSize="10dp"
-                    android:text="Alfabetico"
-                    android:layout_marginRight="5dp"/>
+                    android:layout_marginRight="5dp"
+                    android:text="Alfabético"/>
 
                 <Button
                     android:id="@+id/sortButtonDate"
@@ -110,7 +109,7 @@
                     android:drawableRight="@drawable/ic_access_time_black_24dp"
                     android:textSize="10dp"
                     android:gravity="center"
-                    android:text="Fecha" />
+                    android:text="Cronológico" />
             </LinearLayout>
 
             <TextView

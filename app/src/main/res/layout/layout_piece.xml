@@ -168,7 +168,7 @@
                         android:background="#A4CDDE"
                         android:drawableRight="@drawable/ic_access_time_black_24dp"
                         android:gravity="center"
-                        android:text="Fecha"
+                        android:text="Cronológico"
                         android:textSize="10dp" />
                 </LinearLayout>
 
