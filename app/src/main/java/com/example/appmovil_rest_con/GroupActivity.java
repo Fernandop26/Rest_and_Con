@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,7 +25,7 @@ import kernel.Resource;
 
 public class GroupActivity extends BaseActivity  {
 
-    private ExpandableHeightGridView imagenesObra;
+    private GridView imagenesObra;
     private GridAdapter adapter;
     private TextView groupName;
     private ImageView groupImage;
@@ -53,8 +54,8 @@ public class GroupActivity extends BaseActivity  {
     }
 
     private void intiViewsLayout() {
-        imagenesObra = (ExpandableHeightGridView) this.findViewById(R.id.llista_obras );
-        imagenesObra.setExpanded(true);
+        imagenesObra = (GridView) this.findViewById(R.id.llista_obras );
+        //imagenesObra.setExpanded(true);
         groupName = (TextView) findViewById(R.id.group_name);
         groupDescription = (TextView) findViewById(R.id.group_description);
         groupImage = (ImageView) findViewById(R.id.group_image);
@@ -102,6 +103,8 @@ public class GroupActivity extends BaseActivity  {
                             Integer id_1 = Integer.parseInt(jsonObject.getString("id"));
                             String date = transformDateToString(jsonObject.getString("fecha"));
                             resources.add(new Resource(id_1,name, path,date));
+                            resources.get(resources.size() - 1).setTextoToShow(name + " - " + date);
+
                         } catch (JSONException e) {
                         }
                     }
@@ -133,8 +136,7 @@ public class GroupActivity extends BaseActivity  {
         adapter = new GridAdapter(GroupActivity.this, resources);
         adapter.setShowTheName();
         imagenesObra.setAdapter(adapter);
-        imagenesObra.setExpanded(true);
-        adapter.notifyDataSetChanged();
+        resizeGridView(imagenesObra,resources.size());
     }
 
 }

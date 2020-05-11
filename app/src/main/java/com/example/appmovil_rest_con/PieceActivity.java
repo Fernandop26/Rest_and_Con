@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,7 +24,7 @@ import kernel.Resource;
 
 public class PieceActivity extends BaseActivity {
     private String id,id_autor;
-    private ExpandableHeightGridView imagenesRestauraciones;
+    private GridView imagenesRestauraciones;
     private GridAdapter adapter;
     private ArrayList<Resource> array_restauraciones = new ArrayList<Resource>();
     private TextView piece_name,piece_autor,piece_date,piece_technique,piece_size,piece_museum;
@@ -58,7 +59,6 @@ public class PieceActivity extends BaseActivity {
         piece_museum = (TextView) findViewById(R.id.piece_museum);
         piece_img = (ImageView) findViewById(R.id.piece_img);
         imagenesRestauraciones= findViewById(R.id.llista_obras);
-        imagenesRestauraciones.setExpanded(true);
         mySortButtonDate = findViewById(R.id.sortButtonDate);
 
     }
@@ -128,6 +128,8 @@ public class PieceActivity extends BaseActivity {
                         Integer id_1 = Integer.parseInt(rest.getString("id"));
                         String date = transformDateToString(rest.getString("fecha"));
                         array_restauraciones.add(new Resource(id_1,date, path,date));
+                        array_restauraciones.get(array_restauraciones.size() - 1).setTextoToShow(date);
+
                     }
                 } catch (JSONException e) {
                 }
@@ -153,7 +155,7 @@ public class PieceActivity extends BaseActivity {
         adapter = new GridAdapter(PieceActivity.this, array_restauraciones);
         adapter.setShowTheName();
         imagenesRestauraciones.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        resizeGridView(imagenesRestauraciones,array_restauraciones.size());
 
     }
 }

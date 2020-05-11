@@ -12,11 +12,15 @@
         android:layout_marginHorizontal="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/toolbar"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        android:orientation="horizontal"
+        >
 
 
         <include
-            layout="@layout/buscador"/>
+            layout="@layout/buscador"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
 
 
         <ImageView
@@ -28,6 +32,7 @@
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints"
@@ -39,7 +44,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginHorizontal="30dp">
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginBottom="300dp"
+            >
 
             <ImageView
                 android:id="@+id/group_image"
@@ -109,15 +116,17 @@
                 android:background="@android:color/black"
                 android:layout_below="@+id/obratext"/>
             <include
+                android:id="@+id/grid1"
                 android:layout_below="@+id/obratext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="30dp"
+                android:layout_gravity="center"
                 layout="@layout/grid"/>
 
         </RelativeLayout>
     </ScrollView>
+
+
  <!--  CAMARA -->
     <include layout="@layout/camerabuton"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

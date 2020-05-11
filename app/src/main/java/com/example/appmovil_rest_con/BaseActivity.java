@@ -10,8 +10,10 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -333,4 +335,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         });
     }
 
+
+    ///GRID
+    protected void resizeGridView(GridView gridView, int items) {
+        ViewGroup.LayoutParams params = gridView.getLayoutParams();
+        int oneRowHeight = 700;
+        int rows = (int) (items / gridView.getNumColumns());
+        params.height = oneRowHeight * rows;
+        gridView.setLayoutParams(params);
+    }
 }

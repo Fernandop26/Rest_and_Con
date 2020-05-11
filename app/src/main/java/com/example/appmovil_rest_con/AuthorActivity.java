@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,7 +27,7 @@ public class AuthorActivity extends BaseActivity {
     private TextView authorName,authorBiography;
     private ImageView authorImg;
     private ArrayList<Resource> resources = new ArrayList<Resource>();
-    private ExpandableHeightGridView imagenesObra;
+    private GridView imagenesObra;
     private GridAdapter adapter;
     private Button mySortButtonAlph;
     private Button mySortButtonDate;
@@ -52,7 +53,6 @@ public class AuthorActivity extends BaseActivity {
         authorBiography = (TextView) findViewById(R.id.author_biography);
         authorImg = (ImageView) findViewById(R.id.author_img);
         imagenesObra = this.findViewById(R.id.llista_obras );
-        imagenesObra.setExpanded(true);
         mySortButtonAlph=findViewById(R.id.sortButtonAlph);
         mySortButtonDate = findViewById(R.id.sortButtonDate);
     }
@@ -86,6 +86,8 @@ public class AuthorActivity extends BaseActivity {
                         Integer id_1 = Integer.parseInt(jsonObject.getString("id"));
                         String date = transformDateToString(jsonObject.getString("fecha"));
                         resources.add(new Resource(id_1,name, path,date));
+                        resources.get(resources.size() - 1).setTextoToShow(name + " - " + date);
+
                     } catch (JSONException e) {
                     }
                 }
@@ -113,7 +115,8 @@ public class AuthorActivity extends BaseActivity {
         adapter = new GridAdapter(AuthorActivity.this, resources);
         adapter.setShowTheName();
         imagenesObra.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        resizeGridView(imagenesObra,resources.size());
+
     }
 }
 

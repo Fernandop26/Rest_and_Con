@@ -35,7 +35,6 @@ public class Resource {
         this.id = id;
         this.name = name;
         this.imgPath = img_path;
-        this.textoToShow = name;
     }
 
     public Resource(Integer id, String name, String img_path, String date){
@@ -43,7 +42,6 @@ public class Resource {
         this.name = name;
         this.imgPath = img_path;
         this.dateString=date;
-        this.textoToShow = name + " - "+date;
     }
 
     ////////////////////////////////////////////////////////////////////////
@@ -90,6 +88,9 @@ public class Resource {
 
     public String getTextoToShow() {
         return textoToShow;
+    }
+    public void setTextoToShow(String textoToShow) {
+        this.textoToShow=textoToShow;
     }
 
 
