@@ -199,9 +199,7 @@ public abstract class BaseActivity extends AppCompatActivity {
              classificador = new Classificador(this);
             String result = classificador.classifica(imageUri);
             if (result.equals("-1")){
-                ///RUBIAAAAAAAAAAAAA
-                ///AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-                Intent intent = new Intent(this, MainActivity.class);
+                Intent intent = new Intent(this, NoClassify.class);
                 startActivity(intent);
             }else{
                 Intent intent = new Intent(this, PieceActivity.class);

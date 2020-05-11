@@ -41,7 +41,6 @@ public class GroupActivity extends BaseActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_group);
         getSupportActionBar().hide();
-        getSupportActionBar().hide();
 
         id = getIntent().getStringExtra("id");
         agrupacion = getIntent().getStringExtra("agrupacion");
