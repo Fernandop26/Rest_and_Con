@@ -17,7 +17,7 @@ public class Resource {
     private String museum;
     private ArrayList<Restoration> restorations;
     private SimpleDateFormat df2 = new SimpleDateFormat("yyyy");
-
+    private String textoToShow;
 
     public Resource(Integer id, String name, String author, Date date, String technique, String imgPath, String size, String museum, ArrayList<Restoration> restorations) {
         this.id = id;
@@ -35,6 +35,7 @@ public class Resource {
         this.id = id;
         this.name = name;
         this.imgPath = img_path;
+        this.textoToShow = name;
     }
 
     public Resource(Integer id, String name, String img_path, String date){
@@ -42,6 +43,7 @@ public class Resource {
         this.name = name;
         this.imgPath = img_path;
         this.dateString=date;
+        this.textoToShow = name + " - "+date;
     }
 
     ////////////////////////////////////////////////////////////////////////
@@ -85,6 +87,11 @@ public class Resource {
     public ArrayList<Restoration> getRestorations() {
         return restorations;
     }
+
+    public String getTextoToShow() {
+        return textoToShow;
+    }
+
 
  /*    @Override
   public int compareTo(Object o) {

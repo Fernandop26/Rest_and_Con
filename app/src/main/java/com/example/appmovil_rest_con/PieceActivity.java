@@ -29,8 +29,8 @@ public class PieceActivity extends BaseActivity {
     private TextView piece_name,piece_autor,piece_date,piece_technique,piece_size,piece_museum;
     private ImageView piece_img;
     private Button mySortButtonDate;
-    private SORT_TYPE current_sort;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +44,6 @@ public class PieceActivity extends BaseActivity {
         initObraInfo();
         initCameraButton();
         initGrid();
-        //initBuscador(PieceActivity.this);
         initHomeButton(this);
 
     }
@@ -63,15 +62,11 @@ public class PieceActivity extends BaseActivity {
         mySortButtonDate = findViewById(R.id.sortButtonDate);
 
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void initClickSort() {
 
-        mySortButtonDate.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void onClick(View view) {
-                sortData(SORT_TYPE.DATE);
-            }
-        });
+        mySortButtonDate.setOnClickListener(view -> sortData(SORT_TYPE.DATE,array_restauraciones));
 
     }
 
@@ -109,40 +104,35 @@ public class PieceActivity extends BaseActivity {
 
     // Redirections
     private void initLinks() {
-        piece_autor.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent intent = new Intent(PieceActivity.this, AuthorActivity.class);
-                intent.putExtra("id",id_autor);
-                startActivity(intent);
-            }
+        piece_autor.setOnClickListener(v -> {
+            Intent intent = new Intent(PieceActivity.this, AuthorActivity.class);
+            intent.putExtra("id",id_autor);
+            startActivity(intent);
         });
     }
 
     // Grid
     private void initGrid() {
-        getJSONResource("restauracion", new BaseActivity.ArrayCallback() {
-            @Override
-            public void onSuccess(JSONArray result) {
+        getJSONResource("restauracion", result -> {
 
-                JSONArray restauraciones = result;
+            JSONArray restauraciones = result;
 
-                for (int i = 0; i < restauraciones.length(); i++) {
-                    try {
-                        JSONObject rest = restauraciones.getJSONObject(i);
+            for (int i = 0; i < restauraciones.length(); i++) {
+                try {
+                    JSONObject rest = restauraciones.getJSONObject(i);
 
 
-                        JSONObject obra_rest = rest.getJSONObject("obra");
-                        if (obra_rest.getString("id").equals(id)) {
-                            String path = rest.getString("path_imagen");
-                            Integer id_1 = Integer.parseInt(rest.getString("id"));
-                            String date = transformDateToString(rest.getString("fecha"));
-                            array_restauraciones.add(new Resource(id_1,date, path,date));
-                        }
-                    } catch (JSONException e) {
+                    JSONObject obra_rest = rest.getJSONObject("obra");
+                    if (obra_rest.getString("id").equals(id)) {
+                        String path = rest.getString("path_imagen");
+                        Integer id_1 = Integer.parseInt(rest.getString("id"));
+                        String date = transformDateToString(rest.getString("fecha"));
+                        array_restauraciones.add(new Resource(id_1,date, path,date));
                     }
+                } catch (JSONException e) {
                 }
-                updateGridAdapter();
             }
+            updateGridAdapter();
         });
 
         intiClickGridItem();
@@ -150,26 +140,16 @@ public class PieceActivity extends BaseActivity {
     }
 
     private void intiClickGridItem() {
-        imagenesRestauraciones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Resource resource = (Resource) adapterView.getItemAtPosition(i);
-                String id = resource.getId().toString();
-                Intent intent = new Intent(PieceActivity.this, RestorationActivity.class);
-                intent.putExtra("id",id);
-                startActivity(intent);
-            }
+        imagenesRestauraciones.setOnItemClickListener((adapterView, view, i, l) -> {
+            Resource resource = (Resource) adapterView.getItemAtPosition(i);
+            String id = resource.getId().toString();
+            Intent intent = new Intent(PieceActivity.this, RestorationActivity.class);
+            intent.putExtra("id",id);
+            startActivity(intent);
         });
     }
 
-    // Sort
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private void sortData(SORT_TYPE sort_type) {
-        current_sort= sort(current_sort,sort_type,array_restauraciones);
-        updateGridAdapter();
-    }
-
-    private void updateGridAdapter(){
+    protected void updateGridAdapter(){
         adapter = new GridAdapter(PieceActivity.this, array_restauraciones);
         adapter.setShowTheName();
         imagenesRestauraciones.setAdapter(adapter);

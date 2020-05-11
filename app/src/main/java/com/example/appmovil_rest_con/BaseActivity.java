@@ -47,6 +47,7 @@ import kernel.Resource;
 public abstract class BaseActivity extends AppCompatActivity {
     //Sort enum
     protected enum SORT_TYPE { ALPHA, DATE }
+    private SORT_TYPE current_sort;
 
     // Search toolbar variables
     protected JSONArray arrayTest;
@@ -242,7 +243,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     // Sort
     @RequiresApi(api = Build.VERSION_CODES.N)
-    protected SORT_TYPE sort(SORT_TYPE current_sort,SORT_TYPE sort_type, ArrayList<Resource> resources) {
+    protected void sortData(SORT_TYPE sort_type, ArrayList<Resource> resources) {
         if(sort_type != current_sort) {
             if(sort_type == SORT_TYPE.ALPHA)
                 Collections.sort(resources, Comparator.comparing(Resource::getName).thenComparing(Resource::getDateToString));
@@ -252,12 +253,14 @@ public abstract class BaseActivity extends AppCompatActivity {
             current_sort = sort_type;
         }
         else Collections.reverse(resources);
-        return current_sort;
+
+        updateGridAdapter();
+
     }
+    protected void updateGridAdapter(){}
 
 
     // BUSCADOR
-
     // Search toolbar button
     protected View.OnClickListener butoBuscadorListener = v -> {
         final AutoCompleteTextView editText = findViewById(R.id.actv);

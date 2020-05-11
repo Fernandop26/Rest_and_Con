@@ -61,7 +61,7 @@ public class GridAdapter extends BaseAdapter {
 
         if(showTheName){
             TextView name = (TextView) view.findViewById(R.id.textView1);
-            name.setText(resources.get(i).getName());
+            name.setText(resources.get(i).getTextoToShow());
         }
 
         view.setRotation(rotation);

@@ -30,8 +30,8 @@ public class AuthorActivity extends BaseActivity {
     private GridAdapter adapter;
     private Button mySortButtonAlph;
     private Button mySortButtonDate;
-    private SORT_TYPE current_sort;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +44,6 @@ public class AuthorActivity extends BaseActivity {
         initClickSort();
         initGrid();
         initCameraButton();
-        //initBuscador(AuthorActivity.this);
         initHomeButton(this);
     }
 
@@ -59,22 +58,11 @@ public class AuthorActivity extends BaseActivity {
     }
 
     // Sort
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void initClickSort() {
-        mySortButtonAlph.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void onClick(View view) {
-                sortData(SORT_TYPE.ALPHA);
-            }
-        });
+        mySortButtonAlph.setOnClickListener(view -> sortData(SORT_TYPE.ALPHA,resources));
 
-        mySortButtonDate.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void onClick(View view) {
-                sortData(SORT_TYPE.DATE);
-            }
-        });
+        mySortButtonDate.setOnClickListener(view -> sortData(SORT_TYPE.DATE,resources));
 
     }
 
@@ -97,7 +85,7 @@ public class AuthorActivity extends BaseActivity {
                         String name = jsonObject.getString("nombre");
                         Integer id_1 = Integer.parseInt(jsonObject.getString("id"));
                         String date = transformDateToString(jsonObject.getString("fecha"));
-                        resources.add(new Resource(id_1,name+ " - "+ date, path,date));
+                        resources.add(new Resource(id_1,name, path,date));
                     } catch (JSONException e) {
                     }
                 }
@@ -120,14 +108,8 @@ public class AuthorActivity extends BaseActivity {
         });
     }
 
-    // Sort
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private void sortData(SORT_TYPE sort_type) {
-        current_sort= sort(current_sort,sort_type, resources);
-        updateGridAdapter();
-    }
 
-    private void updateGridAdapter(){
+    protected void updateGridAdapter(){
         adapter = new GridAdapter(AuthorActivity.this, resources);
         adapter.setShowTheName();
         imagenesObra.setAdapter(adapter);
