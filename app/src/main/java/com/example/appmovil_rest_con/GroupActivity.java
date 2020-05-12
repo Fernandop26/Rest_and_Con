@@ -114,6 +114,9 @@ public class GroupActivity extends BaseActivity  {
                         } catch (JSONException e) {
                         }
                     }
+                    if (resources.size()  %2 != 0){
+                        resources.add(new Resource(-1,"_", "query"));
+                    }
                     updateGridAdapter();
 
                 } catch (JSONException e) {
@@ -143,6 +146,8 @@ public class GroupActivity extends BaseActivity  {
         adapter.setShowTheName();
         imagenesObra.setAdapter(adapter);
         resizeGridView(imagenesObra,resources.size());
+        adapter.notifyDataSetChanged();
+
     }
 
 }

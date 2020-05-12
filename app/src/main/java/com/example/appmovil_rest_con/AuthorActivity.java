@@ -115,6 +115,10 @@ public class AuthorActivity extends BaseActivity {
                     }
                 }
 
+                if (resources.size()  %2 != 0){
+                    resources.add(new Resource(-1,"_", "query"));
+                }
+
                 updateGridAdapter();
 
             } catch (JSONException e) {

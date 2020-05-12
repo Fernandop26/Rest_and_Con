@@ -6,44 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".GroupActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/toolbar"
-        tools:ignore="MissingConstraints"
-        android:orientation="horizontal">
-
-
-
-        <AutoCompleteTextView
-            android:id="@+id/actv"
-            android:layout_width="340dp"
-            android:layout_height="wrap_content"
-            android:completionHint="Selecciona un elemento"
-            android:completionThreshold="1"
-            android:hint="Busca un Autor u Obra"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:showAsAction="ifRoom|collapseActionView" />
-
-        <ImageView
-            android:id="@+id/home"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/ic_home_black_24dp"
-            android:src="@drawable/ic_home_black_24dp"/>
-    </LinearLayout>
 
     <ScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         android:fillViewport="true">
 
 
@@ -51,12 +19,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginBottom="300dp">
+            android:layout_marginHorizontal="30dp">
+
 
             <ImageView
                 android:id="@+id/group_image"
-                android:layout_marginTop="23dp"
+                android:layout_marginTop="70dp"
                 android:layout_width="wrap_content"
                 android:layout_height="170dp"
                 android:layout_centerHorizontal="true"
@@ -137,6 +105,38 @@
         </RelativeLayout>
     </ScrollView>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/toolbar"
+        tools:ignore="MissingConstraints"
+        android:background="@android:color/white"
+        android:orientation="horizontal">
+
+
+        <AutoCompleteTextView
+            android:id="@+id/actv"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:completionHint="Selecciona un elemento"
+            android:completionThreshold="1"
+            android:hint="Busca un Autor u Obra"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showAsAction="ifRoom|collapseActionView" />
+
+        <ImageView
+            android:id="@+id/home"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ic_home_black_24dp"
+            android:src="@drawable/ic_home_black_24dp"/>
+    </LinearLayout>
 
  <!--  CAMARA -->
     <include layout="@layout/camerabuton"/>
