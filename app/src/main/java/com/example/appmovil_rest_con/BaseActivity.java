@@ -162,6 +162,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
+
     // Camera
     // for permission requests
     public static final int REQUEST_PERMISSION = 300;
