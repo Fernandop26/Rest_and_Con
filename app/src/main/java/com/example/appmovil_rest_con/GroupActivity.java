@@ -133,9 +133,11 @@ public class GroupActivity extends BaseActivity  {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Resource resource = (Resource) adapterView.getItemAtPosition(i);
-                Intent intent = new Intent(GroupActivity.this, PieceActivity.class);
-                intent.putExtra("id", resource.getId().toString());
-                startActivity(intent);
+                if(resource.getId() != -1){
+                    Intent intent = new Intent(GroupActivity.this, PieceActivity.class);
+                    intent.putExtra("id", resource.getId().toString());
+                    startActivity(intent);
+                }
             }
         });
     }

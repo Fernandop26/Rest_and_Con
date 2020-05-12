@@ -131,9 +131,11 @@ public class AuthorActivity extends BaseActivity {
     private void intiClickGridItem() {
         imagenesObra.setOnItemClickListener((adapterView, view, i, l) -> {
             Resource resource = (Resource) adapterView.getItemAtPosition(i);
-            Intent intent = new Intent(AuthorActivity.this, PieceActivity.class);
-            intent.putExtra("id", resource.getId().toString());
-            startActivity(intent);
+            if(resource.getId() != -1) {
+                Intent intent = new Intent(AuthorActivity.this, PieceActivity.class);
+                intent.putExtra("id", resource.getId().toString());
+                startActivity(intent);
+            }
         });
     }
 

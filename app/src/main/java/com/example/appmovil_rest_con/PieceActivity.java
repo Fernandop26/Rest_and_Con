@@ -159,9 +159,11 @@ public class PieceActivity extends BaseActivity {
         imagenesRestauraciones.setOnItemClickListener((adapterView, view, i, l) -> {
             Resource resource = (Resource) adapterView.getItemAtPosition(i);
             String id = resource.getId().toString();
-            Intent intent = new Intent(PieceActivity.this, RestorationActivity.class);
-            intent.putExtra("id",id);
-            startActivity(intent);
+            if(resource.getId() != -1) {
+                Intent intent = new Intent(PieceActivity.this, RestorationActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
+            }
         });
     }
 
