@@ -2,3 +2,6 @@
 .gradle/
 local.properties
 app.iml
+*.iml
+*.bin
+*.lock
