@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".AuthorActivity">
 
-    <include
-        layout="@layout/toolbar"/>
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -121,6 +120,9 @@
 
         </RelativeLayout>
     </ScrollView>
+
+    <include
+        layout="@layout/toolbar"/>
     <!-- BOTÓN CÁMARA -->
     <include layout="@layout/camerabuton"/>
 

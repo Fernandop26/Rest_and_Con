@@ -48,8 +48,8 @@ public class GroupActivity extends BaseActivity  {
         initClickSort();
         initGrid();
         initCameraButton();
-        initBuscador(GroupActivity.this);
-        initHomeButton(this);
+       // initBuscador(GroupActivity.this);
+      //  initHomeButton(this);
 
     }
 
