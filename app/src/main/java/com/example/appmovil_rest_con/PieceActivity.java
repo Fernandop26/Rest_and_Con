@@ -144,6 +144,10 @@ public class PieceActivity extends BaseActivity {
                 } catch (JSONException e) {
                 }
             }
+
+            if (array_restauraciones.size()  %2 != 0){
+                array_restauraciones.add(new Resource(-1,"_", "query"));
+            }
             updateGridAdapter();
         });
 

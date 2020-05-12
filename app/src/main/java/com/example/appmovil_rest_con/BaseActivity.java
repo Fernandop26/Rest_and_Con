@@ -268,6 +268,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     // Sort
     @RequiresApi(api = Build.VERSION_CODES.N)
     protected void sortData(SORT_TYPE sort_type, ArrayList<Resource> resources, Button btn ) {
+        Boolean add = false;
+        if (resources.get(resources.size() - 1).getId() == -1){
+            resources.remove( resources.size() - 1 );
+            add=true;
+        }
+
         if(sort_type != current_sort) {
 
             current_order = ORDER_TYPE.ASC ;
@@ -296,6 +302,9 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
 
         }
+
+        if(add){ resources.add(new Resource(-1,"_", "query"));}
+
         updateGridAdapter();
 
     }
