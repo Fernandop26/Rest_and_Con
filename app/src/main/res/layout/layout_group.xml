@@ -11,6 +11,7 @@
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         tools:ignore="MissingConstraints"
         android:fillViewport="true">
 
@@ -24,7 +25,7 @@
 
             <ImageView
                 android:id="@+id/group_image"
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="170dp"
                 android:layout_centerHorizontal="true"
@@ -57,25 +58,27 @@
                 android:layout_below="@+id/group_description"
                 android:id="@+id/button_layout"
                 android:gravity="end"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="15dp">
 
                 <Button
                     android:id="@+id/sortButtonAlph"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:background="#A4CDDE"
                     android:drawableRight="@drawable/ic_sort_by_alpha_black_24dp"
                     android:textSize="10dp"
+                    android:padding="3dp"
                     android:layout_marginRight="5dp"
                     android:text="Alfabético"/>
 
                 <Button
                     android:id="@+id/sortButtonDate"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:background="#A4CDDE"
                     android:drawableRight="@drawable/ic_access_time_black_24dp"
                     android:textSize="10dp"
+                    android:padding="3dp"
                     android:gravity="center"
                     android:text="Cronológico" />
             </LinearLayout>
@@ -109,22 +112,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/toolbar"
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp"
         tools:ignore="MissingConstraints"
-        android:background="@android:color/white"
         android:orientation="horizontal">
 
 
         <AutoCompleteTextView
             android:id="@+id/actv"
-            android:layout_width="340dp"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:completionHint="Selecciona un elemento"
             android:completionThreshold="1"
             android:hint="Busca un Autor u Obra"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:showAsAction="ifRoom|collapseActionView" />

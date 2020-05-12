@@ -62,29 +62,31 @@
                 android:id="@+id/button_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:gravity="end"
                 android:layout_below="@+id/author_biography">
 
                 <Button
                     android:id="@+id/sortButtonAlph"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:background="#A4CDDE "
                     android:drawableRight="@drawable/ic_sort_by_alpha_black_24dp"
                     android:text="Alfabético"
                     android:textSize="10dp"
+                    android:padding="3dp"
                     android:layout_marginRight="5dp"/>
 
                 <Button
                     android:id="@+id/sortButtonDate"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:background="#A4CDDE"
                     android:drawableRight="@drawable/ic_access_time_black_24dp"
                     android:gravity="center"
                     android:text="Cronológico"
-                    android:textSize="10dp" />
+                    android:textSize="10dp"
+                    android:padding="3dp"/>
             </LinearLayout>
 
 
