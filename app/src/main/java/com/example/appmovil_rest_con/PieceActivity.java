@@ -144,7 +144,7 @@ public class PieceActivity extends BaseActivity {
 
 
                     JSONObject obra_rest = rest.getJSONObject("obra");
-                    if (obra_rest.getString("id").equals(id)) {
+                    if (obra_rest.getString("id").equals(id) && !rest.getString("path_imagen").equals("") ) {
                         String path = rest.getString("path_imagen");
                         Integer id_1 = Integer.parseInt(rest.getString("id"));
                         String date = transformDateToString(rest.getString("fecha"));
