@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,8 +35,8 @@ public class AuthorActivity extends BaseActivity {
     private GridAdapter adapter;
     private Button mySortButtonAlph;
     private Button mySortButtonDate;
-    private SORT_TYPE current_sort;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,12 +74,20 @@ public class AuthorActivity extends BaseActivity {
     }
 
     // Sort
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void initClickSort() {
+        //mySortButtonAlph.setOnClickListener(view -> sortData(SORT_TYPE.ALPHA,resources));
+
+        //mySortButtonDate.setOnClickListener(view -> sortData(SORT_TYPE.DATE,resources));
+
         mySortButtonAlph.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                sortData(SORT_TYPE.ALPHA);
+                sortData(SORT_TYPE.ALPHA, resources, mySortButtonAlph);
+
+                mySortButtonAlph.setBackgroundColor(0xFFA4CDDE);
+                mySortButtonDate.setBackgroundColor(0xFF58B4DA);
             }
         });
 
@@ -86,11 +95,15 @@ public class AuthorActivity extends BaseActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                sortData(SORT_TYPE.DATE);
+                sortData(SORT_TYPE.DATE, resources, mySortButtonDate);
+
+                mySortButtonAlph.setBackgroundColor(0xffA4CDDE);
+                mySortButtonDate.setBackgroundColor(0xFF58B4DA);
             }
         });
-
     }
+
+
 
     // Grid
     private void initGrid() {
@@ -111,9 +124,15 @@ public class AuthorActivity extends BaseActivity {
                         String name = jsonObject.getString("nombre");
                         Integer id_1 = Integer.parseInt(jsonObject.getString("id"));
                         String date = transformDateToString(jsonObject.getString("fecha"));
-                        resources.add(new Resource(id_1,name+ " - "+ date, path,date));
+                        resources.add(new Resource(id_1,name, path,date));
+                        resources.get(resources.size() - 1).setTextoToShow(name + " - " + date);
+
                     } catch (JSONException e) {
                     }
+                }
+
+                if (resources.size()  %2 != 0){
+                    resources.add(new Resource(-1,"_", "query"));
                 }
 
                 updateGridAdapter();
@@ -128,24 +147,21 @@ public class AuthorActivity extends BaseActivity {
     private void intiClickGridItem() {
         imagenesObra.setOnItemClickListener((adapterView, view, i, l) -> {
             Resource resource = (Resource) adapterView.getItemAtPosition(i);
-            Intent intent = new Intent(AuthorActivity.this, PieceActivity.class);
-            intent.putExtra("id", resource.getId().toString());
-            startActivity(intent);
+            if(resource.getId() != -1) {
+                Intent intent = new Intent(AuthorActivity.this, PieceActivity.class);
+                intent.putExtra("id", resource.getId().toString());
+                startActivity(intent);
+            }
         });
     }
 
-    // Sort
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private void sortData(SORT_TYPE sort_type) {
-        current_sort= sort(current_sort,sort_type, resources);
-        updateGridAdapter();
-    }
 
-    private void updateGridAdapter(){
+    protected void updateGridAdapter(){
         adapter = new GridAdapter(AuthorActivity.this, resources);
         adapter.setShowTheName();
         imagenesObra.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        resizeGridView(imagenesObra,resources.size());
+
     }
 }
 

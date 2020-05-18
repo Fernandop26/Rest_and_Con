@@ -6,18 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!--<include layout="@layout/buscador"/>-->
 
     <ScrollView
-        android:layout_width="411dp"
-        android:layout_height="684dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         tools:ignore="MissingConstraints"
         app:layout_constraintTop_toBottomOf="@+id/layout_scroll">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="20dp"
             app:layout_constraintEnd_toEndOf="parent">
 
 
@@ -35,12 +33,16 @@
                     android:text="Museos:"
                     android:textSize="24sp"
                     android:layout_marginTop="23dp"/>
+                    android:layout_marginHorizontal="20dp"
+                    android:textSize="24sp" />
 
                 <View
                     android:id="@+id/mu_line"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_below="@+id/textmuseum"
+                    android:layout_marginHorizontal="20dp"
+
                     android:background="@android:color/black" />
 
                 <GridView
@@ -50,6 +52,7 @@
                     android:layout_below="@+id/mu_line"
                     android:layout_marginTop="-190dp"
                     android:layout_marginBottom="-200dp"
+                    android:layout_marginLeft="-10dp"
                     android:rotation="270"
                     android:rowCount="1"
                     android:scrollbars="horizontal"></GridView>
@@ -69,6 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Técnicas:"
+                    android:layout_marginHorizontal="20dp"
                     android:textSize="24sp" />
 
                 <View
@@ -76,6 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_below="@+id/texttechnique"
+                    android:layout_marginHorizontal="20dp"
                     android:background="@android:color/black" />
 
                 <GridView
@@ -85,6 +90,7 @@
                     android:layout_below="@+id/t_line"
                     android:layout_marginTop="-190dp"
                     android:layout_marginBottom="-200dp"
+                    android:layout_marginLeft="-10dp"
                     android:rotation="270"
                     android:rowCount="1"
                     android:scrollbars="horizontal"></GridView>
@@ -97,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layout_techniques"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="70dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -105,6 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Movimientos:"
+                    android:layout_marginHorizontal="20dp"
                     android:textSize="24sp" />
 
                 <View
@@ -112,6 +119,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_below="@+id/textmoviment"
+                    android:layout_marginHorizontal="20dp"
                     android:background="@android:color/black" />
 
                 <GridView
@@ -121,6 +129,7 @@
                     android:layout_below="@+id/mo_line"
                     android:layout_marginTop="-190dp"
                     android:layout_marginBottom="-200dp"
+                    android:layout_marginLeft="-10dp"
                     android:rotation="270"
                     android:rowCount="1"
                     android:scrollbars="horizontal"></GridView>
@@ -129,6 +138,5 @@
     </ScrollView>
 
     <include layout="@layout/camerabuton"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

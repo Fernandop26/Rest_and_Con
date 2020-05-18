@@ -17,7 +17,7 @@ public class Resource {
     private String museum;
     private ArrayList<Restoration> restorations;
     private SimpleDateFormat df2 = new SimpleDateFormat("yyyy");
-
+    private String textoToShow;
 
     public Resource(Integer id, String name, String author, Date date, String technique, String imgPath, String size, String museum, ArrayList<Restoration> restorations) {
         this.id = id;
@@ -85,6 +85,14 @@ public class Resource {
     public ArrayList<Restoration> getRestorations() {
         return restorations;
     }
+
+    public String getTextoToShow() {
+        return textoToShow;
+    }
+    public void setTextoToShow(String textoToShow) {
+        this.textoToShow=textoToShow;
+    }
+
 
  /*    @Override
   public int compareTo(Object o) {

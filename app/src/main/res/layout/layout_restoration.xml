@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/linear_date_r"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="15dp"
                 android:gravity="center"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 

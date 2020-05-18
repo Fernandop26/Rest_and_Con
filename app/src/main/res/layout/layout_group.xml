@@ -6,27 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".GroupActivity">
 
-    <!-- <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/toolbar"
-        tools:ignore="MissingConstraints">
-
-
-    <include layout="@layout/buscador"/>
-
-
-        <ImageView
-            android:id="@+id/home"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/ic_home_black_24dp"/>
-    </LinearLayout> -->
 
     <ScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints"
@@ -39,9 +21,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginHorizontal="30dp">
 
+
             <ImageView
                 android:id="@+id/group_image"
-                android:layout_marginTop="23dp"
+                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="170dp"
                 android:layout_centerHorizontal="true"
@@ -74,22 +57,29 @@
                 android:layout_below="@+id/group_description"
                 android:id="@+id/button_layout"
                 android:gravity="end"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="15dp">
 
                 <Button
                     android:id="@+id/sortButtonAlph"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="#A4CDDE"
+                    android:drawableRight="@drawable/ic_sort_by_alpha_black_24dp"
                     android:textSize="10dp"
-                    android:text="Alfabetico" />
+                    android:padding="3dp"
+                    android:layout_marginRight="5dp"
+                    android:text="Alfabético"/>
 
                 <Button
                     android:id="@+id/sortButtonDate"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="#A4CDDE"
+                    android:drawableRight="@drawable/ic_access_time_black_24dp"
                     android:textSize="10dp"
+                    android:padding="3dp"
                     android:gravity="center"
-                    android:text="Fecha" />
+                    android:text="Cronológico" />
             </LinearLayout>
 
             <TextView
@@ -107,15 +97,50 @@
                 android:background="@android:color/black"
                 android:layout_below="@+id/obratext"/>
             <include
+                android:id="@+id/grid1"
                 android:layout_below="@+id/obratext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="30dp"
+                android:layout_gravity="center"
                 layout="@layout/grid"/>
 
         </RelativeLayout>
     </ScrollView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/toolbar"
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp"
+        tools:ignore="MissingConstraints"
+        android:orientation="horizontal">
+
+
+        <AutoCompleteTextView
+            android:id="@+id/actv"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:completionHint="Selecciona un elemento"
+            android:completionThreshold="1"
+            android:hint="Busca un Autor u Obra"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showAsAction="ifRoom|collapseActionView" />
+
+        <ImageView
+            android:id="@+id/home"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ic_home_black_24dp"
+            android:src="@drawable/ic_home_black_24dp"/>
+    </LinearLayout>
+
  <!--  CAMARA -->
     <include layout="@layout/camerabuton"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

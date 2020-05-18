@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,7 +29,7 @@ import kernel.Resource;
 
 public class GroupActivity extends BaseActivity  {
 
-    private ExpandableHeightGridView imagenesObra;
+    private GridView imagenesObra;
     private GridAdapter adapter;
     private TextView groupName;
     private ImageView groupImage;
@@ -37,8 +38,6 @@ public class GroupActivity extends BaseActivity  {
     private ArrayList<Resource> resources = new ArrayList<Resource>();
     private Button mySortButtonAlph;
     private Button mySortButtonDate;
-    private SORT_TYPE current_sort;
-    // TEST HOME
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +55,6 @@ public class GroupActivity extends BaseActivity  {
         //initBuscador(GroupActivity.this);
         //initHomeButton(this);
 
-        //home = findViewById(R.id.home);
-        //home.setOnClickListener(butoHomeListener);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -73,17 +70,9 @@ public class GroupActivity extends BaseActivity  {
         return true;
     }
 
-    /*private View.OnClickListener butoHomeListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(GroupActivity.this, MainActivity.class);
-            startActivity(intent);
-        }
-    };*/
-
     private void intiViewsLayout() {
-        imagenesObra = (ExpandableHeightGridView) this.findViewById(R.id.llista_obras );
-        imagenesObra.setExpanded(true);
+        imagenesObra = (GridView) this.findViewById(R.id.llista_obras );
+        //imagenesObra.setExpanded(true);
         groupName = (TextView) findViewById(R.id.group_name);
         groupDescription = (TextView) findViewById(R.id.group_description);
         groupImage = (ImageView) findViewById(R.id.group_image);
@@ -96,7 +85,10 @@ public class GroupActivity extends BaseActivity  {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                sortData(SORT_TYPE.ALPHA);
+                sortData(SORT_TYPE.ALPHA,resources, mySortButtonAlph);
+
+                mySortButtonAlph.setBackgroundColor(0xFF58B4DA);
+                mySortButtonDate.setBackgroundColor(0xffA4CDDE);
             }
         });
 
@@ -104,7 +96,10 @@ public class GroupActivity extends BaseActivity  {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                sortData(SORT_TYPE.DATE);
+                sortData(SORT_TYPE.DATE,resources, mySortButtonDate);
+
+                mySortButtonAlph.setBackgroundColor(0xffA4CDDE);
+                mySortButtonDate.setBackgroundColor(0xFF58B4DA);
             }
         });
 
@@ -130,9 +125,14 @@ public class GroupActivity extends BaseActivity  {
                             String name = jsonObject.getString("nombre");
                             Integer id_1 = Integer.parseInt(jsonObject.getString("id"));
                             String date = transformDateToString(jsonObject.getString("fecha"));
-                            resources.add(new Resource(id_1,name+ " - "+ date, path,date));
+                            resources.add(new Resource(id_1,name, path,date));
+                            resources.get(resources.size() - 1).setTextoToShow(name + " - " + date);
+
                         } catch (JSONException e) {
                         }
+                    }
+                    if (resources.size()  %2 != 0){
+                        resources.add(new Resource(-1,"_", "query"));
                     }
                     updateGridAdapter();
 
@@ -150,26 +150,23 @@ public class GroupActivity extends BaseActivity  {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Resource resource = (Resource) adapterView.getItemAtPosition(i);
-                Intent intent = new Intent(GroupActivity.this, PieceActivity.class);
-                intent.putExtra("id", resource.getId().toString());
-                startActivity(intent);
+                if(resource.getId() != -1){
+                    Intent intent = new Intent(GroupActivity.this, PieceActivity.class);
+                    intent.putExtra("id", resource.getId().toString());
+                    startActivity(intent);
+                }
             }
         });
     }
 
-    // Sort
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private void sortData(SORT_TYPE sort_type) {
-        current_sort= sort(current_sort,sort_type, resources);
-        updateGridAdapter();
-    }
 
-    private void updateGridAdapter(){
+    protected void updateGridAdapter(){
         adapter = new GridAdapter(GroupActivity.this, resources);
         adapter.setShowTheName();
         imagenesObra.setAdapter(adapter);
-        imagenesObra.setExpanded(true);
+        resizeGridView(imagenesObra,resources.size());
         adapter.notifyDataSetChanged();
+
     }
 
 }

@@ -30,8 +30,8 @@ public class GridAdapter extends BaseAdapter {
         this.context = context;
         resources = arraylist;
         this.rotation=rotation;
-
     }
+
     @Override
     public int getCount() {
         return resources.size();
@@ -61,7 +61,9 @@ public class GridAdapter extends BaseAdapter {
 
         if(showTheName){
             TextView name = (TextView) view.findViewById(R.id.textView1);
-            name.setText(resources.get(i).getName());
+            name.setText(resources.get(i).getTextoToShow());
+            //ame.setText("balbalbalbalbalbalbalbalbalbalbalbalbalbalbalbalbalbal");
+
         }
 
         view.setRotation(rotation);
