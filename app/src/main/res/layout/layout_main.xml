@@ -51,7 +51,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_below="@+id/textmuseum"
-                        android:layout_marginHorizontal="0dp"
+                        android:layout_marginRight="20dp"
 
                         android:background="@android:color/black" />
 
@@ -90,7 +90,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_below="@+id/texttechnique"
-                        android:layout_marginHorizontal="0dp"
+                        android:layout_marginRight="20dp"
                         android:background="@android:color/black" />
 
                     <GridView
@@ -129,7 +129,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_below="@+id/textmoviment"
-                        android:layout_marginHorizontal="0dp"
+                        android:layout_marginRight="20dp"
                         android:background="@android:color/black" />
 
                     <GridView
