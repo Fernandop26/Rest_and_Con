@@ -1,7 +1,9 @@
 package com.example.appmovil_rest_con;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -208,8 +210,18 @@ public abstract class BaseActivity extends AppCompatActivity {
              classificador = new Classificador(this);
             String result = classificador.classifica(imageUri);
             if (result.equals("-1")){
-                Intent intent = new Intent(this, NoClassify.class);
-                startActivity(intent);
+                AlertDialog.Builder alert = new AlertDialog.Builder(BaseActivity.this);
+                alert.setMessage("No se ha encontrado ninguna coincidencia, pruébalo otra vez.")
+                        .setCancelable(false)
+                        .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog title = alert.create();
+                title.setTitle("Sin resultados");
+                title.show();
             }else{
                 Intent intent = new Intent(this, PieceActivity.class);
                 intent.putExtra("id",result);
