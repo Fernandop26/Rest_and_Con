@@ -51,7 +51,7 @@
                     android:layout_below="@+id/mu_line"
                     android:layout_marginTop="-190dp"
                     android:layout_marginBottom="-200dp"
-                    android:layout_marginLeft="-10dp"
+                    android:layout_marginLeft="20dp"
                     android:rotation="270"
                     android:rowCount="1"
                     android:scrollbars="horizontal"></GridView>
@@ -89,7 +89,7 @@
                     android:layout_below="@+id/t_line"
                     android:layout_marginTop="-190dp"
                     android:layout_marginBottom="-200dp"
-                    android:layout_marginLeft="-10dp"
+                    android:layout_marginLeft="20dp"
                     android:rotation="270"
                     android:rowCount="1"
                     android:scrollbars="horizontal"></GridView>
@@ -128,7 +128,7 @@
                     android:layout_below="@+id/mo_line"
                     android:layout_marginTop="-190dp"
                     android:layout_marginBottom="-200dp"
-                    android:layout_marginLeft="-10dp"
+                    android:layout_marginLeft="20dp"
                     android:rotation="270"
                     android:rowCount="1"
                     android:scrollbars="horizontal"></GridView>

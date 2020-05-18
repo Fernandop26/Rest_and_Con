@@ -32,7 +32,7 @@ import kernel.Resource;
 public class GroupActivity extends BaseActivity  {
 
     private ExpandableHeightGridView imagenesObra;
-    private GridAdapter adapter;
+    private GridAdapterGeneral adapter;
     private TextView groupName;
     private ImageView groupImage;
     private TextView groupDescription;
@@ -136,7 +136,7 @@ public class GroupActivity extends BaseActivity  {
                     if (resources.size()  %2 != 0){
                         resources.add(new Resource(-1,"_", "query"));
                     }
-                    updateGridAdapter();
+                    updateGridAdapterGeneral();
 
                 } catch (JSONException e) {
                 }
@@ -162,8 +162,8 @@ public class GroupActivity extends BaseActivity  {
     }
 
 
-    protected void updateGridAdapter(){
-        adapter = new GridAdapter(GroupActivity.this, resources);
+    protected void updateGridAdapterGeneral(){
+        adapter = new GridAdapterGeneral(GroupActivity.this, resources);
         adapter.setShowTheName();
         imagenesObra.setAdapter(adapter);
         adapter.notifyDataSetChanged();

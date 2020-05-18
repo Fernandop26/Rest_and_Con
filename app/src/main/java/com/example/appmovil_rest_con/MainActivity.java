@@ -108,7 +108,7 @@ public class MainActivity extends BaseActivity {
                     } catch (JSONException e) {
                     }
                 }
-                layout_carousel.setAdapter(new GridAdapter(MainActivity.this, arr_img,90));
+                layout_carousel.setAdapter(new GridAdapterCarrousel(MainActivity.this, arr_img,90));
             }
         });
 

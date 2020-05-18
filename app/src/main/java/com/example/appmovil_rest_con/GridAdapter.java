@@ -14,12 +14,12 @@ import java.util.ArrayList;
 
 import kernel.Resource;
 
-public class GridAdapter extends BaseAdapter {
+public abstract class GridAdapter extends BaseAdapter {
 
-    private Context context;
-    private ArrayList<Resource> resources;
-    private int rotation;
-    private boolean showTheName = false;
+    protected Context context;
+    protected ArrayList<Resource> resources;
+    protected int rotation;
+    protected boolean showTheName = false;
     public GridAdapter(Context context, ArrayList<Resource> arraylist ){
         this.context = context;
         resources = arraylist;
@@ -51,21 +51,5 @@ public class GridAdapter extends BaseAdapter {
         showTheName=!showTheName;
     }
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-
-        if (view == null) {
-            LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-            view= layoutInflater.inflate(R.layout.row, null);
-        }
-        ImageView image = (ImageView) view.findViewById(R.id.image);
-
-        if(showTheName){
-            TextView name = (TextView) view.findViewById(R.id.textView1);
-            name.setText(resources.get(i).getTextoToShow());
-        }
-
-        view.setRotation(rotation);
-        Picasso.get().load(resources.get(i).getImgPath()).into(image);
-        return view;
-    }
+    public abstract View getView(int i, View view, ViewGroup viewGroup);
 }

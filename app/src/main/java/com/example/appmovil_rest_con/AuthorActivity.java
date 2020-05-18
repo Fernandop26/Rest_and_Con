@@ -32,7 +32,7 @@ public class AuthorActivity extends BaseActivity {
     private ImageView authorImg;
     private ArrayList<Resource> resources = new ArrayList<Resource>();
     private ExpandableHeightGridView imagenesObra;
-    private GridAdapter adapter;
+    private GridAdapterGeneral adapter;
     private Button mySortButtonAlph;
     private Button mySortButtonDate;
 
@@ -135,7 +135,7 @@ public class AuthorActivity extends BaseActivity {
                     resources.add(new Resource(-1,"_", "query"));
                 }
 
-                updateGridAdapter();
+                updateGridAdapterGeneral();
 
             } catch (JSONException e) {
             }
@@ -156,8 +156,8 @@ public class AuthorActivity extends BaseActivity {
     }
 
 
-    protected void updateGridAdapter(){
-        adapter = new GridAdapter(AuthorActivity.this, resources);
+    protected void updateGridAdapterGeneral(){
+        adapter = new GridAdapterGeneral(AuthorActivity.this, resources);
         adapter.setShowTheName();
         imagenesObra.setAdapter(adapter);
         resizeGridView(imagenesObra,resources.size());

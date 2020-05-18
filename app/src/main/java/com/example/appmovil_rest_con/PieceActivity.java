@@ -28,7 +28,7 @@ import kernel.Resource;
 public class PieceActivity extends BaseActivity {
     private String id,id_autor;
     private ExpandableHeightGridView imagenesRestauraciones;
-    private GridAdapter adapter;
+    private GridAdapterGeneral adapter;
     private ArrayList<Resource> array_restauraciones = new ArrayList<Resource>();
     private TextView piece_name,piece_autor,piece_date,piece_technique,piece_size,piece_museum;
     private ImageView piece_img;
@@ -160,7 +160,7 @@ public class PieceActivity extends BaseActivity {
             if (array_restauraciones.size()  %2 != 0){
                 array_restauraciones.add(new Resource(-1,"_", "query"));
             }
-            updateGridAdapter();
+            updateGridAdapterGeneral();
         });
 
         intiClickGridItem();
@@ -179,8 +179,8 @@ public class PieceActivity extends BaseActivity {
         });
     }
 
-    protected void updateGridAdapter(){
-        adapter = new GridAdapter(PieceActivity.this, array_restauraciones);
+    protected void updateGridAdapterGeneral(){
+        adapter = new GridAdapterGeneral(PieceActivity.this, array_restauraciones);
         adapter.setShowTheName();
         imagenesRestauraciones.setAdapter(adapter);
         adapter.notifyDataSetChanged();
