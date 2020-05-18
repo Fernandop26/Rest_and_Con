@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".PieceActivity">
 
-    <include
-        layout="@layout/toolbar"/>
+    <!-- <include
+        layout="@layout/toolbar"/>-->
 
     <ScrollView
         android:layout_width="match_parent"
@@ -31,7 +31,8 @@
                 android:text="Piece"
                 android:textSize="24sp"
                 android:textStyle="bold|italic"
-                style="@style/colorPiece"/>
+                style="@style/colorPiece"
+                android:layout_marginTop="23dp"/>
 
             <TextView
                 android:id="@+id/restoration_autor"

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="textColor">#363636</color>
-    <color name="colorPrimary">#2C6A70</color>
+    <color name="colorPrimary">#58B4DA</color>
     <color name="colorPrimaryDark">#BEBEBE</color>
     <color name="colorAccent">#58B4DA</color>
     <color name="colorPiece">#164C79</color>
+    <color name="autocompletet_background_color">#EFEFEF</color>
 </resources>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".GroupActivity">
 
-    <LinearLayout
+    <!-- <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
@@ -15,8 +15,7 @@
         tools:ignore="MissingConstraints">
 
 
-        <include
-            layout="@layout/buscador"/>
+    <include layout="@layout/buscador"/>
 
 
         <ImageView
@@ -25,13 +24,12 @@
             android:layout_height="30dp"
             android:layout_marginTop="8dp"
             android:src="@drawable/ic_home_black_24dp"/>
-    </LinearLayout>
+    </LinearLayout> -->
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         android:fillViewport="true">
 
 

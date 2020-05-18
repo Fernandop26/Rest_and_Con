@@ -3,8 +3,12 @@ package com.example.appmovil_rest_con;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,7 +44,7 @@ public class GroupActivity extends BaseActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_group);
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         id = getIntent().getStringExtra("id");
         agrupacion = getIntent().getStringExtra("agrupacion");
@@ -49,11 +53,24 @@ public class GroupActivity extends BaseActivity  {
         initClickSort();
         initGrid();
         initCameraButton();
-        initBuscador(GroupActivity.this);
-        initHomeButton(this);
+        //initBuscador(GroupActivity.this);
+        //initHomeButton(this);
 
         //home = findViewById(R.id.home);
         //home.setOnClickListener(butoHomeListener);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search_home, menu);
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        final MenuItem homeItem = menu.findItem(R.id.action_home);
+        //AutoCompleteTextView busc;
+        //busc = (AutoCompleteTextView) searchItem.getActionView().findViewById(R.id.actv);
+        //busc.onWindowFocusChanged(true);
+        initBuscador(searchItem, this);
+        initHomeButton(homeItem,this);
+        return true;
     }
 
     /*private View.OnClickListener butoHomeListener = new View.OnClickListener() {

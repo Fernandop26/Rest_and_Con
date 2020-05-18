@@ -5,7 +5,11 @@ import androidx.annotation.RequiresApi;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,7 +40,7 @@ public class AuthorActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_author);
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         id = getIntent().getStringExtra("id");
 
@@ -45,7 +49,17 @@ public class AuthorActivity extends BaseActivity {
         initGrid();
         initCameraButton();
         //initBuscador(AuthorActivity.this);
-        initHomeButton(this);
+        //initHomeButton(this);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search_home, menu);
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        final MenuItem homeItem = menu.findItem(R.id.action_home);
+        initBuscador(searchItem, this);
+        initHomeButton(homeItem,this);
+        return true;
     }
 
     private void intiViewsLayout() {

@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".AuthorActivity">
 
-    <include
-        layout="@layout/toolbar"/>
+    <!-- <include layout="@layout/toolbar"/> -->
 
     <ScrollView
         android:layout_width="match_parent"
@@ -36,7 +35,8 @@
                 android:text="Author"
                 android:textSize="24sp"
                 tools:layout_editor_absoluteX="38dp"
-                tools:layout_editor_absoluteY="34dp" />
+                tools:layout_editor_absoluteY="34dp"
+                android:layout_marginTop="23dp"/>
 
             <ImageView
                 android:id="@+id/author_img"

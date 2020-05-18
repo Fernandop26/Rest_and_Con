@@ -4,13 +4,19 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.GridView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -33,16 +39,26 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_main);
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide;
 
-        initCarousel();        
+        initCarousel();
         cameraPermision();
         initCameraButton();
-        initBuscador(MainActivity.this);
+        //initBuscador(MainActivity.this);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search_home, menu);
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        final MenuItem homeItem = menu.findItem(R.id.action_home);
+        homeItem.setVisible(false);
+        initBuscador(searchItem, this);
+        return true;
+    }
 
-    private void cameraPermision() {
+        private void cameraPermision() {
         // Only in this activity.
         // request permission to use the camera on the user's phone
         if (ActivityCompat.checkSelfPermission(this.getApplicationContext(), android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){

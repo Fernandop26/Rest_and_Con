@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -282,22 +283,23 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     // Home button
-    protected void initHomeButton(Activity activity) {
+    protected void initHomeButton(MenuItem home, Activity activity) {
         a_activity = activity;
-        ImageView home = findViewById(R.id.home);
-        home.setOnClickListener(butoHomeListener);
+        //ImageView home = findViewById(R.id.home);
+        home.setOnMenuItemClickListener(butoHomeListener);
     }
-    protected View.OnClickListener butoHomeListener = v -> {
+    protected MenuItem.OnMenuItemClickListener butoHomeListener = v -> {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        return true;
     };
 
 
+
     // Init search toolbar
-    protected void initBuscador(Activity activity){
+    protected void initBuscador(MenuItem searchItem, Activity activity){
+        AutoCompleteTextView buscador = (AutoCompleteTextView) searchItem.getActionView().findViewById(R.id.actv);
         activityS = activity;
-        AutoCompleteTextView buscador = findViewById(R.id.actv);
-        buscador.setOnClickListener(butoBuscadorListener);
         buscador.setText("");
 
         getSearchBarAuthorsElements(result -> {
@@ -328,6 +330,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                 }
             }
         });
+        buscador.setOnClickListener(butoBuscadorListener);
+        buscador.setDropDownBackgroundResource(R.color.autocompletet_background_color);
     }
 
 }
