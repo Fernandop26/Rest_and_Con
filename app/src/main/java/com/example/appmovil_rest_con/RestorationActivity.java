@@ -26,14 +26,12 @@ public class RestorationActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_restoration);
-        //getSupportActionBar().hide();
 
         id = getIntent().getStringExtra("id");
 
         intiViewsLayout();
         initRestorationInfo();
         initCameraButton();
-        //initHomeButton(this);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

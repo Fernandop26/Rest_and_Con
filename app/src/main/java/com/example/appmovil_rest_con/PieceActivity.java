@@ -39,7 +39,6 @@ public class PieceActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_piece);
-        //getSupportActionBar().hide();
 
         id = getIntent().getStringExtra("id");
 
@@ -79,8 +78,6 @@ public class PieceActivity extends BaseActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void initClickSort() {
-
-        //mySortButtonDate.setOnClickListener(view -> sortData(SORT_TYPE.DATE,array_restauraciones));
 
         mySortButtonDate.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -160,7 +157,7 @@ public class PieceActivity extends BaseActivity {
             if (array_restauraciones.size()  %2 != 0){
                 array_restauraciones.add(new Resource(-1,"_", "query"));
             }
-            updateGridAdapterGeneral();
+            updateGridAdapter();
         });
 
         intiClickGridItem();
@@ -179,7 +176,7 @@ public class PieceActivity extends BaseActivity {
         });
     }
 
-    protected void updateGridAdapterGeneral(){
+    protected void updateGridAdapter(){
         adapter = new GridAdapterGeneral(PieceActivity.this, array_restauraciones);
         adapter.setShowTheName();
         imagenesRestauraciones.setAdapter(adapter);

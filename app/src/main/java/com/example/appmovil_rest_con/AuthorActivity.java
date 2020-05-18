@@ -135,7 +135,7 @@ public class AuthorActivity extends BaseActivity {
                     resources.add(new Resource(-1,"_", "query"));
                 }
 
-                updateGridAdapterGeneral();
+                updateGridAdapter();
 
             } catch (JSONException e) {
             }
@@ -156,11 +156,11 @@ public class AuthorActivity extends BaseActivity {
     }
 
 
-    protected void updateGridAdapterGeneral(){
+    protected void updateGridAdapter(){
         adapter = new GridAdapterGeneral(AuthorActivity.this, resources);
         adapter.setShowTheName();
         imagenesObra.setAdapter(adapter);
-        resizeGridView(imagenesObra,resources.size());
+        adapter.notifyDataSetChanged();
 
     }
 }

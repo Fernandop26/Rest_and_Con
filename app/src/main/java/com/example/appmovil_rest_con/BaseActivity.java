@@ -400,13 +400,4 @@ public abstract class BaseActivity extends AppCompatActivity {
         buscador.setDropDownBackgroundResource(R.color.autocompletet_background_color);
     }
 
-
-    ///GRID
-    protected void resizeGridView(GridView gridView, int items) {
-        ViewGroup.LayoutParams params = gridView.getLayoutParams();
-        int oneRowHeight = 700;
-        int rows = (int) (items / gridView.getNumColumns());
-        params.height = oneRowHeight * rows;
-        gridView.setLayoutParams(params);
-    }
 }

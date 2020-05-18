@@ -45,7 +45,6 @@ public class GroupActivity extends BaseActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_group);
-        //getSupportActionBar().hide();
 
         id = getIntent().getStringExtra("id");
         agrupacion = getIntent().getStringExtra("agrupacion");
@@ -54,8 +53,7 @@ public class GroupActivity extends BaseActivity  {
         initClickSort();
         initGrid();
         initCameraButton();
-        //initBuscador(GroupActivity.this);
-        //initHomeButton(this);
+
 
     }
     @Override
@@ -64,9 +62,6 @@ public class GroupActivity extends BaseActivity  {
         inflater.inflate(R.menu.search_home, menu);
         final MenuItem searchItem = menu.findItem(R.id.action_search);
         final MenuItem homeItem = menu.findItem(R.id.action_home);
-        //AutoCompleteTextView busc;
-        //busc = (AutoCompleteTextView) searchItem.getActionView().findViewById(R.id.actv);
-        //busc.onWindowFocusChanged(true);
         initBuscador(searchItem, this);
         initHomeButton(homeItem,this);
         return true;
@@ -136,7 +131,7 @@ public class GroupActivity extends BaseActivity  {
                     if (resources.size()  %2 != 0){
                         resources.add(new Resource(-1,"_", "query"));
                     }
-                    updateGridAdapterGeneral();
+                    updateGridAdapter();
 
                 } catch (JSONException e) {
                 }
@@ -162,7 +157,7 @@ public class GroupActivity extends BaseActivity  {
     }
 
 
-    protected void updateGridAdapterGeneral(){
+    protected void updateGridAdapter(){
         adapter = new GridAdapterGeneral(GroupActivity.this, resources);
         adapter.setShowTheName();
         imagenesObra.setAdapter(adapter);
