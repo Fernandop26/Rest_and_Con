@@ -55,7 +55,8 @@ import kernel.Resource;
 public abstract class BaseActivity extends AppCompatActivity {
     //Sort enum
     protected enum SORT_TYPE { ALPHA, DATE }
-    protected enum ORDER_TYPE { ASC, DESC }
+    protected enum ORDER_TYPE { ASC, DESC, DISABLED }
+    protected Button current_button ;
     private SORT_TYPE current_sort;
     private ORDER_TYPE current_order;
 
@@ -262,20 +263,37 @@ public abstract class BaseActivity extends AppCompatActivity {
         camara.setOnClickListener(butoCamaraListener);
     }
 
-    protected void setInnerImageButton (Button btn, ORDER_TYPE current_order ) {
+    protected void change_image_button ( Button btn, Drawable image ){
 
-        Drawable image ;
-
-        if ( current_order == ORDER_TYPE.ASC ) {
-            image = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_arrow_upward_black_24dp, null);
-        } else {
-            image = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_arrow_downward_black_24dp, null);
-        }
         int h = image.getIntrinsicHeight();
         int w = image.getIntrinsicWidth();
         image.setBounds( 0, 0, w, h );
 
         btn.setCompoundDrawables(null, null, image , null);
+    }
+
+    protected void setInnerImageButton (Button btn, ORDER_TYPE current_order ) {
+
+        Drawable image ;
+
+        if ( current_button != btn ) {
+            if ( current_button != null && current_sort == SORT_TYPE.DATE ) {
+                image = ResourcesCompat.getDrawable ( getResources(), R.drawable.ic_access_time_black_24dp, null ) ;
+                change_image_button ( current_button, image ) ;
+            } else if ( current_button != null && current_sort == SORT_TYPE.ALPHA ) {
+                image = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_sort_by_alpha_black_24dp, null);
+                change_image_button ( current_button, image ) ;
+            }
+            current_button = btn ;
+        }
+
+        if ( current_order == ORDER_TYPE.ASC ) {
+            image = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_arrow_upward_black_24dp, null);
+        } else  {
+            image = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_arrow_downward_black_24dp, null);
+        }
+
+        change_image_button ( btn, image ) ;
     }
 
     // Sort
