@@ -29,7 +29,7 @@ import kernel.Resource;
 
 public class GroupActivity extends BaseActivity  {
 
-    private GridView imagenesObra;
+    private ExpandableHeightGridView imagenesObra;
     private GridAdapter adapter;
     private TextView groupName;
     private ImageView groupImage;
@@ -71,8 +71,8 @@ public class GroupActivity extends BaseActivity  {
     }
 
     private void intiViewsLayout() {
-        imagenesObra = (GridView) this.findViewById(R.id.llista_obras );
-        //imagenesObra.setExpanded(true);
+        imagenesObra =  this.findViewById(R.id.llista_obras );
+        imagenesObra.setExpanded(true);
         groupName = (TextView) findViewById(R.id.group_name);
         groupDescription = (TextView) findViewById(R.id.group_description);
         groupImage = (ImageView) findViewById(R.id.group_image);
@@ -164,9 +164,7 @@ public class GroupActivity extends BaseActivity  {
         adapter = new GridAdapter(GroupActivity.this, resources);
         adapter.setShowTheName();
         imagenesObra.setAdapter(adapter);
-        resizeGridView(imagenesObra,resources.size());
         adapter.notifyDataSetChanged();
-
     }
 
 }

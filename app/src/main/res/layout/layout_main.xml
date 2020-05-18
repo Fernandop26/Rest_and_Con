@@ -32,9 +32,8 @@
                     android:layout_height="wrap_content"
                     android:text="Museos:"
                     android:textSize="24sp"
-                    android:layout_marginTop="23dp"/>
-                    android:layout_marginHorizontal="20dp"
-                    android:textSize="24sp" />
+                    android:layout_marginTop="23dp"
+                    android:layout_marginHorizontal="20dp" />
 
                 <View
                     android:id="@+id/mu_line"

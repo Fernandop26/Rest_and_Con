@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -153,8 +152,6 @@ public class PieceActivity extends BaseActivity {
                         Integer id_1 = Integer.parseInt(rest.getString("id"));
                         String date = transformDateToString(rest.getString("fecha"));
                         array_restauraciones.add(new Resource(id_1,date, path,date));
-                        array_restauraciones.get(array_restauraciones.size() - 1).setTextoToShow(date);
-
                     }
                 } catch (JSONException e) {
                 }
@@ -186,7 +183,7 @@ public class PieceActivity extends BaseActivity {
         adapter = new GridAdapter(PieceActivity.this, array_restauraciones);
         adapter.setShowTheName();
         imagenesRestauraciones.setAdapter(adapter);
-        resizeGridView(imagenesRestauraciones,array_restauraciones.size());
+        adapter.notifyDataSetChanged();
 
     }
 }
