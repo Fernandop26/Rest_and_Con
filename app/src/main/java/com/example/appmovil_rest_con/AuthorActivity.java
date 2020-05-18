@@ -28,7 +28,7 @@ import kernel.Resource;
 
 public class AuthorActivity extends BaseActivity {
     private String id;
-    private TextView authorName,authorBiography;
+    private TextView authorName,authorBiography, authorDate;
     private ImageView authorImg;
     private ArrayList<Resource> resources = new ArrayList<Resource>();
     private ExpandableHeightGridView imagenesObra;
@@ -66,6 +66,7 @@ public class AuthorActivity extends BaseActivity {
     private void intiViewsLayout() {
         authorName = (TextView) findViewById(R.id.author_name);
         authorBiography = (TextView) findViewById(R.id.author_biography);
+        authorDate = (TextView) findViewById(R.id.author_date);
         authorImg = (ImageView) findViewById(R.id.author_img);
         imagenesObra = this.findViewById(R.id.llista_obras );
         imagenesObra.setExpanded(true);
@@ -113,6 +114,7 @@ public class AuthorActivity extends BaseActivity {
                 JSONObject autor = result;
                 authorName.setText(autor.getString("nombre"));
                 authorBiography.setText(autor.getString("biografia"));
+                authorDate.setText(autor.getString("nacimiento"));
                 Picasso.get().load(autor.getString("path_imagen")).into(authorImg);
 
 
