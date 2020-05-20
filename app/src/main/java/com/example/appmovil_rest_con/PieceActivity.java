@@ -149,6 +149,9 @@ public class PieceActivity extends BaseActivity {
                         Integer id_1 = Integer.parseInt(rest.getString("id"));
                         String date = transformDateToString(rest.getString("fecha"));
                         array_restauraciones.add(new Resource(id_1,date, path,date));
+                        array_restauraciones.get(array_restauraciones.size() - 1).setTextoToShow(date);
+
+
                     }
                 } catch (JSONException e) {
                 }
