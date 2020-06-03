@@ -84,43 +84,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         void onSuccess(JSONArray result);
     }
 
-    // Authors search toolbar
-    public void getSearchBarAuthorsElements( final VolleyCallback callback){
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        String url = "http://35.168.222.69:8080/webservice-restcon/autor";
-
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                callback.onSuccess(response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("REQUEST_JSON_TO_SERVER", "Error: " + error);
-            }
-        });
-        requestQueue.add(jsonArrayRequest);
-    }
-
-    // Piece search toolbar
-    public void getSearchBarPieceElements( final VolleyCallback callback){
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        String url = "http://35.168.222.69:8080/webservice-restcon/obra";
-
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                callback.onSuccess(response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("REQUEST_JSON_TO_SERVER", "Error: " + error);
-            }
-        });
-        requestQueue.add(jsonArrayRequest);
-    }
 
     // JSON Resource
     public void getJSONResource(String resource, final ArrayCallback callback){
@@ -386,34 +349,36 @@ public abstract class BaseActivity extends AppCompatActivity {
         activityS = activity;
         buscador.setText("");
 
-        getSearchBarAuthorsElements(result -> {
-            arrayTest = result;
-            for (int i = 0; i < arrayTest.length(); i++) {
-                try {
-                    JSONObject jsonObject = arrayTest.getJSONObject(i);
-                    String names = jsonObject.getString("nombre");
-                    String id = jsonObject.getString("id");
-                    msAutors.add(names);
-                    msID.add(id);
-                    lmTodo.add(names);
-                } catch (JSONException e) {
+                getJSONResource("autor", result -> {
+                arrayTest = result;
+                for (int i = 0; i < arrayTest.length(); i++) {
+                    try {
+                        JSONObject jsonObject = arrayTest.getJSONObject(i);
+                        String names = jsonObject.getString("nombre");
+                        String id = jsonObject.getString("id");
+                        msAutors.add(names);
+                        msID.add(id);
+                        lmTodo.add(names);
+                    } catch (JSONException e) {
+                    }
                 }
-            }
         });
-        getSearchBarPieceElements(result -> {
-            arrayTest = result;
-            for (int i = 0; i < arrayTest.length(); i++) {
-                try {
-                    JSONObject jsonObject = arrayTest.getJSONObject(i);
-                    String name = jsonObject.getString("nombre");
-                    String id = jsonObject.getString("id");
-                    msObres.add(name);
-                    msID.add(id);
-                    lmTodo.add(name);
-                } catch (JSONException e) {
-                }
-            }
-        });
+
+                getJSONResource("obra", result -> {
+                    arrayTest = result;
+                    for (int i = 0; i < arrayTest.length(); i++) {
+                        try {
+                            JSONObject jsonObject = arrayTest.getJSONObject(i);
+                            String name = jsonObject.getString("nombre");
+                            String id = jsonObject.getString("id");
+                            msObres.add(name);
+                            msID.add(id);
+                            lmTodo.add(name);
+                        } catch (JSONException e) {
+                        }
+                    }
+                });
+
         buscador.setOnClickListener(butoBuscadorListener);
         buscador.setDropDownBackgroundResource(R.color.autocompletet_background_color);
     }
